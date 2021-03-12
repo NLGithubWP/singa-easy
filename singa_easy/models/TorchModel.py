@@ -423,7 +423,7 @@ class TorchModel(SINGAEasyModel):
                 if self._knobs.get("enable_label_adaptation"):
                     self._label_drift_adapter.accumulate_c(outputs, labels)
 
-                print("Batch: {:d}".format(batch_idx))
+                # print("Batch: {:d}".format(batch_idx))
 
         if self._knobs.get("enable_label_adaptation"):
             self._label_drift_adapter.estimate_cinv()

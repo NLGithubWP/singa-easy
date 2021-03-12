@@ -66,7 +66,7 @@ class PyPandaVgg(TorchModel):
             'lr': FixedKnob(0.0001),  ### learning_rate
             'weight_decay': FixedKnob(0.0),
             'drop_rate': FixedKnob(0.0),
-            'max_epochs': FixedKnob(1),
+            'max_epochs': FixedKnob(10),
             'batch_size': CategoricalKnob([256]),
             'max_iter': FixedKnob(20),
             'optimizer': CategoricalKnob(['adam']),
@@ -92,7 +92,7 @@ class PyPandaVgg(TorchModel):
             'enable_label_adaptation': FixedKnob(False),
 
             # GM Prior Regularization
-            'enable_gm_prior_regularization': FixedKnob(False),
+            'enable_gm_prior_regularization': FixedKnob(True),
             'gm_prior_regularization_a': FixedKnob(0.001),
             'gm_prior_regularization_b': FixedKnob(0.0001),
             'gm_prior_regularization_alpha': FixedKnob(0.5),
@@ -107,7 +107,7 @@ class PyPandaVgg(TorchModel):
             'explanation_lime': FixedKnob(True),
 
             # Model Slicing
-            'enable_model_slicing': FixedKnob(False),
+            'enable_model_slicing': FixedKnob(True),
             'model_slicing_groups': FixedKnob(0),
             'model_slicing_rate': FixedKnob(1.0),
             'model_slicing_scheduler_type': FixedKnob('randomminmax'),
@@ -157,7 +157,7 @@ if __name__ == '__main__':
                      val_dataset_path=args.val_path,
                      test_dataset_path=args.test_path,
                      queries=queries,
-                     budget={"GPU_COUNT":0, "TIME_HOURS":0.1, "MODEL_TRIAL_COUNT":3}
+                     budget={"GPU_COUNT":0, "TIME_HOURS":0.1, "MODEL_TRIAL_COUNT":1}
                      )
 
     # Test without singa-auto frame
