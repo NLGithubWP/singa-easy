@@ -66,7 +66,7 @@ class PyPandaVgg(TorchModel):
             'lr': FixedKnob(0.0001),  ### learning_rate
             'weight_decay': FixedKnob(0.0),
             'drop_rate': FixedKnob(0.0),
-            'max_epochs': FixedKnob(10),
+            'max_epochs': FixedKnob(30),
             'batch_size': CategoricalKnob([256]),
             'max_iter': FixedKnob(20),
             'optimizer': CategoricalKnob(['adam']),
