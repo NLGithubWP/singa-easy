@@ -92,7 +92,7 @@ class PyPandaVgg(TorchModel):
             'enable_label_adaptation': FixedKnob(False),
 
             # GM Prior Regularization
-            'enable_gm_prior_regularization': FixedKnob(True),
+            'enable_gm_prior_regularization': FixedKnob(False),
             'gm_prior_regularization_a': FixedKnob(0.001),
             'gm_prior_regularization_b': FixedKnob(0.0001),
             'gm_prior_regularization_alpha': FixedKnob(0.5),
@@ -107,7 +107,7 @@ class PyPandaVgg(TorchModel):
             'explanation_lime': FixedKnob(True),
 
             # Model Slicing
-            'enable_model_slicing': FixedKnob(True),
+            'enable_model_slicing': FixedKnob(False),
             'model_slicing_groups': FixedKnob(0),
             'model_slicing_rate': FixedKnob(1.0),
             'model_slicing_scheduler_type': FixedKnob('randomminmax'),
