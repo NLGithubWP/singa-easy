@@ -69,7 +69,7 @@ class PyPandaResNet(TorchModel):
             'lr':FixedKnob(0.0001), ### learning_rate
             'weight_decay':FixedKnob(0.0),
             'drop_rate':FixedKnob(0.0),
-            'max_epochs': FixedKnob(30), 
+            'max_epochs': FixedKnob(30),
             'batch_size': CategoricalKnob([200]),
             'max_iter': FixedKnob(20),
             'optimizer':CategoricalKnob(['adam']),
@@ -83,7 +83,7 @@ class PyPandaResNet(TorchModel):
             'seed':FixedKnob(123456),
             'scale':FixedKnob(512),
             'horizontal_flip':FixedKnob(True),
-     
+
             # Hyperparameters for PANDA modules
             # Self-paced Learning and Loss Revision
             'enable_spl':FixedKnob(False),
@@ -93,10 +93,10 @@ class PyPandaResNet(TorchModel):
             'lossrevise_slop':FixedKnob(2.0),
 
             # Label Adaptation
-            'enable_label_adaptation':FixedKnob(False), # error occurs 
+            'enable_label_adaptation':FixedKnob(False), # error occurs
 
             # GM Prior Regularization
-            'enable_gm_prior_regularization':FixedKnob(False),
+            'enable_gm_prior_regularization':FixedKnob(True),
             'gm_prior_regularization_a':FixedKnob(0.001),
             'gm_prior_regularization_b':FixedKnob(0.0001),
             'gm_prior_regularization_alpha':FixedKnob(0.5),
@@ -104,14 +104,14 @@ class PyPandaResNet(TorchModel):
             'gm_prior_regularization_lambda':FixedKnob(0.0001),
             'gm_prior_regularization_upt_freq':FixedKnob(100),
             'gm_prior_regularization_param_upt_freq':FixedKnob(50),
-            
+
             # Explanation
             'enable_explanation': FixedKnob(False),
             'explanation_gradcam': FixedKnob(True),
             'explanation_lime': FixedKnob(False),
 
             # Model Slicing
-            'enable_model_slicing':FixedKnob(False),
+            'enable_model_slicing':FixedKnob(True),
             'model_slicing_groups':FixedKnob(0),
             'model_slicing_rate':FixedKnob(1.0),
             'model_slicing_scheduler_type':FixedKnob('randomminmax'),
@@ -129,21 +129,21 @@ if __name__ == '__main__':
     parser.add_argument('--test_path', type=str, default='data/fashion_mnist_val.zip', help='Path to test dataset')
     print (os.getcwd())
     parser.add_argument(
-        '--query_path', 
-        type=str, 
+        '--query_path',
+        type=str,
         default=
         # 'examples/data/image_classification/1463729893_339.jpg,examples/data/image_classification/1463729893_326.jpg,examples/data/image_classification/eed35e9d04814071.jpg',
         'examples/data/image_classification/fashion_mnist_test_1.png',
         help='Path(s) to query image(s), delimited by commas')
     (args, _) = parser.parse_known_args()
 
-    queries = utils.dataset.load_images(args.query_path.split(',')).tolist()
-    
+    queries = utils.dataset.load_images(args.query_path.split(','))
+
     test_model_class(
         model_file_path=__file__,
         model_class='PyPandaResNet',
         task='IMAGE_CLASSIFICATION',
-        dependencies={ 
+        dependencies={
             ModelDependency.TORCH: '1.0.1',
             ModelDependency.TORCHVISION: '0.2.2',
         },
