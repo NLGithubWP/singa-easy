@@ -56,7 +56,7 @@ class PyPandaVgg(TorchModel):
         model = vgg11_bn(pretrained=not scratch)
         num_features = 4096
         model.classifier[6] = nn.Linear(num_features, num_classes)
-        print("create model {}".format(model))
+        print("create model {}".format(model), "pretrained:",scratch)
         return model
 
     @staticmethod

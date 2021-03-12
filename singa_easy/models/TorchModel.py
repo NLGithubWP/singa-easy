@@ -360,8 +360,8 @@ class TorchModel(SINGAEasyModel):
                         raw_indices,
                         trainloss.detach().cpu().numpy())
                 optimizer.step()
-                print("Epoch: {:d} Batch: {:d} Train Loss: {:.6f}".format(
-                    epoch, batch_idx, trainloss.item()))
+                # print("Epoch: {:d} Batch: {:d} Train Loss: {:.6f}".format(
+                #     epoch, batch_idx, trainloss.item()))
                 sys.stdout.flush()
 
                 transfered_labels = torch.max(labels.data, 1)
