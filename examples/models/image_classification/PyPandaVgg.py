@@ -156,7 +156,9 @@ if __name__ == '__main__':
                      train_dataset_path=args.train_path,
                      val_dataset_path=args.val_path,
                      test_dataset_path=args.test_path,
-                     queries=queries)
+                     queries=queries,
+                     budget={"GPU_COUNT":0, "TIME_HOURS":0.1, "MODEL_TRIAL_COUNT":3}
+                     )
 
     # Test without singa-auto frame
 
