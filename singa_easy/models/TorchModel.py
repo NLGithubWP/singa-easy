@@ -321,16 +321,16 @@ class TorchModel(SINGAEasyModel):
                                  x_axis='epoch')
         utils.logger.log(loss=0.0, epoch_accuracy=0.0, epoch=0)
         for epoch in range(1, self._knobs.get("max_epochs") + 1):
-            print("Epoch {}/{}".format(epoch, self._knobs.get("max_epochs")))
+            # print("Epoch {}/{}".format(epoch, self._knobs.get("max_epochs")))
             batch_accuracy = []
             batch_losses = []
             for batch_idx, (raw_indices, traindata,
                             batch_classes) in enumerate(train_dataloader):
-                print("Got batch_idx and batchdata", batch_idx)
+                # print("Got batch_idx and batchdata", batch_idx)
                 inputs, labels = self._transform_data(traindata,
                                                       batch_classes,
                                                       train=True)
-                print("zero the optimizer")
+                # print("zero the optimizer")
                 optimizer.zero_grad()
                 if self._knobs.get("enable_model_slicing"):
                     for sr_idx in next(sr_scheduler):
@@ -342,7 +342,7 @@ class TorchModel(SINGAEasyModel):
                     # torch.Size([256, 3, 128, 128])
                     outputs = self._model(inputs)
                     trainloss = self.train_criterion(outputs, labels)
-                    print("doing backward")
+                    # print("doing backward")
                     trainloss.backward()
                 if self._knobs.get("enable_gm_prior_regularization"):
                     for name, f in self._model.named_parameters():
