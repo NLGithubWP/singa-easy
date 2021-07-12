@@ -226,8 +226,9 @@ def main():
             output = model(input)
             loss = criterion(output, target)
             print("Under slice rate ", sr_idx)
-            print("Input is", input)
-            print("The result is ",  output, loss)
+            print("Input is", input.size())
+            print("The output size is ",  output.size())
+            print("The loss is ", loss.value())
             break
 
 
