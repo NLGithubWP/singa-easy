@@ -218,7 +218,7 @@ def main():
     for sr_idx in reversed(range(len(args.sr_list))):
         args.sr_idx = sr_idx
         model.module.update_sr_idx(sr_idx)
-        for idx, (input, target) in enumerate(data_loader):
+        for idx, (input, target) in enumerate(val_loader):
             output = model(input)
             loss = criterion(output, target)
             print("Under slice rate ", sr_idx)
