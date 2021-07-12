@@ -226,7 +226,7 @@ def main():
         model.module.update_sr_idx(sr_idx)
         correct_k = 0
         total_time = 0
-        for idx, (input, target) in enumerate(1024):
+        for idx, (input, target) in enumerate(val_loader):
             if torch.cuda.is_available():
                 input = input.cuda(non_blocking=True)
                 target = target.cuda(non_blocking=True)
