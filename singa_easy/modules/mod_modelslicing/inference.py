@@ -217,6 +217,8 @@ def main():
     # evaluate on all the sr_idxs, from the smallest subnet to the largest
     for sr_idx in reversed(range(len(args.sr_list))):
         args.sr_idx = sr_idx
+        print("Begin", "---" * 100)
+        be = time.time()
         model.module.update_sr_idx(sr_idx)
         for idx, (input, target) in enumerate(val_loader):
             if torch.cuda.is_available():
@@ -225,12 +227,14 @@ def main():
 
             output = model(input)
             loss = criterion(output, target)
-            print("Under slice rate ", args.sr_list[len(args.sr_list)-sr_idx-1])
+            print("Under slice rate ", args.sr_list[len(args.sr_list)-sr_idx-1], "---"*50)
             print("Input is", input.size())
             print("The output size is ",  output.size())
             print("The loss is ", loss)
             err1, err5 = accuracy(output, target, topk=(1, 1))
             print("accuracy",  err1, err5)
+            print(time.time()-be)
+            print("End", "---" * 100)
             break
 
 
