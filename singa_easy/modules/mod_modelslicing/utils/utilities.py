@@ -3,6 +3,7 @@ import math
 import logging
 import sys
 
+
 # setup logger
 def logger(log_dir, need_time=True, need_stdout=False):
     log = logging.getLogger(__name__)
@@ -21,6 +22,7 @@ def logger(log_dir, need_time=True, need_stdout=False):
     log.addHandler(fh)
     return log
 
+
 def timeSince(since=None, s=None):
     if s is None:
         s = int(time.time() - since)
@@ -29,6 +31,7 @@ def timeSince(since=None, s=None):
     h = math.floor(m / 60)
     m %= 60
     return '%dh %dm %ds' %(h, m, s)
+
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""
@@ -47,6 +50,7 @@ class AverageMeter(object):
         self.sum += val * n
         self.count += n
         self.avg = self.sum / self.count
+
 
 def accuracy(output, target, topk=(1,)):
     """Computes the precision@k for the specified values of k"""

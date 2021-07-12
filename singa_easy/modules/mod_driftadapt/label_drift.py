@@ -7,6 +7,7 @@ import numpy as np
 
 from singa_easy.modules.mod import BaseMod
 
+
 class LabelDriftAdapter(BaseMod):
     ''' Be aware that label_drift can only be applied to datasets with complete labels to avoid inversing singular matix issue.'''
     def __init__(self, model, num_classes):
@@ -37,7 +38,7 @@ class LabelDriftAdapter(BaseMod):
         targets = targets.cpu().data.numpy()
 
         for i in range(0, predicted.shape[0]):
-            
+
             ''' In case the labels read from csv file are one-hot labels, instead of integer labels. '''
             if len(targets[i]) == 1:
                self.C[predicted[i]][targets[i].astype(np.int64)] += 1

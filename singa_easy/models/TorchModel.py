@@ -444,7 +444,7 @@ class TorchModel(SINGAEasyModel):
 
         return f1
 
-    def predict(self, queries: List[Any]) -> List[Any]:
+    def predict(self, sr_idx:int, queries: List[Any]) -> List[Any]:
         """
         Overide BaseModel.predict()
         Making prediction using queries
@@ -475,7 +475,12 @@ class TorchModel(SINGAEasyModel):
             outs = list()
 
             for i in range(trials_n):
+
+                self._model.module.update_sr_idx(sr_idx)
+
                 out = self._model(images)
+
+
                 if self._knobs.get("enable_label_adaptation"):
                     out = self._label_drift_adapter.adapt(out).squeeze()
                 else:

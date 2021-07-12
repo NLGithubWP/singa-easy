@@ -19,6 +19,7 @@ time_space = 18
 # forward times
 forward_num = 10
 
+
 class Timer(object):
     def __init__(self, verbose=False):
         self.verbose = verbose
@@ -34,8 +35,10 @@ class Timer(object):
         self.time = self.end - self.start
         if self.verbose: print('Elapsed time: %f ms.' % self.time)
 
+
 def calc_layer_param(model):
     return sum([reduce(operator.mul, i.size(), 1) for i in model.parameters()])
+
 
 def profile_forward(layer, input):
     with Timer() as t:
@@ -43,6 +46,7 @@ def profile_forward(layer, input):
             layer.old_forward(input)
             if torch.cuda.is_available(): torch.cuda.synchronize()
     return int(t.time * 1e9 / forward_num)
+
 
 def profile_layer(layer, x):
     global total_flops, total_params, total_time, module_cnt, verbose, MULTI_ADD

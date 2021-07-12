@@ -2,26 +2,11 @@ from __future__ import division
 from __future__ import print_function
 import os
 import argparse
-import sys
-import base64
-import abc
-import tempfile
-import json
-import time
-import shutil
-import importlib
-from collections import OrderedDict
 from typing import Union, Dict, Optional, Any, List
 
 
 # PyTorch Dependency
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.optim import lr_scheduler
-from torch.autograd import Variable
-import torch.backends.cudnn as cudnn
-import torchvision.transforms as transforms
+
 from torchvision.models.resnet import resnet101
 from torch.utils.data import Dataset, DataLoader
 
@@ -44,8 +29,6 @@ from singa_auto.model.dev import test_model_class
 KnobConfig = Dict[str, BaseKnob]
 Knobs = Dict[str, Any]
 Params = Dict[str, Union[str, int, float, np.ndarray]]
-
-
 
 
 class PyPandaResNet(TorchModel):
@@ -121,6 +104,7 @@ class PyPandaResNet(TorchModel):
             'enable_mc_dropout':FixedKnob(False),
             'mc_trials_n':FixedKnob(10)
         }
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

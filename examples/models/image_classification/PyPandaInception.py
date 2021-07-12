@@ -2,26 +2,11 @@ from __future__ import division
 from __future__ import print_function
 import os
 import argparse
-import sys
-import base64
-import abc
-import tempfile
-import json
-import time
-import shutil
-import importlib
-from collections import OrderedDict
-from typing import Union, Dict, Optional, Any, List
+from typing import Union, Dict, Any
 
 # PyTorch Dependency
 import torch
 import torch.nn as nn
-import torch.optim as optim
-from torch.optim import lr_scheduler
-from torch.autograd import Variable
-import torch.backends.cudnn as cudnn
-import torchvision.transforms as transforms
-from torch.utils.data import Dataset, DataLoader
 import torch.utils.model_zoo as model_zoo
 
 
@@ -38,7 +23,7 @@ from singa_auto.constants import ModelDependency
 from singa_auto.model.dev import test_model_class
 
 # Misc Third-party Machine-Learning Dependency
-import sklearn.metrics
+
 
 KnobConfig = Dict[str, BaseKnob]
 Knobs = Dict[str, Any]
@@ -157,7 +142,7 @@ class Reduction_A(nn.Module):
             BasicConv2d(192, 224, kernel_size=3, stride=1, padding=1),
             BasicConv2d(224, 256, kernel_size=3, stride=2)
         )
-        
+
         self.block2 = nn.MaxPool2d(3, stride=2)
 
     def forward(self, x):
@@ -172,7 +157,7 @@ class Inception_B(nn.Module):
     def __init__(self):
         super(Inception_B, self).__init__()
         self.block0 = BasicConv2d(1024, 384, kernel_size=1, stride=1)
-        
+
         self.block1 = nn.Sequential(
             BasicConv2d(1024, 192, kernel_size=1, stride=1),
             BasicConv2d(192, 224, kernel_size=(1,7), stride=1, padding=(0,3)),
@@ -231,17 +216,17 @@ class Inception_C(nn.Module):
     def __init__(self):
         super(Inception_C, self).__init__()
         self.block0 = BasicConv2d(1536, 256, kernel_size=1, stride=1)
-        
+
         self.block1_0 = BasicConv2d(1536, 384, kernel_size=1, stride=1)
         self.block1_1a = BasicConv2d(384, 256, kernel_size=(1,3), stride=1, padding=(0,1))
         self.block1_1b = BasicConv2d(384, 256, kernel_size=(3,1), stride=1, padding=(1,0))
-        
+
         self.block2_0 = BasicConv2d(1536, 384, kernel_size=1, stride=1)
         self.block2_1 = BasicConv2d(384, 448, kernel_size=(3,1), stride=1, padding=(1,0))
         self.block2_2 = BasicConv2d(448, 512, kernel_size=(1,3), stride=1, padding=(0,1))
         self.block2_3a = BasicConv2d(512, 256, kernel_size=(1,3), stride=1, padding=(0,1))
         self.block2_3b = BasicConv2d(512, 256, kernel_size=(3,1), stride=1, padding=(1,0))
-        
+
         self.block3 = nn.Sequential(
             nn.AvgPool2d(3, stride=1, padding=1, count_include_pad=False),
             BasicConv2d(1536, 256, kernel_size=1, stride=1)
@@ -249,7 +234,7 @@ class Inception_C(nn.Module):
 
     def forward(self, x):
         x0 = self.block0(x)
-        
+
         x1_0 = self.block1_0(x)
         x1_1a = self.block1_1a(x1_0)
         x1_1b = self.block1_1b(x1_0)
@@ -266,6 +251,7 @@ class Inception_C(nn.Module):
 
         out = torch.cat((x0, x1, x2, x3), 1)
         return out
+
 
 class InceptionV4(nn.Module):
 
@@ -301,7 +287,7 @@ class InceptionV4(nn.Module):
     def forward(self, x):
         x = self.features(x)
         x = x.view(x.size(0), -1)
-        x = self.classif(x) 
+        x = self.classif(x)
         return x
 
 
@@ -342,7 +328,7 @@ class PyPandaInceptionV4(TorchModel):
             'lr':FixedKnob(0.0001), ### learning_rate
             'weight_decay':FixedKnob(0.0),
             'drop_rate':FixedKnob(0.0),
-            'max_epochs': FixedKnob(30), 
+            'max_epochs': FixedKnob(30),
             'batch_size': CategoricalKnob([200]),
             'max_iter': FixedKnob(20),
             'optimizer':CategoricalKnob(['adam']),
@@ -356,7 +342,7 @@ class PyPandaInceptionV4(TorchModel):
             'seed':FixedKnob(123456),
             'scale':FixedKnob(512),
             'horizontal_flip':FixedKnob(True),
-     
+
             # Hyperparameters for PANDA modules
             # Self-paced Learning and Loss Revision
             'enable_spl':FixedKnob(False),
@@ -366,7 +352,7 @@ class PyPandaInceptionV4(TorchModel):
             'lossrevise_slop':FixedKnob(2.0),
 
             # Label Adaptation
-            'enable_label_adaptation':FixedKnob(False), # error occurs 
+            'enable_label_adaptation':FixedKnob(False), # error occurs
 
             # GM Prior Regularization
             'enable_gm_prior_regularization':FixedKnob(False),
@@ -377,7 +363,7 @@ class PyPandaInceptionV4(TorchModel):
             'gm_prior_regularization_lambda':FixedKnob(0.0001),
             'gm_prior_regularization_upt_freq':FixedKnob(100),
             'gm_prior_regularization_param_upt_freq':FixedKnob(50),
-            
+
             # Explanation
             'enable_explanation': FixedKnob(False),
             'explanation_gradcam': FixedKnob(True),
@@ -395,6 +381,7 @@ class PyPandaInceptionV4(TorchModel):
             'mc_trials_n':FixedKnob(10)
         }
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--train_path', type=str, default='data/food_mini.zip', help='Path to train dataset')
@@ -402,8 +389,8 @@ if __name__ == '__main__':
     parser.add_argument('--test_path', type=str, default='data/food_mini.zip', help='Path to test dataset')
     print (os.getcwd())
     parser.add_argument(
-        '--query_path', 
-        type=str, 
+        '--query_path',
+        type=str,
         default=
         # 'examples/data/image_classification/1463729893_339.jpg,examples/data/image_classification/1463729893_326.jpg,examples/data/image_classification/eed35e9d04814071.jpg',
         'examples/data/image_classification/Steamed_Fish.jpg',
@@ -411,12 +398,12 @@ if __name__ == '__main__':
     (args, _) = parser.parse_known_args()
 
     queries = utils.dataset.load_images(args.query_path.split(',')).tolist()
-    
+
     test_model_class(
         model_file_path=__file__,
         model_class='PyPandaInceptionV4',
         task='IMAGE_CLASSIFICATION',
-        dependencies={ 
+        dependencies={
             ModelDependency.TORCH: '1.0.1',
             ModelDependency.TORCHVISION: '0.2.2',
         },

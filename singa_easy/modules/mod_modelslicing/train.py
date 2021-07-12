@@ -14,6 +14,7 @@ from utils.utilities import logger, AverageMeter, accuracy, timeSince
 from utils.lr_scheduler import GradualWarmupScheduler
 from models import upgrade_dynamic_layers, create_sr_scheduler
 
+
 parser = argparse.ArgumentParser(
     description='CIFAR-10, CIFAR-100 and ImageNet-1k Model Slicing Training')
 parser.add_argument(
@@ -180,6 +181,9 @@ args.log_path = '{0}{1}/log.txt'.format(args.log_dir, args.exp_name)
 best_err1, best_err5 = 100., 100.
 
 # create log dir
+if not os.path.isdir('log'):
+    os.mkdir('log')
+
 if not os.path.isdir('log/{}'.format(args.exp_name)):
     os.mkdir('log/{}'.format(args.exp_name))
 
