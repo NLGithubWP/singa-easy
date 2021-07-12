@@ -228,7 +228,7 @@ def main():
             print("Under slice rate ", sr_idx)
             print("Input is", input.size())
             print("The output size is ",  output.size())
-            print("The loss is ", loss.value())
+            print("The loss is ", loss)
             break
 
 
