@@ -229,9 +229,8 @@ def main():
             print("Input is", input.size())
             print("The output size is ",  output.size())
             print("The loss is ", loss)
-            err1, err5 = accuracy(output, target, topk=(1, 5))
+            err1, err5 = accuracy(output, target, topk=(1, 1))
             print("accuracy",  err1, err5)
-            train_acc = torch.sum(output == target)
             break
 
 
