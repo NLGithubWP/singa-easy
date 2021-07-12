@@ -349,11 +349,11 @@ def run(epoch,
 
     timestamp = time.time()
     for idx, (input, target) in enumerate(data_loader):
-        # torch.cuda.synchronize();print('start batch training', time.time())
+        torch.cuda.synchronize();print('start batch training', time.time())
         if torch.cuda.is_available():
             input = input.cuda(non_blocking=True)
             target = target.cuda(non_blocking=True)
-        # torch.cuda.synchronize();print('loaded data to cuda', time.time())
+        torch.cuda.synchronize();print('loaded data to cuda', time.time())
         if is_train:
             optimizer.zero_grad()
 
@@ -408,4 +408,5 @@ def run(epoch,
 
 
 if __name__ == '__main__':
+    print(torch.cuda.is_available())
     main()

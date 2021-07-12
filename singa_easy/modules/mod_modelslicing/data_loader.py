@@ -27,7 +27,7 @@ def data_loader(args):
             train_loader = torch.utils.data.DataLoader(
                 datasets.CIFAR100(args.data_dir,
                                   train=True,
-                                  download=False,
+                                  download=True,
                                   transform=transform_train),
                 batch_size=args.batch_size,
                 shuffle=True,
