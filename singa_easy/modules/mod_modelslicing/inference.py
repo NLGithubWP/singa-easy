@@ -236,8 +236,8 @@ def main():
                     target = target.cuda(non_blocking=True)
                 be = time.time()
                 output = model(input)
+                total_time += time.time() - be
                 correct_k += accuracy_float(output, target, topk=(1, 1))
-                total_time += time.time()-be
                 break
         print("correct_k", correct_k)
         print("accuracy", correct_k/256)
