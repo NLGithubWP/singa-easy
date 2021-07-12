@@ -228,6 +228,8 @@ def main():
         total_time = 0
         for i in range(256):
             for idx, (input, target) in enumerate(val_loader):
+                if idx != i:
+                    continue
                 print(idx)
                 if torch.cuda.is_available():
                     input = input.cuda(non_blocking=True)
