@@ -200,65 +200,34 @@ def main():
     model = create_model(args, print_logger)
     model = upgrade_dynamic_layers(model, args.groups, args.sr_list)
     model = torch.nn.DataParallel(model).cuda()
-
     criterion = torch.nn.CrossEntropyLoss().cuda()
     optimizer = torch.optim.SGD(model.parameters(),
                                 args.lr,
                                 momentum=args.momentum,
                                 weight_decay=args.weight_decay,
                                 nesterov=True)
-    scheduler = create_lr_scheduler(args, optimizer, print_logger)
 
     if args.resume:
         checkpoint = load_checkpoint(print_logger)
-        epoch, best_err1, best_err5, model_state, optimizer_state, scheduler_state = checkpoint.values(
-        )
-        args.start_epoch = epoch + 1
+        epoch, best_err1, best_err5, model_state, optimizer_state, scheduler_state = checkpoint.values()
         model.load_state_dict(model_state)
         optimizer.load_state_dict(optimizer_state)
-        scheduler.load_state_dict(optimizer_state)
-        print(
-            "==> finish loading checkpoint '{}' (epoch {})".format(
-                args.resume, epoch))
-
+        print("==> finish loading checkpoint '{}' (epoch {})".format(args.resume, epoch))
     cudnn.benchmark = True
-
-    # start training
-    sr_scheduler = create_sr_scheduler(args.sr_scheduler_type, args.sr_rand_num,
-                                       args.sr_list, args.sr_train_prob)
-    for epoch in range(args.start_epoch, args.epoch):
-        scheduler.step(epoch)
-        print('Epoch: [{0}/{1}]\tLR: {LR:.6f}'.format(
-            epoch, args.epoch, LR=scheduler.get_lr()[0]))
-
-        # train one epoch
-        run(epoch, model, train_loader, criterion, print_logger, sr_scheduler,
-            optimizer)
-
-        # evaluate on all the sr_idxs, from the smallest subnet to the largest
-        for sr_idx in reversed(range(len(args.sr_list))):
-            args.sr_idx = sr_idx
-            model.module.update_sr_idx(sr_idx)
-            err1, err5 = run(epoch, model, val_loader, criterion, print_logger)
-
-        # record the best prec@1 for the largest subnet and save checkpoint
-        is_best = err1 <= best_err1
-        best_err1 = min(err1, best_err1)
-        if is_best:
-            best_err5 = err5
-        print(
-            'Current best accuracy:\ttop1 = {top1:.4f} | top5 = {top5:.4f}'.
-            format(top1=best_err1, top5=best_err5))
-        save_checkpoint(
-            OrderedDict([('epoch', epoch), ('best_err1', best_err1),
-                         ('best_err5', best_err5),
-                         ('model_state', model.state_dict()),
-                         ('optimizer_state', optimizer.state_dict()),
-                         ('scheduler_state', scheduler.state_dict())]), is_best,
-            args.checkpoint_dir)
+    # evaluate on all the sr_idxs, from the smallest subnet to the largest
+    for sr_idx in reversed(range(len(args.sr_list))):
+        args.sr_idx = sr_idx
+        model.module.update_sr_idx(sr_idx)
+        for idx, (input, target) in enumerate(data_loader):
+            output = model(input)
+            loss = criterion(output, target)
+            print("Under slice rate ", sr_idx)
+            print("Input is", input)
+            print("The result is ",  output, loss)
+            break
 
 
-def create_model(args, print_logger):
+def create_model(args):
     print("==> creating model '{}'".format(args.net_type))
     models = importlib.import_module('models')
     if args.dataset.startswith('cifar'):
@@ -268,34 +237,6 @@ def create_model(args, print_logger):
     print('the number of model parameters: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
     return model
-
-
-def create_lr_scheduler(args, optimizer, print_logger):
-    if args.cosine:
-        return lr_scheduler.CosineAnnealingLR(optimizer, args.epoch)
-    elif args.dataset.startswith('cifar'):
-        return lr_scheduler.MultiStepLR(
-            optimizer, [int(args.epoch * 0.5),
-                        int(args.epoch * 0.75)],
-            gamma=0.1)
-    elif args.dataset == 'imagenet':
-        if args.warmup:
-            scheduler = lr_scheduler.CosineAnnealingLR(optimizer,
-                                                       100 - args.warmup_epoch)
-            return GradualWarmupScheduler(optimizer,
-                                          multiplier=args.lr_multiplier,
-                                          warmup_epoch=args.warmup_epoch,
-                                          scheduler=scheduler)
-        else:
-            return lr_scheduler.MultiStepLR(optimizer, [
-                int(args.epoch * 0.3),
-                int(args.epoch * 0.6),
-                int(args.epoch * 0.9)
-            ],
-                                            gamma=0.1)
-    else:
-        raise Exception('unknown scheduler for dataset: {}'.format(
-            args.dataset))
 
 
 def load_checkpoint(print_logger):
@@ -315,105 +256,10 @@ def load_checkpoint(print_logger):
     return checkpoint
 
 
-def save_checkpoint(checkpoint,
-                    is_best,
-                    checkpoint_dir,
-                    checkpoint_name='checkpoint.ckpt'):
-    if not os.path.exists(checkpoint_dir):
-        os.makedirs(checkpoint_dir)
-    ckpt_name = "{0}{1}".format(checkpoint_dir, checkpoint_name)
-    torch.save(checkpoint, ckpt_name)
-    if is_best:
-        shutil.copyfile(
-            ckpt_name, "{0}{1}".format(checkpoint_dir,
-                                       'best_' + checkpoint_name))
-
-
-def run(epoch,
-        model,
-        data_loader,
-        criterion,
-        print_logger,
-        sr_scheduler=None,
-        optimizer=None):
-    global args
-    is_train = True if optimizer != None else False
-    if is_train:
-        model.train()
-    else:
-        model.eval()
-
-    batch_time_avg = AverageMeter()
-    loss_avg, top1_avg, top5_avg = AverageMeter(), AverageMeter(), AverageMeter(
-    )
-
-    timestamp = time.time()
-    for idx, (input, target) in enumerate(data_loader):
-
-        # torch.cuda.synchronize(); print('start batch training', time.time())
-        if torch.cuda.is_available():
-            input = input.cuda(non_blocking=True)
-            target = target.cuda(non_blocking=True)
-        # torch.cuda.synchronize(); print('loaded data to cuda', time.time())
-
-        if is_train:
-            optimizer.zero_grad()
-
-            # single batch data is used to train multiple sub-models
-            for args.sr_idx in next(sr_scheduler):
-                # update slice rate idx
-                model.module.update_sr_idx(args.sr_idx)  # DataParallel .module
-
-                output = model(input)
-                loss = criterion(output, target)
-                # 计算梯度
-                loss.backward()
-
-            # update weight after the loop
-            optimizer.step()
-        else:
-            with torch.no_grad():
-                output = model(input)
-                loss = criterion(output, target)
-        # torch.cuda.synchronize(); print('finnish batch training', time.time())
-        torch.cuda.synchronize()
-
-        err1, err5 = accuracy(output, target, topk=(1, 5))
-        loss_avg.update(loss.item(), input.size()[0])
-        top1_avg.update(err1, input.size()[0])
-        top5_avg.update(err5, input.size()[0])
-
-        batch_time_avg.update(time.time() - timestamp)
-        timestamp = time.time()
-
-        # torch.cuda.synchronize();print('start logging', time.time())
-        if idx % args.log_freq == 0:
-            print(
-                'Epoch: [{0}/{1}][{2}/{3}][SR-{4}]\t'
-                'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\tLoss {loss.val:.4f} ({loss.avg:.4f})\t'
-                'Top 1-err {top1.val:.4f} ({top1.avg:.4f})\tTop 5-err {top5.val:.4f} ({top5.avg:.4f})'
-                .format(epoch,
-                        args.epoch,
-                        idx,
-                        len(data_loader),
-                        args.sr_list[args.sr_idx],
-                        batch_time=batch_time_avg,
-                        loss=loss_avg,
-                        top1=top1_avg,
-                        top5=top5_avg))
-
-    print(
-        '* Epoch: [{0}/{1}]{2:>8s}  Total Time: {3}\tTop 1-err {top1.avg:.4f}  '
-        'Top 5-err {top5.avg:.4f}\tTest Loss {loss.avg:.4f}'.format(
-            epoch,
-            args.epoch, ('[train]' if is_train else '[val]'),
-            timeSince(s=batch_time_avg.sum),
-            top1=top1_avg,
-            top5=top5_avg,
-            loss=loss_avg))
-    return top1_avg.avg, top5_avg.avg
-
-
 if __name__ == '__main__':
     print(torch.cuda.is_available())
     main()
+
+
+
+
