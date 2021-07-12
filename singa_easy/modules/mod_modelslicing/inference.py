@@ -227,7 +227,7 @@ def main():
             break
 
 
-def create_model(args):
+def create_model(args, print_logger):
     print("==> creating model '{}'".format(args.net_type))
     models = importlib.import_module('models')
     if args.dataset.startswith('cifar'):
