@@ -13,8 +13,11 @@ from data_loader import data_loader
 from utils.utilities import logger, AverageMeter, accuracy, timeSince, accuracy_float
 from utils.lr_scheduler import GradualWarmupScheduler
 from models import upgrade_dynamic_layers, create_sr_scheduler
+
+
 import warnings
-warnings.filterwarnings("ignore")
+from torch.serialization import SourceChangeWarning
+warnings.filterwarnings("ignore", category=SourceChangeWarning)
 
 parser = argparse.ArgumentParser(
     description='CIFAR-10, CIFAR-100 and ImageNet-1k Model Slicing Training')
@@ -233,6 +236,7 @@ def main():
                 correct_k += accuracy_float(output, target, topk=(1, 1))
                 total_time += time.time()-be
                 break
+        print("aaccuracy", correct_k)
         print("aaccuracy", correct_k/256)
         print("average_time", total_time/256)
         print("End", "---" * 20)
