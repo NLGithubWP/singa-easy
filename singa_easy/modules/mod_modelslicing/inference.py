@@ -10,7 +10,7 @@ from torch.optim import lr_scheduler
 import torch.backends.cudnn as cudnn
 
 from data_loader import data_loader
-from utils.utilities import logger, AverageMeter, accuracy, timeSince
+from utils.utilities import logger, AverageMeter, accuracy, timeSince, accuracy_float
 from utils.lr_scheduler import GradualWarmupScheduler
 from models import upgrade_dynamic_layers, create_sr_scheduler
 
@@ -217,25 +217,27 @@ def main():
     # evaluate on all the sr_idxs, from the smallest subnet to the largest
     for sr_idx in reversed(range(len(args.sr_list))):
         args.sr_idx = sr_idx
-        print("Begin", "---" * 100)
+        print("Begin", "---" * 10)
+        print("Under slice rate ", args.sr_list[len(args.sr_list) - sr_idx - 1], "---" * 5)
         be = time.time()
         model.module.update_sr_idx(sr_idx)
-        for idx, (input, target) in enumerate(val_loader):
-            if torch.cuda.is_available():
-                input = input.cuda(non_blocking=True)
-                target = target.cuda(non_blocking=True)
+        correct_k = 0
+        for i in range(2):
+            for idx, (input, target) in enumerate(val_loader):
+                if torch.cuda.is_available():
+                    input = input.cuda(non_blocking=True)
+                    target = target.cuda(non_blocking=True)
+                output = model(input)
+                loss = criterion(output, target)
+                print("Input is", input.size())
+                print("The output size is ",  output.size())
+                correct_k = accuracy_float(output, target, topk=(1, 1))
+                break
+        print("accuracy", correct_k/2)
+        print(time.time() - be)
+        print("End", "---" * 10)
 
-            output = model(input)
-            loss = criterion(output, target)
-            print("Under slice rate ", args.sr_list[len(args.sr_list)-sr_idx-1], "---"*50)
-            print("Input is", input.size())
-            print("The output size is ",  output.size())
-            print("The loss is ", loss)
-            err1, err5 = accuracy(output, target, topk=(1, 1))
-            print("accuracy",  err1, err5)
-            print(time.time()-be)
-            print("End", "---" * 100)
-            break
+
 
 
 def create_model(args, print_logger):
