@@ -236,8 +236,8 @@ def main():
             correct_k += accuracy_float(output, target, topk=(1, 1))
             break
         print("correct_k", correct_k)
-        print("accuracy", correct_k/256)
-        print("average_time", total_time/256)
+        print("accuracy", correct_k/512)
+        print("average_time", total_time/512)
         print("End", "---" * 20)
 
 
