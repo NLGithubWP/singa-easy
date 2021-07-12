@@ -13,7 +13,8 @@ from data_loader import data_loader
 from utils.utilities import logger, AverageMeter, accuracy, timeSince, accuracy_float
 from utils.lr_scheduler import GradualWarmupScheduler
 from models import upgrade_dynamic_layers, create_sr_scheduler
-
+import warnings
+warnings.filterwarnings("ignore")
 
 parser = argparse.ArgumentParser(
     description='CIFAR-10, CIFAR-100 and ImageNet-1k Model Slicing Training')
@@ -229,8 +230,8 @@ def main():
                     target = target.cuda(non_blocking=True)
                 output = model(input)
                 loss = criterion(output, target)
-                print("Input is", input.size())
-                print("The output size is ",  output.size())
+                # print("Input is", input.size())
+                # print("The output size is ",  output.size())
                 correct_k = accuracy_float(output, target, topk=(1, 1))
                 break
         print("accuracy", correct_k/256)
