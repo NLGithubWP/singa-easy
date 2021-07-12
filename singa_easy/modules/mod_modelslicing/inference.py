@@ -219,6 +219,10 @@ def main():
         args.sr_idx = sr_idx
         model.module.update_sr_idx(sr_idx)
         for idx, (input, target) in enumerate(val_loader):
+            if torch.cuda.is_available():
+                input = input.cuda(non_blocking=True)
+                target = target.cuda(non_blocking=True)
+
             output = model(input)
             loss = criterion(output, target)
             print("Under slice rate ", sr_idx)
