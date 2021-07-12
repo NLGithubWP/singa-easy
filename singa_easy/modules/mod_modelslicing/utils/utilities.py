@@ -67,6 +67,8 @@ def accuracy(output, target, topk=(1,)):
     for k in topk:
         correct_k = correct[:k].contiguous().view(-1).float().sum(0, keepdim=True)
         wrong_k = batch_size - correct_k
+        print("correct_k", correct_k)
+        print("correct_k/total", correct_k/batch_size)
         res.append(wrong_k.mul_(100.0 / batch_size).item())
 
     return res
