@@ -220,22 +220,21 @@ def main():
         args.sr_idx = sr_idx
         print("Begin", "---" * 20)
         print("Under slice rate ", args.sr_list[sr_idx], "---" * 5)
-        be = time.time()
         model.module.update_sr_idx(sr_idx)
         correct_k = 0
+        total_time = 0
         for i in range(256):
             for idx, (input, target) in enumerate(val_loader):
                 if torch.cuda.is_available():
                     input = input.cuda(non_blocking=True)
                     target = target.cuda(non_blocking=True)
+                be = time.time()
                 output = model(input)
-                loss = criterion(output, target)
-                # print("Input is", input.size())
-                # print("The output size is ",  output.size())
-                correct_k = accuracy_float(output, target, topk=(1, 1))
+                correct_k += accuracy_float(output, target, topk=(1, 1))
+                total_time += time.time()-be
                 break
-        print("accuracy", correct_k/256)
-        print(time.time() - be)
+        print("aaccuracy", correct_k/256)
+        print("average_time", total_time/256)
         print("End", "---" * 20)
 
 
