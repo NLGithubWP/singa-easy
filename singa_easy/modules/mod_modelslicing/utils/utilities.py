@@ -83,4 +83,4 @@ def accuracy_float(output, target, topk=1):
     correct = pred.eq(target.view(1, -1).expand_as(pred))
     print(correct)
     correct_k = correct[:1].contiguous().view(-1).float().sum(0, keepdim=True)
-    return correct_k.as_integer_ratio()
+    return correct_k

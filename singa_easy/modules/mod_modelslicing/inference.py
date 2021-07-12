@@ -238,8 +238,6 @@ def main():
         print("End", "---" * 10)
 
 
-
-
 def create_model(args, print_logger):
     print("==> creating model '{}'".format(args.net_type))
     models = importlib.import_module('models')
