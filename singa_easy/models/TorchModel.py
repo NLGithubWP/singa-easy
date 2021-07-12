@@ -47,6 +47,7 @@ import copy
 import numpy as np
 from PIL import Image
 import matplotlib.cm as mpl_color_map
+
 # singa_easy Modules Dependency
 from singa_easy.modules.explanations.lime.lime import Lime
 from singa_easy.modules.explanations.gradcam.gradcam import GradCam

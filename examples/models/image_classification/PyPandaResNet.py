@@ -8,12 +8,9 @@ from typing import Union, Dict, Optional, Any, List
 # PyTorch Dependency
 
 from torchvision.models.resnet import resnet101
-from torch.utils.data import Dataset, DataLoader
 
-# Misc Third-party Machine-Learning Dependency
 import numpy as np
 
-# Misc Third-party Machine-Learning Dependency
 import sklearn.metrics
 
 # singa easy Modules Dependency
@@ -89,7 +86,7 @@ class PyPandaResNet(TorchModel):
             'gm_prior_regularization_param_upt_freq':FixedKnob(50),
 
             # Explanation
-            'enable_explanation': FixedKnob(False),
+            'enable_explanation': FixedKnob(True),
             'explanation_gradcam': FixedKnob(True),
             'explanation_lime': FixedKnob(False),
 

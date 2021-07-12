@@ -1,17 +1,17 @@
-import os 
+import os
 import tempfile
 import zipfile
 import numpy as np
 from PIL import Image
 
-import torchvision
+
 from torchvision import datasets, transforms
 import torch
-from torch.autograd import Variable
 from torch.utils.data import Dataset, DataLoader
 
 from singa_easy.datasets.TorchImageDataset import TorchImageDataset
 from singa_auto.datasets.image_classification_dataset import ImageDataset4Clf
+
 
 def _transform_onehotlabel_gpu(data, labels, _num_classes, train=False):
     """
@@ -48,14 +48,14 @@ def _transform(if_train=False, image_scale_size=128, norm_mean=None, norm_std=No
             ])
     return _transform
 
-def processing_and_reading_existing_datasets(dataset_name, 
-                                             data_dir='../data', 
-                                             min_image_size=None, 
-                                             max_image_size=None, 
-                                             mode=None, 
-                                             if_shuffle=False, 
-                                             batch_size=32, 
-                                             image_scale_size=None, 
+def processing_and_reading_existing_datasets(dataset_name,
+                                             data_dir='../data',
+                                             min_image_size=None,
+                                             max_image_size=None,
+                                             mode=None,
+                                             if_shuffle=False,
+                                             batch_size=32,
+                                             image_scale_size=None,
                                              dataset_type = 'train'):
     '''
     :return: x_train, y_train, x_test, y_test. Four lists of torch tensors, and each list is of the dataset size. Lists will be moved to GPU while GPU is available.
@@ -63,9 +63,9 @@ def processing_and_reading_existing_datasets(dataset_name,
     labels are one-hot labels.
     '''
     assert min_image_size<=max_image_size
-    dataset_path = f'{data_dir}{dataset_name}_{dataset_type}.zip' 
+    dataset_path = f'{data_dir}{dataset_name}_{dataset_type}.zip'
     assert os.path.exists(dataset_path)
-    
+
     print('Loading & splitting dataset...')
     dataset= ImageDataset4Clf(dataset_path,
                               min_image_size=min_image_size,
@@ -90,7 +90,7 @@ def processing_and_reading_existing_datasets(dataset_name,
     for batch_idx, (raw_indices, traindata,
                         batch_classes) in enumerate(dataloader):
         inputs, labels = _transform_onehotlabel_gpu(traindata,batch_classes,_num_classes,train=True)
-        inputs_list.extend(inputs) 
+        inputs_list.extend(inputs)
         labels_list.extend(labels)
 
     return inputs_list, labels_list
@@ -101,12 +101,12 @@ def processing_and_reading_downloaded_xray(dataset_name, data_dir='data', min_im
     '''
     source_dataset_path=f'{data_dir}{dataset_name}.zip'
     print('Loading & splitting dataset...')
-    # This block is for obtaining tensor images and classes 
+    # This block is for obtaining tensor images and classes
     with tempfile.TemporaryDirectory() as d:
         dataset_zipfile = zipfile.ZipFile(source_dataset_path, 'r')
 
         image_paths = [
-            x for x in dataset_zipfile.namelist() 
+            x for x in dataset_zipfile.namelist()
             if (not x.endswith('/'))  and ('._' not in x) and ('/.' not in x) and ('/_' not in x)
         ]
 
@@ -170,12 +170,12 @@ def processing_and_reading_downloaded_xray(dataset_name, data_dir='data', min_im
         return {'x_train':train_tensor_images, 'y_train':train_image_classes, 'x_test':test_tensor_images, 'y_test':test_image_classes}
 
 def image_dataset_download_load_and_split(dataset_name, data_dir='data', min_image_size=None, max_image_size=None, mode=None, image_scale_size=None, dataset_types=['train','test']):
-    ''' 
-    :return: x_train, y_train, x_test, y_test. 
+    '''
+    :return: x_train, y_train, x_test, y_test.
 
     x_train,  x_test are lists of images in torch tensor format.
     y_train, y_test are lists of labels, corresponding to the x_ sets.
-    
+
     :param dataset_name: list of str.
     :param if_download: True/False. True means to download datasets to the nominated data_dir. False stands for loading the existing datasets.
     :param data_dir: directory that datasets 'download to' or 'load from'.
@@ -222,20 +222,20 @@ def image_dataset_download_load_and_split(dataset_name, data_dir='data', min_ima
 
     # reading downloaded dataset zipfiles
     if dataset_name == 'xray' or dataset_name == 'chest-xray-pneumonia':
-        datasets_loaded = processing_and_reading_downloaded_xray('chest-xray-pneumonia', 
-                                                   data_dir, 
-                                                   min_image_size=min_image_size, 
-                                                   max_image_size=max_image_size, 
-                                                   mode=mode, 
+        datasets_loaded = processing_and_reading_downloaded_xray('chest-xray-pneumonia',
+                                                   data_dir,
+                                                   min_image_size=min_image_size,
+                                                   max_image_size=max_image_size,
+                                                   mode=mode,
                                                    image_scale_size=image_scale_size)
     else:
         datasets_loaded = dict()
         for dataset_type in dataset_types:
-            (x, y) = processing_and_reading_existing_datasets(dataset_name, 
-                                                              data_dir=data_dir,  
-                                                              min_image_size=min_image_size, 
-                                                              max_image_size=max_image_size, 
-                                                              mode=mode, 
+            (x, y) = processing_and_reading_existing_datasets(dataset_name,
+                                                              data_dir=data_dir,
+                                                              min_image_size=min_image_size,
+                                                              max_image_size=max_image_size,
+                                                              mode=mode,
                                                               image_scale_size=image_scale_size,
                                                               dataset_type=dataset_type)
             datasets_loaded.update({f'x_{dataset_type}': x, f'y_{dataset_type}': y})
@@ -260,21 +260,21 @@ if __name__ == '__main__':
         if os.path.exists(f'{data_dir}{dataset_name}_{dataset_types[0]}.zip'):
             for dataset_type in dataset_types:
         	    # if datasets exist locally.
-                (x, y) = processing_and_reading_existing_datasets(dataset_name, 
-                                                              data_dir=data_dir, 
-                                                              min_image_size=min_image_size, 
-                                                              max_image_size=max_image_size, 
-                                                              mode=mode, 
+                (x, y) = processing_and_reading_existing_datasets(dataset_name,
+                                                              data_dir=data_dir,
+                                                              min_image_size=min_image_size,
+                                                              max_image_size=max_image_size,
+                                                              mode=mode,
                                                               image_scale_size=image_scale_size,
                                                               dataset_type=dataset_type)
                 datasets_loaded[dataset_name].update({f'x_{dataset_type}': x, f'y_{dataset_type}': y})
         else:
             # if datasets need to be downloaded or just downloaded.
             print ('Train, test datsets do not exist beforehand...')
-            datasets_loaded[dataset_name]= image_dataset_download_load_and_split(dataset_name, 
-                                                                               data_dir=data_dir, 
-                                                                               min_image_size=min_image_size, 
-                                                                               max_image_size=max_image_size, 
-                                                                               mode=mode, 
+            datasets_loaded[dataset_name]= image_dataset_download_load_and_split(dataset_name,
+                                                                               data_dir=data_dir,
+                                                                               min_image_size=min_image_size,
+                                                                               max_image_size=max_image_size,
+                                                                               mode=mode,
                                                                                image_scale_size=image_scale_size,
                                                                                dataset_types=dataset_types)
