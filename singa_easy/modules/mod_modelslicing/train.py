@@ -194,7 +194,7 @@ train_loader, val_loader, args.class_num = data_loader(args)
 def main():
     global args, best_err1, best_err5
     print_logger = logger(args.log_path, True, True)
-    print_logger.info(vars(args))
+    print(vars(args))
 
     # create model and upgrade model to support model slicing
     model = create_model(args, print_logger)
@@ -217,7 +217,7 @@ def main():
         model.load_state_dict(model_state)
         optimizer.load_state_dict(optimizer_state)
         scheduler.load_state_dict(optimizer_state)
-        print_logger.info(
+        print(
             "==> finish loading checkpoint '{}' (epoch {})".format(
                 args.resume, epoch))
 
@@ -228,7 +228,7 @@ def main():
                                        args.sr_list, args.sr_train_prob)
     for epoch in range(args.start_epoch, args.epoch):
         scheduler.step(epoch)
-        print_logger.info('Epoch: [{0}/{1}]\tLR: {LR:.6f}'.format(
+        print('Epoch: [{0}/{1}]\tLR: {LR:.6f}'.format(
             epoch, args.epoch, LR=scheduler.get_lr()[0]))
 
         # train one epoch
@@ -246,7 +246,7 @@ def main():
         best_err1 = min(err1, best_err1)
         if is_best:
             best_err5 = err5
-        print_logger.info(
+        print(
             'Current best accuracy:\ttop1 = {top1:.4f} | top5 = {top5:.4f}'.
             format(top1=best_err1, top5=best_err5))
         save_checkpoint(
@@ -259,13 +259,13 @@ def main():
 
 
 def create_model(args, print_logger):
-    print_logger.info("==> creating model '{}'".format(args.net_type))
+    print("==> creating model '{}'".format(args.net_type))
     models = importlib.import_module('models')
     if args.dataset.startswith('cifar'):
         model = getattr(models, 'cifar_{0}'.format(args.net_type))(args)
     elif args.dataset == 'imagenet':
         model = getattr(models, 'imagenet_{0}'.format(args.net_type))(args)
-    print_logger.info('the number of model parameters: {}'.format(
+    print('the number of model parameters: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
     return model
 
@@ -299,7 +299,7 @@ def create_lr_scheduler(args, optimizer, print_logger):
 
 
 def load_checkpoint(print_logger):
-    print_logger.info("==> loading checkpoint '{}'".format(args.resume))
+    print("==> loading checkpoint '{}'".format(args.resume))
 
     if os.path.isfile(args.resume):
         checkpoint = torch.load(args.resume)
@@ -349,11 +349,13 @@ def run(epoch,
 
     timestamp = time.time()
     for idx, (input, target) in enumerate(data_loader):
-        torch.cuda.synchronize();print('start batch training', time.time())
+
+        torch.cuda.synchronize(); print('start batch training', time.time())
         if torch.cuda.is_available():
             input = input.cuda(non_blocking=True)
             target = target.cuda(non_blocking=True)
-        torch.cuda.synchronize();print('loaded data to cuda', time.time())
+        torch.cuda.synchronize(); print('loaded data to cuda', time.time())
+
         if is_train:
             optimizer.zero_grad()
 
@@ -381,7 +383,7 @@ def run(epoch,
 
         # torch.cuda.synchronize();print('start logging', time.time())
         if idx % args.log_freq == 0:
-            print_logger.info(
+            print(
                 'Epoch: [{0}/{1}][{2}/{3}][SR-{4}]\t'
                 'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\tLoss {loss.val:.4f} ({loss.avg:.4f})\t'
                 'Top 1-err {top1.val:.4f} ({top1.avg:.4f})\tTop 5-err {top5.val:.4f} ({top5.avg:.4f})'
@@ -395,7 +397,7 @@ def run(epoch,
                         top1=top1_avg,
                         top5=top5_avg))
 
-    print_logger.info(
+    print(
         '* Epoch: [{0}/{1}]{2:>8s}  Total Time: {3}\tTop 1-err {top1.avg:.4f}  '
         'Top 5-err {top5.avg:.4f}\tTest Loss {loss.avg:.4f}'.format(
             epoch,
