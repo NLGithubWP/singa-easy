@@ -268,7 +268,7 @@ def create_model(args, print_logger):
     elif args.dataset == 'imagenet':
         model = getattr(models, 'imagenet_{0}'.format(args.net_type))(args)
     elif args.dataset == 'xray':
-        model = resnet50(num_classes=2)
+        model = resnet50(pretrained=True, num_classes=2)
     print_logger.info('the number of model parameters: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
     return model
