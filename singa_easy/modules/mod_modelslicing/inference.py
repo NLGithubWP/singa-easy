@@ -249,17 +249,17 @@ def main():
             curr_time = starter.elapsed_time(ender)
             # calculate
             total_time += curr_time
-            print(" input.size()", input[0])
+            print(" input.size()", target)
             num_img += input[0]
             print("image number", num_img)
             correct_k += accuracy_float(output, target, topk=(1, 1))
-            if nbatch >= 15:
+            if nbatch >= 1:
                 break
             else:
                 nbatch += 1
         print("correct_k", correct_k)
-        print("accuracy", correct_k/num_img)
-        print("average_time", total_time/num_img)
+        print("accuracy", correct_k/(args.batch_size*nbatch))
+        print("average_time", total_time/(args.batch_size*nbatch))
         print("End", "---" * 20)
 
 
