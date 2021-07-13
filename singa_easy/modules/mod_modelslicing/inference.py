@@ -19,6 +19,7 @@ import warnings
 from torch.serialization import SourceChangeWarning
 warnings.filterwarnings("ignore", category=SourceChangeWarning)
 
+
 parser = argparse.ArgumentParser(
     description='CIFAR-10, CIFAR-100 and ImageNet-1k Model Slicing Training')
 parser.add_argument(
@@ -218,16 +219,16 @@ def main():
         optimizer.load_state_dict(optimizer_state)
         print("==> finish loading checkpoint '{}' (epoch {})".format(args.resume, epoch))
     cudnn.benchmark = True
+
     # evaluate on all the sr_idxs, from the smallest subnet to the largest
     starter = torch.cuda.Event(enable_timing=True)
     ender = torch.cuda.Event(enable_timing=True)
 
     #GPU-WARM-UP
-    for i in range(10):
-        for idx, (input, target) in enumerate(val_loader):
-            if torch.cuda.is_available():
-                input = input.cuda(non_blocking=True)
-            break
+    for idx, (input, target) in enumerate(val_loader):
+        if torch.cuda.is_available():
+            input.cuda(non_blocking=True)
+        break
 
     for sr_idx in reversed(range(len(args.sr_list))):
         args.sr_idx = sr_idx
@@ -246,8 +247,8 @@ def main():
                     target = target.cuda(non_blocking=True)
                 starter.record()
                 output = model(input)
-                ender.record()
                 torch.cuda.synchronize()
+                ender.record()
                 curr_time = starter.elapsed_time(ender)
                 # calculate
                 total_time += curr_time
