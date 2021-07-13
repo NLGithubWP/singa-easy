@@ -8,7 +8,6 @@ import torch.nn as nn
 import torch
 from torch.optim import lr_scheduler
 import torch.backends.cudnn as cudnn
-from torchvision.models import resnet50
 
 from data_loader import data_loader
 from utils.utilities import logger, AverageMeter, accuracy, timeSince
@@ -262,13 +261,15 @@ def main():
 
 def create_model(args, print_logger):
     print_logger.info("==> creating model '{}'".format(args.net_type))
-    models = importlib.import_module('models')
     if args.dataset.startswith('cifar'):
+        models = importlib.import_module('models')
         model = getattr(models, 'cifar_{0}'.format(args.net_type))(args)
     elif args.dataset == 'imagenet':
+        models = importlib.import_module('models')
         model = getattr(models, 'imagenet_{0}'.format(args.net_type))(args)
     elif args.dataset == 'xray':
-        model = resnet50(pretrained=True)
+        from torchvision import models
+        resnet50 = models.resnet50(pretrained=True)
         fc_inputs = resnet50.fc.in_features
         resnet50.fc = nn.Sequential(
             nn.Linear(fc_inputs, 256),
