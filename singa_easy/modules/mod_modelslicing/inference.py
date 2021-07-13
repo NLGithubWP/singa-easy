@@ -219,6 +219,15 @@ def main():
         print("==> finish loading checkpoint '{}' (epoch {})".format(args.resume, epoch))
     cudnn.benchmark = True
     # evaluate on all the sr_idxs, from the smallest subnet to the largest
+    starter, ender = torch.cuda.Event(enable_timing=True)
+
+    #GPU-WARM-UP
+    for i in range(10):
+        for idx, (input, target) in enumerate(val_loader):
+            if torch.cuda.is_available():
+                input = input.cuda(non_blocking=True)
+            break
+
     for sr_idx in reversed(range(len(args.sr_list))):
         args.sr_idx = sr_idx
         print("Begin", "---" * 20)
@@ -226,18 +235,26 @@ def main():
         model.module.update_sr_idx(sr_idx)
         correct_k = 0
         total_time = 0
-        for idx, (input, target) in enumerate(val_loader):
-            if torch.cuda.is_available():
-                input = input.cuda(non_blocking=True)
-                target = target.cuda(non_blocking=True)
-            be = time.time()
-            output = model(input)
-            total_time += time.time() - be
-            correct_k += accuracy_float(output, target, topk=(1, 1))
-            break
+        for i in range(256):
+            for idx, (input, target) in enumerate(val_loader):
+                if idx != i:
+                    continue
+                print(idx)
+                if torch.cuda.is_available():
+                    input = input.cuda(non_blocking=True)
+                    target = target.cuda(non_blocking=True)
+                starter.record()
+                output = model(input)
+                ender.record()
+                torch.cuda.synchronize()
+                curr_time = starter.elapsed_time(ender)
+                # calculate
+                total_time += curr_time
+                correct_k += accuracy_float(output, target, topk=(1, 1))
+                break
         print("correct_k", correct_k)
-        print("accuracy", correct_k/512)
-        print("average_time", total_time/512)
+        print("accuracy", correct_k/256)
+        print("average_time", total_time/256)
         print("End", "---" * 20)
 
 
