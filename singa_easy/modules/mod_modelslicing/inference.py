@@ -237,26 +237,27 @@ def main():
         model.module.update_sr_idx(sr_idx)
         correct_k = 0
         total_time = 0
-        for i in range(256):
-            for idx, (input, target) in enumerate(val_loader):
-                if idx != i:
-                    continue
-                print(idx)
-                if torch.cuda.is_available():
-                    input = input.cuda(non_blocking=True)
-                    target = target.cuda(non_blocking=True)
-                starter.record()
-                output = model(input)
-                torch.cuda.synchronize()
-                ender.record()
-                curr_time = starter.elapsed_time(ender)
-                # calculate
-                total_time += curr_time
-                correct_k += accuracy_float(output, target, topk=(1, 1))
-                break
+
+        # for i in range(256):
+        for idx, (input, target) in enumerate(val_loader):
+            # if idx != i:
+            #     continue
+            # print(idx)
+            if torch.cuda.is_available():
+                input = input.cuda(non_blocking=True)
+                target = target.cuda(non_blocking=True)
+            starter.record()
+            output = model(input)
+            ender.record()
+            torch.cuda.synchronize()
+            curr_time = starter.elapsed_time(ender)
+            # calculate
+            total_time += curr_time
+            correct_k += accuracy_float(output, target, topk=(1, 1))
+            break
         print("correct_k", correct_k)
-        print("accuracy", correct_k/256)
-        print("average_time", total_time/256)
+        print("accuracy", correct_k/512)
+        print("average_time", total_time/512)
         print("End", "---" * 20)
 
 
