@@ -1,5 +1,6 @@
 import os
 import argparse
+import torch.nn as nn
 
 import importlib
 
@@ -259,15 +260,47 @@ def main():
 
 
 def create_model(args, print_logger):
-    print("==> creating model '{}'".format(args.net_type))
-    models = importlib.import_module('models')
+    print_logger.info("==> creating model '{}'".format(args.net_type))
     if args.dataset.startswith('cifar'):
+        models = importlib.import_module('models')
         model = getattr(models, 'cifar_{0}'.format(args.net_type))(args)
+        print_logger.info('the number of model parameters: {}'.format(
+            sum([p.data.nelement() for p in model.parameters()])))
+        return model
+
     elif args.dataset == 'imagenet':
+        models = importlib.import_module('models')
         model = getattr(models, 'imagenet_{0}'.format(args.net_type))(args)
-    print('the number of model parameters: {}'.format(
-        sum([p.data.nelement() for p in model.parameters()])))
-    return model
+        print_logger.info('the number of model parameters: {}'.format(
+            sum([p.data.nelement() for p in model.parameters()])))
+        return model
+
+    elif args.dataset == 'xray':
+        from torchvision import models
+        resnet50 = models.resnet50(pretrained=True)
+        fc_inputs = resnet50.fc.in_features
+        resnet50.fc = nn.Sequential(
+            nn.Linear(fc_inputs, 256),
+            nn.ReLU(),
+            nn.Dropout(0.4),
+            nn.Linear(256, 2),
+            nn.LogSoftmax(dim=1)
+        )
+        return resnet50
+    elif args.dataset == 'food':
+        from torchvision import models
+        resnet50 = models.resnet50(pretrained=True)
+        fc_inputs = resnet50.fc.in_features
+        resnet50.fc = nn.Sequential(
+            nn.Linear(fc_inputs, 256),
+            nn.ReLU(),
+            nn.Dropout(0.4),
+            nn.Linear(256, 58),
+            nn.LogSoftmax(dim=1)
+        )
+        return resnet50
+    else:
+        raise
 
 
 def load_checkpoint(print_logger):
