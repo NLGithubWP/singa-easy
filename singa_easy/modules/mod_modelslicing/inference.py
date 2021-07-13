@@ -234,7 +234,6 @@ def main():
         model.module.update_sr_idx(sr_idx)
         correct_k = 0
         total_time = 0
-
         nbatch = 1
         num_img = 0
         for idx, (input, target) in enumerate(val_loader):
@@ -253,7 +252,7 @@ def main():
             num_img += args.batch_size
             print("image number", num_img)
             correct_k += accuracy_float(output, target, topk=(1, 1))
-            if nbatch >= 1:
+            if nbatch >= 50:
                 break
             else:
                 nbatch += 1
