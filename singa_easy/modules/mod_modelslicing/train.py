@@ -287,6 +287,18 @@ def create_model(args, print_logger):
             nn.LogSoftmax(dim=1)
         )
         return resnet50
+    elif args.dataset == 'food':
+        from torchvision import models
+        resnet50 = models.resnet50(pretrained=True)
+        fc_inputs = resnet50.fc.in_features
+        resnet50.fc = nn.Sequential(
+            nn.Linear(fc_inputs, 256),
+            nn.ReLU(),
+            nn.Dropout(0.4),
+            nn.Linear(256, 58),
+            nn.LogSoftmax(dim=1)
+        )
+        return resnet50
     else:
         raise
 
@@ -315,7 +327,7 @@ def create_lr_scheduler(args, optimizer, print_logger):
                 int(args.epoch * 0.9)
             ],
                                             gamma=0.1)
-    elif args.dataset == 'xray':
+    elif args.dataset == 'xray' or 'food':
         if args.warmup:
             scheduler = lr_scheduler.CosineAnnealingLR(optimizer,
                                                        100 - args.warmup_epoch)
