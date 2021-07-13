@@ -236,6 +236,7 @@ def main():
         total_time = 0
 
         nbatch = 1
+        num_img = 0
         for idx, (input, target) in enumerate(val_loader):
             print("batchid", idx)
             if torch.cuda.is_available():
@@ -248,14 +249,16 @@ def main():
             curr_time = starter.elapsed_time(ender)
             # calculate
             total_time += curr_time
+            num_img += input.size()
+            print("image number", num_img)
             correct_k += accuracy_float(output, target, topk=(1, 1))
             if nbatch >= 15:
                 break
             else:
                 nbatch += 1
         print("correct_k", correct_k)
-        print("accuracy", correct_k/(args.batch_size*nbatch))
-        print("average_time", total_time/(args.batch_size*nbatch))
+        print("accuracy", correct_k/num_img)
+        print("average_time", total_time/num_img)
         print("End", "---" * 20)
 
 
