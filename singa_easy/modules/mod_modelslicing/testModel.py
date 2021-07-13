@@ -1,6 +1,7 @@
 
 from torchvision.models import resnet50
+import torch.nn as nn
 
 model = resnet50(pretrained=True)
 
-model.add(nn.Linear(1000, 2))
+model.fc = nn.Linear(512, 2)
