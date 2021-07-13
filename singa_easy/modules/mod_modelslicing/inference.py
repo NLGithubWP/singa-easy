@@ -248,7 +248,7 @@ def main():
             # calculate
             total_time += curr_time
             correct_k += accuracy_float(output, target, topk=(1, 1))
-            if nbatch >= 2:
+            if nbatch >= 50:
                 break
             else:
                 nbatch += 1
