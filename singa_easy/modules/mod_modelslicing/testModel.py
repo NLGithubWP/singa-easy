@@ -1,5 +1,6 @@
 
-from torchvision.models import resnet101
+from torchvision.models import resnet50
 
-model = resnet101(pretrained=True, num_classes=2)
+model = resnet50(pretrained=True)
 
+model.add(nn.Linear(1000, 2))

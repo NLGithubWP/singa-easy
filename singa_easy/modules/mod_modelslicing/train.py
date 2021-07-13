@@ -4,7 +4,7 @@ import time
 import shutil
 from collections import OrderedDict
 import importlib
-
+import torch.nn as nn
 import torch
 from torch.optim import lr_scheduler
 import torch.backends.cudnn as cudnn
@@ -268,7 +268,8 @@ def create_model(args, print_logger):
     elif args.dataset == 'imagenet':
         model = getattr(models, 'imagenet_{0}'.format(args.net_type))(args)
     elif args.dataset == 'xray':
-        model = resnet50(pretrained=True, num_classes=2)
+        model = resnet50(pretrained=True)
+        model.add(nn.Linear(1000, 2))
     print_logger.info('the number of model parameters: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
     return model
