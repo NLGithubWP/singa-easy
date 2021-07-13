@@ -211,6 +211,7 @@ def main():
     scheduler = create_lr_scheduler(args, optimizer, print_logger)
 
     if args.resume:
+        print("Loading checkpoint")
         checkpoint = load_checkpoint(print_logger)
         epoch, best_err1, best_err5, model_state, optimizer_state, scheduler_state = checkpoint.values(
         )
@@ -368,11 +369,11 @@ def run(epoch,
     timestamp = time.time()
     for idx, (input, target) in enumerate(data_loader):
 
-        torch.cuda.synchronize(); print('start batch training', time.time())
+        # torch.cuda.synchronize(); print('start batch training', time.time())
         if torch.cuda.is_available():
             input = input.cuda(non_blocking=True)
             target = target.cuda(non_blocking=True)
-        torch.cuda.synchronize(); print('loaded data to cuda', time.time())
+        # torch.cuda.synchronize(); print('loaded data to cuda', time.time())
 
         if is_train:
             optimizer.zero_grad()
@@ -393,7 +394,7 @@ def run(epoch,
             with torch.no_grad():
                 output = model(input)
                 loss = criterion(output, target)
-        torch.cuda.synchronize(); print('finnish batch training', time.time())
+        # torch.cuda.synchronize(); print('finnish batch training', time.time())
 
         err1, err5 = accuracy(output, target, topk=(1, 1))
         loss_avg.update(loss.item(), input.size()[0])
@@ -403,7 +404,7 @@ def run(epoch,
         batch_time_avg.update(time.time() - timestamp)
         timestamp = time.time()
 
-        torch.cuda.synchronize();print('start logging', time.time())
+        # torch.cuda.synchronize();print('start logging', time.time())
         if idx % args.log_freq == 0:
             print_logger.info(
                 'Epoch: [{0}/{1}][{2}/{3}][SR-{4}]\t'
