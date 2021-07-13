@@ -234,6 +234,7 @@ def main():
         correct_k = 0
         total_time = 0
 
+        nbatch = 1
         for idx, (input, target) in enumerate(val_loader):
             if torch.cuda.is_available():
                 input = input.cuda(non_blocking=True)
@@ -246,10 +247,13 @@ def main():
             # calculate
             total_time += curr_time
             correct_k += accuracy_float(output, target, topk=(1, 1))
-            break
+            if nbatch >= 10:
+                break
+            else:
+                nbatch += 1
         print("correct_k", correct_k)
-        print("accuracy", correct_k/512)
-        print("average_time", total_time/512)
+        print("accuracy", correct_k/(512*nbatch))
+        print("average_time", total_time/(512*nbatch))
         print("End", "---" * 20)
 
 
