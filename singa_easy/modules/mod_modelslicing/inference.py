@@ -249,8 +249,8 @@ def main():
             curr_time = starter.elapsed_time(ender)
             # calculate
             total_time += curr_time
-            print(" input.size()", input.size())
-            num_img += input.Tensor.int
+            print(" input.size()", input[0])
+            num_img += input[0]
             print("image number", num_img)
             correct_k += accuracy_float(output, target, topk=(1, 1))
             if nbatch >= 15:
