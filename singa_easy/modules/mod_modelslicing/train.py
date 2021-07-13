@@ -264,9 +264,17 @@ def create_model(args, print_logger):
     if args.dataset.startswith('cifar'):
         models = importlib.import_module('models')
         model = getattr(models, 'cifar_{0}'.format(args.net_type))(args)
+        print_logger.info('the number of model parameters: {}'.format(
+            sum([p.data.nelement() for p in model.parameters()])))
+        return model
+
     elif args.dataset == 'imagenet':
         models = importlib.import_module('models')
         model = getattr(models, 'imagenet_{0}'.format(args.net_type))(args)
+        print_logger.info('the number of model parameters: {}'.format(
+            sum([p.data.nelement() for p in model.parameters()])))
+        return model
+
     elif args.dataset == 'xray':
         from torchvision import models
         resnet50 = models.resnet50(pretrained=True)
@@ -278,9 +286,10 @@ def create_model(args, print_logger):
             nn.Linear(256, 2),
             nn.LogSoftmax(dim=1)
         )
-    print_logger.info('the number of model parameters: {}'.format(
-        sum([p.data.nelement() for p in model.parameters()])))
-    return model
+        return resnet50
+    else:
+        raise
+
 
 
 def create_lr_scheduler(args, optimizer, print_logger):
