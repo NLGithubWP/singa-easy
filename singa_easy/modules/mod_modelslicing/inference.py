@@ -253,8 +253,8 @@ def main():
             else:
                 nbatch += 1
         print("correct_k", correct_k)
-        print("accuracy", correct_k/(512*nbatch))
-        print("average_time", total_time/(512*nbatch))
+        print("accuracy", correct_k/(args.batch_size*nbatch))
+        print("average_time", total_time/(args.batch_size*nbatch))
         print("End", "---" * 20)
 
 
