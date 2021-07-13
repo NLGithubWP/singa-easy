@@ -219,7 +219,8 @@ def main():
         print("==> finish loading checkpoint '{}' (epoch {})".format(args.resume, epoch))
     cudnn.benchmark = True
     # evaluate on all the sr_idxs, from the smallest subnet to the largest
-    starter, ender = torch.cuda.Event(enable_timing=True)
+    starter = torch.cuda.Event(enable_timing=True)
+    ender = torch.cuda.Event(enable_timing=True)
 
     #GPU-WARM-UP
     for i in range(10):
