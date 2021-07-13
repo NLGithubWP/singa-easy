@@ -1,18 +1,14 @@
 import os
 import argparse
-import time
-import shutil
-from collections import OrderedDict
+
 import importlib
 
 import torch
-from torch.optim import lr_scheduler
 import torch.backends.cudnn as cudnn
 
 from data_loader import data_loader
 from utils.utilities import logger, AverageMeter, accuracy, timeSince, accuracy_float
-from utils.lr_scheduler import GradualWarmupScheduler
-from models import upgrade_dynamic_layers, create_sr_scheduler
+from models import upgrade_dynamic_layers
 
 
 import warnings
