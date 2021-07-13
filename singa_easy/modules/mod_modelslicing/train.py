@@ -8,6 +8,7 @@ import importlib
 import torch
 from torch.optim import lr_scheduler
 import torch.backends.cudnn as cudnn
+from torchvision.models import resnet50
 
 from data_loader import data_loader
 from utils.utilities import logger, AverageMeter, accuracy, timeSince
@@ -265,6 +266,8 @@ def create_model(args, print_logger):
         model = getattr(models, 'cifar_{0}'.format(args.net_type))(args)
     elif args.dataset == 'imagenet':
         model = getattr(models, 'imagenet_{0}'.format(args.net_type))(args)
+    elif args.dataset == 'xray':
+        model = resnet50(pretrained=True, num_classes=2)
     print_logger.info('the number of model parameters: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
     return model
@@ -279,6 +282,21 @@ def create_lr_scheduler(args, optimizer, print_logger):
                         int(args.epoch * 0.75)],
             gamma=0.1)
     elif args.dataset == 'imagenet':
+        if args.warmup:
+            scheduler = lr_scheduler.CosineAnnealingLR(optimizer,
+                                                       100 - args.warmup_epoch)
+            return GradualWarmupScheduler(optimizer,
+                                          multiplier=args.lr_multiplier,
+                                          warmup_epoch=args.warmup_epoch,
+                                          scheduler=scheduler)
+        else:
+            return lr_scheduler.MultiStepLR(optimizer, [
+                int(args.epoch * 0.3),
+                int(args.epoch * 0.6),
+                int(args.epoch * 0.9)
+            ],
+                                            gamma=0.1)
+    elif args.dataset == 'xray':
         if args.warmup:
             scheduler = lr_scheduler.CosineAnnealingLR(optimizer,
                                                        100 - args.warmup_epoch)
