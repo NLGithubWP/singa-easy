@@ -236,6 +236,7 @@ def main():
 
         nbatch = 1
         for idx, (input, target) in enumerate(val_loader):
+            print("batchid", idx)
             if torch.cuda.is_available():
                 input = input.cuda(non_blocking=True)
                 target = target.cuda(non_blocking=True)
