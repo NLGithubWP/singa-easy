@@ -320,6 +320,7 @@ def load_checkpoint(print_logger):
     print_logger.info("==> loading checkpoint '{}'".format(args.resume))
 
     if os.path.isfile(args.resume):
+        print(args.resume)
         checkpoint = torch.load(args.resume)
     elif args.resume == 'checkpoint':
         if args.resume_best:
