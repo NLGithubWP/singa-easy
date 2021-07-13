@@ -269,7 +269,7 @@ def create_model(args, print_logger):
         model = getattr(models, 'imagenet_{0}'.format(args.net_type))(args)
     elif args.dataset == 'xray':
         model = resnet50(pretrained=True)
-        model.add(nn.Linear(1000, 2))
+        model.fc = nn.Linear(512, 2)
     print_logger.info('the number of model parameters: {}'.format(
         sum([p.data.nelement() for p in model.parameters()])))
     return model
