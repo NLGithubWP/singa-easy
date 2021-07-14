@@ -425,7 +425,8 @@ def run(epoch,
                 output = model(input)
                 loss = criterion(output, target)
         # torch.cuda.synchronize(); print('finnish batch training', time.time())
-
+        print("target size", target.size())
+        print("input size", input.size())
         err1, err5 = accuracy(output, target, topk=(1, 5))
         loss_avg.update(loss.item(), input.size()[0])
         top1_avg.update(err1, input.size()[0])
