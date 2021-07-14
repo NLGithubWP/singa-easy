@@ -90,27 +90,35 @@ def data_loader(args):
         #         normalize,
         #     ]))
 
+        # val_loader = torch.utils.data.DataLoader(datasets.ImageFolder(
+        #     valid_set,
+        #     transforms.Compose([
+        #         transforms.Resize(256),
+        #         transforms.CenterCrop(224),
+        #         transforms.ToTensor(),
+        #         normalize,
+        #     ])),                                        batch_size=args.batch_size,
+        #                                                  shuffle=False,
+        #                                                  num_workers=args.workers,
+        #                                                  pin_memory=True)
+
         train_loader = torch.utils.data.DataLoader(train_set,
                                                    batch_size=args.batch_size,
                                                    shuffle=True,
                                                    num_workers=args.workers,
-                                                   pin_memory=True)
+                                                   pin_memory=True
+                                                   )
 
-        val_loader = torch.utils.data.DataLoader(datasets.ImageFolder(
-            valid_set,
-            transforms.Compose([
-                transforms.Resize(256),
-                transforms.CenterCrop(224),
-                transforms.ToTensor(),
-                normalize,
-            ])),
+        val_loader = torch.utils.data.DataLoader(valid_set,
                                                  batch_size=args.batch_size,
-                                                 shuffle=False,
+                                                 shuffle=True,
                                                  num_workers=args.workers,
-                                                 pin_memory=True)
+                                                 pin_memory=True
+                                                 )
 
         class_num = 1000
         return train_loader, val_loader, class_num
+
     elif args.dataset == 'xray':
         traindir = os.path.join(args.data_dir, 'train_xray')
         valdir = os.path.join(args.data_dir, 'val_xray')
