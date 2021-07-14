@@ -62,15 +62,14 @@ def accuracy(output, target, topk=(1,)):
     pred = pred.t()
     print("pred_t", pred)
     correct = pred.eq(target.view(1, -1).expand_as(pred))
-    print("correct", correct)
     res = []
     for k in topk:
         correct_k = correct[:k].contiguous().view(-1).float().sum(0, keepdim=True)
-        print("correct_k", correct, k)
+        print("correct_k", correct_k, k)
         wrong_k = batch_size - correct_k
-        print("wrong_k", correct, k)
+        print("wrong_k", wrong_k, k)
         res.append(wrong_k.mul_(100.0 / batch_size).item())
-        print("wrong_k", correct, k)
+        print("wrong_k", res)
 
     return res
 
