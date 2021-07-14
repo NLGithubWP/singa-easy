@@ -62,8 +62,8 @@ def data_loader(args):
         return train_loader, val_loader, class_num
 
     elif args.dataset == 'imagenet':
-        traindir = os.path.join(args.data_dir, 'train')
-        valdir = os.path.join(args.data_dir, 'val')
+        traindir = os.path.join(args.data_dir, 'Imagenet32_train')
+        valdir = os.path.join(args.data_dir, 'val_data')
         normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 
         train_transform = transforms.Compose([
