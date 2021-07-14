@@ -243,7 +243,7 @@ def main():
                 target = target.cuda(non_blocking=True)
             starter.record()
             output = model(input)
-            print(output)
+            print(output, output.size())
             ender.record()
             torch.cuda.synchronize()
             curr_time = starter.elapsed_time(ender)
