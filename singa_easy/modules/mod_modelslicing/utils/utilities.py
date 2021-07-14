@@ -74,7 +74,10 @@ def accuracy_float(output, target, topk=1):
     """Computes the precision@k for the specified values of k"""
     maxk = max(topk)
     _, pred = output.topk(maxk, 1, True, True)
+    print("pred", pred)
     pred = pred.t()
+    print("pred_t", pred)
     correct = pred.eq(target.view(1, -1).expand_as(pred))
+    print("pred", pred)
     correct_k = correct[:1].contiguous().view(-1).float().sum(0, keepdim=True)
     return correct_k
