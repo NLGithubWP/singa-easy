@@ -56,16 +56,21 @@ def accuracy(output, target, topk=(1,)):
     """Computes the precision@k for the specified values of k"""
     maxk = max(topk)
     batch_size = target.size(0)
-
+    print("maxk", maxk)
+    print("batch_size", batch_size)
     _, pred = output.topk(maxk, 1, True, True)
     pred = pred.t()
+    print("pred_t", pred)
     correct = pred.eq(target.view(1, -1).expand_as(pred))
-
+    print("correct", correct)
     res = []
     for k in topk:
         correct_k = correct[:k].contiguous().view(-1).float().sum(0, keepdim=True)
+        print("correct_k", correct, k)
         wrong_k = batch_size - correct_k
+        print("wrong_k", correct, k)
         res.append(wrong_k.mul_(100.0 / batch_size).item())
+        print("wrong_k", correct, k)
 
     return res
 
@@ -74,7 +79,6 @@ def accuracy_float(output, target, topk=1):
     """Computes the precision@k for the specified values of k"""
     maxk = max(topk)
     _, pred = output.topk(maxk, 1, True, True)
-    print("pred", pred)
     pred = pred.t()
     print("pred_t", pred)
     correct = pred.eq(target.view(1, -1).expand_as(pred))
