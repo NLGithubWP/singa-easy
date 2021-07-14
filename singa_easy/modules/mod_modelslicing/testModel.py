@@ -48,11 +48,7 @@ def load_databatch(data_folder, idx, img_size=32):
         mean=mean_image)
 
 
-train_set = ImageNet32('/data/sarah/imagenet-32', train=True,
-                              transform=train_transform)
 
-valid_set = ImageNet32('/data/sarah/imagenet-32', train=False,
-                              transform=valid_transform)
 
 load_databatch("/Users/nailixing/Downloads/imgNets/Imagenet32_train", 1)
 
