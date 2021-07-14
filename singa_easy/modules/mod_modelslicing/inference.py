@@ -236,7 +236,7 @@ def main():
         total_time = 0
         nbatch = 1
         num_img = 0
-        for idx, (input, target) in enumerate(val_loader):
+        for idx, (input, target) in enumerate(train_loader):
             print("batchid", idx)
             if torch.cuda.is_available():
                 input = input.cuda(non_blocking=True)
@@ -257,6 +257,7 @@ def main():
             else:
                 nbatch += 1
         print("correct_k", correct_k)
+        print("num_img", num_img)
         print("accuracy", correct_k/num_img)
         print("average_time", total_time/num_img)
         print("End", "---" * 20)
