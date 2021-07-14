@@ -58,6 +58,8 @@ def accuracy(output, target, topk=(1,)):
     batch_size = target.size(0)
     print("maxk", maxk)
     print("batch_size", batch_size)
+    print("output size", output.size())
+    print("output",output)
     _, pred = output.topk(maxk, 1, True, True)
     pred = pred.t()
     print("pred_t", pred)
