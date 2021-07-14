@@ -14,7 +14,6 @@ from utils.utilities import logger, AverageMeter, accuracy, timeSince
 from utils.lr_scheduler import GradualWarmupScheduler
 from models import upgrade_dynamic_layers, create_sr_scheduler
 
-
 parser = argparse.ArgumentParser(
     description='CIFAR-10, CIFAR-100 and ImageNet-1k Model Slicing Training')
 parser.add_argument(

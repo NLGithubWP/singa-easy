@@ -283,27 +283,33 @@ def create_model(args, print_logger):
     elif args.dataset == 'xray':
         from torchvision import models
         resnet50 = models.resnet50(pretrained=True)
+
+        # 不对上面的层进行训练 c
+        for param in resnet50.parameters():
+            param.requires_grad = False
+
         fc_inputs = resnet50.fc.in_features
-        resnet50.fc = nn.Sequential(
-            nn.Linear(fc_inputs, 256),
-            nn.ReLU(),
-            nn.Dropout(0.4),
-            nn.Linear(256, 2),
-            nn.LogSoftmax(dim=1)
+        # 修改最后一层
+        resnet50.fc = torch.nn.Sequential(
+            torch.nn.Linear(fc_inputs, 2),
+            torch.nn.LogSoftmax(dim=1)
         )
         return resnet50
+
     elif args.dataset == 'food':
         from torchvision import models
         resnet50 = models.resnet50(pretrained=True)
+
+        # 不对上面的层进行训练 c
+        for param in resnet50.parameters():
+            param.requires_grad = False
         fc_inputs = resnet50.fc.in_features
         resnet50.fc = nn.Sequential(
-            nn.Linear(fc_inputs, 256),
-            nn.ReLU(),
-            nn.Dropout(0.4),
-            nn.Linear(256, 58),
+            nn.Linear(fc_inputs, 58),
             nn.LogSoftmax(dim=1)
         )
         return resnet50
+
     else:
         raise
 
