@@ -9,7 +9,6 @@ from PIL import Image
 from torch.utils.data import Dataset
 
 
-_base_folder = 'imagenet-32-batches-py'
 _train_list = ['train_data_batch_1',
                'train_data_batch_2',
                'train_data_batch_3',
@@ -56,7 +55,7 @@ class ImageNet32(Dataset):
             self.data = []
             self.labels = []
             for f in _train_list:
-                file = os.path.join(self.root, _base_folder, f)
+                file = os.path.join(self.root, f)
                 with open(file, 'rb') as fo:
                     entry = pickle.load(fo, encoding='latin1')
                     self.data.append(entry['data'])
@@ -67,7 +66,7 @@ class ImageNet32(Dataset):
             self.labels = np.array(self.labels) - 1
         else:
             f = _val_list[0]
-            file = os.path.join(self.root, _base_folder, f)
+            file = os.path.join(self.root, f)
             with open(file, 'rb') as fo:
                 entry = pickle.load(fo, encoding='latin1')
                 self.data = entry['data']
@@ -118,7 +117,7 @@ class ImageNet32(Dataset):
         return fmt_str
 
 def get_imagenet32_labels(root):
-    file = os.path.join(root, _base_folder, _label_file)
+    file = os.path.join(root, _label_file)
     return np.loadtxt(file, dtype=str)[:, 2].tolist()
 
 
