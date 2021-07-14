@@ -243,6 +243,7 @@ def main():
                 target = target.cuda(non_blocking=True)
             starter.record()
             output = model(input)
+            print(output)
             ender.record()
             torch.cuda.synchronize()
             curr_time = starter.elapsed_time(ender)
@@ -252,7 +253,7 @@ def main():
             num_img += args.batch_size
             print("image number", num_img)
             correct_k += accuracy_float(output, target, topk=(1, 1))
-            if nbatch >= 50:
+            if nbatch >= 1:
                 break
             else:
                 nbatch += 1
