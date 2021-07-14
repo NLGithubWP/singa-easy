@@ -294,7 +294,7 @@ def create_model(args, print_logger):
         from torchvision import models
         resnet50 = models.resnet50(pretrained=True)
 
-        # 不对上面的层进行训练 c
+              # 不对上面的层进行训练 c
         for param in resnet50.parameters():
             param.requires_grad = False
         fc_inputs = resnet50.fc.in_features

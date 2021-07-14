@@ -64,8 +64,7 @@ def data_loader(args):
     elif args.dataset == 'imagenet':
         traindir = os.path.join(args.data_dir, 'train')
         valdir = os.path.join(args.data_dir, 'val')
-        normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                                         std=[0.229, 0.224, 0.225])
+        normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 
         train_transform = transforms.Compose([
             transforms.RandomResizedCrop(224),
@@ -74,11 +73,11 @@ def data_loader(args):
             normalize,
             ])
 
-        train_set = ImageNet32('/Users/nailixing/Downloads/imgNets/Imagenet32_train',
+        train_set = ImageNet32(traindir,
                                train=True,
                                transform=train_transform)
 
-        valid_set = ImageNet32('/Users/nailixing/Downloads/imgNets/val_data',
+        valid_set = ImageNet32(valdir,
                                train=False,
                                transform=train_transform)
 
