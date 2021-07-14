@@ -8,7 +8,7 @@
 .idea/
 
 # test file
-test.py
+testModel.py
 
 # python cache
 __pycache__/
