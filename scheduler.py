@@ -1,3 +1,4 @@
+import numpy
 from scipy.optimize import linprog
 import numpy as np
 import math
@@ -136,7 +137,61 @@ def test3():
     print("Test 3's result:", solver.opt_val, solver.opt_x)
 
 
+def testAny(plist, tlist, N, D):
+    ones = []
+    for i in range(len(plist)):
+        ones.append(1)
+    c = np.array(plist)/N
+    A = np.array([ones, tlist])
+    b = np.array([N, D])
+    Aeq = None
+    beq = None
+    bounds = []
+    for i in range(len(plist)):
+        bounds.append((0, N))
+    solver = ILP(c, A, b, Aeq, beq, bounds)
+    solver.solve()
+
+    return solver.opt_val, solver.opt_x
+
+
 if __name__ == '__main__':
-    test1()
-    test2()
-    test3()
+    # test1()
+    # test2()
+    # test3()
+    # testAny([0.95, 0.8, 0.75], [4, 2, 1])
+
+    N_list = [1, 50, 80, 100, 200, 300, 400, 540, 800,  910, 1020]
+
+    base = 1282
+    for i in range(30):
+        N_list.append(base)
+        base+=10
+
+    processd = []
+    used_list = []
+
+    y = []
+    times = [0.0126, 0.0071, 0.00315, 0.00084]
+    ps = [0.7609, 0.7374, 0.7109, 0.6391]
+
+    for N in N_list:
+        try:
+            res, combs = testAny(ps,
+                                 times,
+                                 N=N,
+                                 D=1)
+            y.append(res)
+            print("When N is", N, " testAny's result:", res, combs)
+            speed = 0
+
+            for m in range(len(combs)):
+                speed += (combs[m]/N) * (1/times[m])
+            processd.append(speed)
+            used_list.append(N)
+        except Exception as e:
+            print("-------------Error when N is", N, " ", e)
+
+    print(used_list)
+    print(processd)
+
