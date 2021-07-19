@@ -40,8 +40,8 @@ y4 = interval01 + \
 
 plt.xlim((0, 1.2))
 plt.ylim((0, 1))
-plt.xlabel('qs=(number of query data) / (deadline constraint)')
-plt.ylabel('effective accuracy')
+plt.xlabel('qs=(number of examples) / (deadline constraint)')
+plt.ylabel('effective accuracy %')
 
 
 plt.plot(x, y1, label='sub-model with accuracy 0.95')
@@ -68,7 +68,7 @@ xc1, yc1 = 1, 0.75
 plt.scatter(xc1, yc1, s=80, facecolors='none', edgecolors='r')
 
 plt.legend()
-plt.savefig('./test2.jpg')
+plt.savefig('./ideal_effitive_accuracy.jpg')
 plt.show()
 
 # CUDA_VISIBLE_DEVICES=0,1,2 python train.py --exp_name resnet_50 --net_type resnet --group 8 --depth 50 --sr_list 1.0 0.75 0.5 0.25 --sr_scheduler_type random_min_max --sr_rand_num 1 --epoch 100 --batch_size 256 --lr 0.1  --dataset cifar10 --data_dir $HOME/data/ --log_freq 50

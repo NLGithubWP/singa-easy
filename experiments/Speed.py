@@ -59,7 +59,7 @@ for k in range(len(pots)):
 plt.legend(fontsize=15)
 plt.xticks(fontsize=20)
 plt.yticks(fontsize=20)
-ax.set_xlabel('Workload(#Requests/Second)', fontsize=20)
+ax.set_xlabel('Workload(#examples/second)', fontsize=20)
 ax.set_ylabel('Effective speed', fontsize=20)
 plt.grid(linestyle='-.')
 plt.savefig('./Speed.jpg')
