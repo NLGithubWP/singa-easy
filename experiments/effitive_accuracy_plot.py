@@ -88,7 +88,7 @@ ax.plot(x, ySch, "--", marker='*', ms=12, label="combine of sub-models", linewid
 plt.legend(fontsize=15)
 plt.xticks(fontsize=20)
 plt.yticks(fontsize=20)
-ax.set_xlabel('d=N/D (# examples / deadline constraint)', fontsize=20)
+ax.set_xlabel('$W_{exp}=N/D$ (# examples / deadline constraint)', fontsize=20)
 ax.set_ylabel('effective accuracy %', fontsize=20)
 plt.grid(linestyle='-.')
 plt.savefig('./effective accuracy.jpg')

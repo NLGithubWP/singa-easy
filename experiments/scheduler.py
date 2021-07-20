@@ -161,21 +161,27 @@ if __name__ == '__main__':
     # test3()
     # testAny([0.95, 0.8, 0.75], [4, 2, 1])
 
-    N_list = [1, 50, 80, 100, 200, 300, 400, 540, 800,  910, 1020]
+    # N_list = [1, 50, 80, 100, 200, 300, 400, 540, 800, 910, 1020, 1282, 1500]
+    N_list = [1, 50, 80, 100]
 
-    base = 1282
-    for i in range(30):
+    base = 100
+    for i in range(40):
         N_list.append(base)
-        base+=10
+        base += 100
 
-    processd = []
+    effective_speed_list = []
+    speed_list = []
     used_list = []
+    time_list = []
+    delay_list = []
 
     y = []
-    times = [0.0126, 0.0071, 0.00315, 0.00084]
+    times = [0.0126, 0.0071, 0.00315, 0.00079]
     ps = [0.7609, 0.7374, 0.7109, 0.6391]
 
     for N in N_list:
+        if N in [ 1500]:
+            continue
         try:
             res, combs = testAny(ps,
                                  times,
@@ -183,15 +189,26 @@ if __name__ == '__main__':
                                  D=1)
             y.append(res)
             print("When N is", N, " testAny's result:", res, combs)
-            speed = 0
-
+            effective_speed = 0
+            n_i = 0
+            used_time = 0
             for m in range(len(combs)):
-                speed += (combs[m]/N) * (1/times[m])
-            processd.append(speed)
+                used_time += combs[m]*times[m]
+                effective_speed += (combs[m]/N) * (1/times[m])
+                n_i += combs[m]
+
+            if N > n_i:
+                delay = used_time+(N-n_i)*0.00079
+            else:
+                delay = used_time
+            effective_speed_list.append(effective_speed)
             used_list.append(N)
+            time_list.append(used_time)
+            speed_list.append(n_i/used_time)
+            delay_list.append(delay)
         except Exception as e:
             print("-------------Error when N is", N, " ", e)
 
     print(used_list)
-    print(processd)
+    print(delay_list)
 
