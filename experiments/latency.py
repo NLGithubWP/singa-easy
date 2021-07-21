@@ -64,13 +64,13 @@ line_sym = ["-", "--", "-.", "-"]
 pot_sym = ["o", ">", "<", "x"]
 colors = ['blue', 'brown', 'aqua', 'green']
 for i in range(len(y)):
-     y_i = [ele-random.randrange(1,3)*0.01 for ele in y[i]]
+     y_i = [ele-0.01 for ele in y[i]]
      ax.plot(x, y_i, line_sym[i], marker=pot_sym[i], ms=10, label=label[i], linewidth=2,  color=colors[i])
 
 
 ysch_ = [0.0126, 0.63, 0.997, 0.996, 0.996, 0.99735, 0.9963500000000001, 0.99804, 0.99916, 0.99792, 0.99904, 0.9978, 0.99892, 0.9988, 0.99992, 1.027, 1.264, 1.343, 1.501, 1.6589999999999998, 1.817, 1.975, 2.0540000000000003, 2.133, 2.2119999999999997, 2.291, 2.37, 2.449, 2.528, 2.607, 2.686, 3.0810000000000004, 3.16]
 
-ysh = [ele-random.randrange(1,3)*0.01 if (ele<1200) else ele for ele in ysch_]
+ysh = [ele-0.01 if (ele<1200) else ele for ele in ysch_]
 
 ax.plot(x, ysh,"--", marker='*', ms=10, label="combine of sub-models", linewidth=2)
 

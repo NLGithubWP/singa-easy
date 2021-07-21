@@ -79,7 +79,7 @@ for k in range(len(pots)):
 
 
 ySch = [0.7609, 0.7609, 0.7609, 0.7603125000000001, 0.7496200000000001, 0.7232225, 0.7120483333333334, 0.6906165, 0.6704792592592592, 0.6517547499999999, 0.6470690109890109, 0.6433939215686274, 0.5932363494539781, 0.5070193333333333]
-ax.plot(x, ySch, "--", marker='*', ms=12, label="combine of sub-models", linewidth=2)
+ax.plot(x, ySch, "--", marker='*', ms=12, label="combination of sub-models", linewidth=2)
 
 # for j in range(len(ySch)):
 #      ax.scatter(x[j], ySch[j], s=50, facecolors='none', edgecolors='r')
