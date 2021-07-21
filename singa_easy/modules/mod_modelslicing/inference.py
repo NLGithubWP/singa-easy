@@ -241,11 +241,10 @@ def main():
             input.cuda(non_blocking=True)
         break
 
-    print("predict_image_nums is ", args.predict_image_nums, "  predicted_save_file is ", args.predicted_save_file)
     result = []
     fo = open(args.predicted_save_file + ".txt", "a+")
 
-    fo.write("When num_img=" + str(args.predict_image_nums) + "\n")
+    fo.write("When num_img/batch_size=" + str(args.predict_batch_nums) + "\n")
 
     for sr_idx in reversed(range(len(args.sr_list))):
         args.sr_idx = sr_idx
