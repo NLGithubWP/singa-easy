@@ -244,7 +244,7 @@ def main():
         correct_k, num_img, total_time = test_1_batch_examples(starter, ender, model)
         result.append([correct_k, num_img, total_time, args.sr_list[sr_idx]])
 
-    fo = open("test.txt", "w")
+    fo = open("prediction_res.txt", "a")
 
     for ele in result:
         correct_k, num_img, total_time, sr_idx = ele[0], ele[1], ele[2], ele[3]
