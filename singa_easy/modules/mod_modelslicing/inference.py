@@ -245,7 +245,7 @@ def main():
         print("Under slice rate ", args.sr_list[sr_idx], "---" * 5)
         model.module.update_sr_idx(sr_idx)
 
-        test_1_batch_examples(starter, ender, model, 10000)
+        test_1_batch_examples(starter, ender, model, sr_idx)
 
 
 def create_model(args, print_logger):
@@ -343,7 +343,7 @@ def test_any_batch_examples(starter, ender, model):
     print("End", "---" * 20)
 
 
-def test_1_batch_examples(starter, ender, model):
+def test_1_batch_examples(starter, ender, model, sr_idx):
     correct_k = 0
     total_time = 0
     num_img = 0
@@ -369,14 +369,16 @@ def test_1_batch_examples(starter, ender, model):
             if num_img >= args.predict_image_nums:
                 is_stop = True
                 break
+
         if is_stop == True:
             break
 
-    print("correct_k", correct_k)
-    print("num_img", num_img)
-    print("accuracy", correct_k / num_img)
-    print("average_time", total_time / num_img)
-    print("End", "---" * 20)
+    print("sr_idx=", sr_idx, " correct_k", correct_k)
+    print("sr_idx=", sr_idx, " num_img", num_img)
+    print("sr_idx=", sr_idx, " accuracy", correct_k / num_img)
+    print("sr_idx=", sr_idx, " average_time", total_time / num_img)
+    print("sr_idx=", sr_idx, " throughput", num_img / total_time)
+    print("sr_idx=", sr_idx, " End", "---" * 20)
 
 
 if __name__ == '__main__':
