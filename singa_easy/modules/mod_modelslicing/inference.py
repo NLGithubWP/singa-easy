@@ -13,8 +13,7 @@ from models import upgrade_dynamic_layers
 
 
 import warnings
-from torch.serialization import SourceChangeWarning
-warnings.filterwarnings("ignore", category=SourceChangeWarning)
+warnings.filterwarnings("ignore")
 
 
 parser = argparse.ArgumentParser(
