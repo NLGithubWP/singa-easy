@@ -407,6 +407,38 @@ def test_1_batch_examples(starter, ender, model):
     return correct_k, num_img, total_time, num_batch
 
 
+def test_influence(starter, ender, model):
+    correct_k = 0
+    total_time = 0
+    num_img = 0
+    num_batch = 0
+    is_stop = False
+    for i in range(100000):
+        for idx, (input, target) in enumerate(val_loader):
+            if idx==0:
+                continue
+            if torch.cuda.is_available():
+                input = input.cuda(non_blocking=True)
+                target = target.cuda(non_blocking=True)
+            starter.record()
+            output = model(input)
+            ender.record()
+            torch.cuda.synchronize()
+            curr_time = starter.elapsed_time(ender)
+            total_time += curr_time
+            num_img += args.batch_size
+            num_batch += 1
+            print("image number", num_img, " idx=", idx, "num_batch=", num_batch)
+            correct_k += accuracy_float(output, target, topk=(1, 1))
+            if num_img >= args.predict_batch_nums*args.batch_size:
+                is_stop = True
+                break
+
+        if is_stop == True:
+            break
+    return correct_k, num_img, total_time, num_batch
+
+
 if __name__ == '__main__':
     print(torch.cuda.is_available())
     main()
