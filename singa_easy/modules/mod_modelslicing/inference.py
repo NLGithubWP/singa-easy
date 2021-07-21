@@ -256,7 +256,7 @@ def main():
         print("Begin", "---" * 20)
         print("Under slice rate ", args.sr_list[sr_idx], "---" * 5)
         model.module.update_sr_idx(sr_idx)
-        correct_k, num_img, total_time, num_batch = test_1_batch_examples(starter, ender, model)
+        correct_k, num_img, total_time, num_batch = test_influence(starter, ender, model)
         result.append([correct_k, num_img, total_time, args.sr_list[sr_idx], num_batch])
 
     for ele in result:
