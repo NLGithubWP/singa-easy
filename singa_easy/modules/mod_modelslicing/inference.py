@@ -232,35 +232,8 @@ def main():
         print("Begin", "---" * 20)
         print("Under slice rate ", args.sr_list[sr_idx], "---" * 5)
         model.module.update_sr_idx(sr_idx)
-        correct_k = 0
-        total_time = 0
-        nbatch = 1
-        num_img = 0
-        for idx, (input, target) in enumerate(val_loader):
-            print("batchid", idx)
-            if torch.cuda.is_available():
-                input = input.cuda(non_blocking=True)
-                target = target.cuda(non_blocking=True)
-            starter.record()
-            output = model(input)
-            ender.record()
-            torch.cuda.synchronize()
-            curr_time = starter.elapsed_time(ender)
-            # calculate
-            total_time += curr_time
-            # print(" input.size()", len(target), target)
-            num_img += args.batch_size
-            print("image number", num_img)
-            correct_k += accuracy_float(output, target, topk=(1, 1))
-            if nbatch >= 20:
-                break
-            else:
-                nbatch += 1
-        print("correct_k", correct_k)
-        print("num_img", num_img)
-        print("accuracy", correct_k/num_img)
-        print("average_time", total_time/num_img)
-        print("End", "---" * 20)
+
+        test_1_batch_examples(starter, ender, model, 10000)
 
 
 def create_model(args, print_logger):
@@ -328,6 +301,70 @@ def load_checkpoint(print_logger):
     else:
         raise Exception("=> no checkpoint found at '{}'".format(args.resume))
     return checkpoint
+
+
+def test_any_batch_examples(starter, ender, model):
+    correct_k = 0
+    total_time = 0
+    nbatch = 1
+    num_img = 0
+    for idx, (input, target) in enumerate(val_loader):
+        print("batchid", idx)
+        if torch.cuda.is_available():
+            input = input.cuda(non_blocking=True)
+            target = target.cuda(non_blocking=True)
+        starter.record()
+        output = model(input)
+        ender.record()
+        torch.cuda.synchronize()
+        curr_time = starter.elapsed_time(ender)
+        # calculate
+        total_time += curr_time
+        # print(" input.size()", len(target), target)
+        num_img += args.batch_size
+        print("image number", num_img)
+        correct_k += accuracy_float(output, target, topk=(1, 1))
+        if nbatch >= 20:
+            break
+        else:
+            nbatch += 1
+    print("correct_k", correct_k)
+    print("num_img", num_img)
+    print("accuracy", correct_k / num_img)
+    print("average_time", total_time / num_img)
+    print("End", "---" * 20)
+
+
+def test_1_batch_examples(starter, ender, model, times):
+    correct_k = 0
+    total_time = 0
+    nbatch = 1
+    num_img = 0
+    for i in range(times):
+        for idx, (input, target) in enumerate(val_loader):
+            if torch.cuda.is_available():
+                input = input.cuda(non_blocking=True)
+                target = target.cuda(non_blocking=True)
+            starter.record()
+            output = model(input)
+            ender.record()
+            torch.cuda.synchronize()
+            curr_time = starter.elapsed_time(ender)
+            # calculate
+            total_time += curr_time
+            # print(" input.size()", len(target), target)
+            num_img += args.batch_size
+            print("image number", num_img)
+            correct_k += accuracy_float(output, target, topk=(1, 1))
+            if nbatch >= 20:
+                break
+            else:
+                nbatch += 1
+    print("correct_k", correct_k)
+    print("num_img", num_img)
+    print("accuracy", correct_k / num_img)
+    print("average_time", total_time / num_img)
+    print("End", "---" * 20)
 
 
 if __name__ == '__main__':
