@@ -20,7 +20,7 @@ parser = argparse.ArgumentParser(
     description='CIFAR-10, CIFAR-100 and ImageNet-1k Model Slicing Training')
 
 parser.add_argument(
-    '--predict_image_nums',
+    '--predict_batch_nums',
     default=1,
     type=int,
     help='number of processing a batch of images.')
@@ -252,11 +252,11 @@ def main():
         print("Begin", "---" * 20)
         print("Under slice rate ", args.sr_list[sr_idx], "---" * 5)
         model.module.update_sr_idx(sr_idx)
-        correct_k, num_img, total_time = test_1_batch_examples(starter, ender, model)
-        result.append([correct_k, num_img, total_time, args.sr_list[sr_idx]])
+        correct_k, num_img, total_time, num_batch = test_1_batch_examples(starter, ender, model)
+        result.append([correct_k, num_img, total_time, args.sr_list[sr_idx], num_batch])
 
     for ele in result:
-        correct_k, num_img, total_time, sr_idx = ele[0], ele[1], ele[2], ele[3]
+        correct_k, num_img, total_time, sr_idx, num_batch = ele[0], ele[1], ele[2], ele[3], ele[4]
         print("sr_idx=", sr_idx, " correct_k", correct_k)
         print("sr_idx=", sr_idx, " num_img", num_img)
         print("sr_idx=", sr_idx, " accuracy", correct_k / num_img)
@@ -270,6 +270,10 @@ def main():
         fo.write("     sr_idx=" + str(sr_idx) + " average_time=" + str(total_time / num_img) + "\n")
         fo.write("     sr_idx=" + str(sr_idx) + " total_time=" + str(total_time) + "\n")
         fo.write("     sr_idx=" + str(sr_idx) + " throughput=" + str(num_img / total_time) + "\n")
+
+        fo.write("     sr_idx=" + str(sr_idx) + " average_batch_time=" + str(total_time / num_batch) + "\n")
+        fo.write("     sr_idx=" + str(sr_idx) + " throughput_batch=" + str(num_batch / total_time) + "\n")
+
         fo.write("\n")
     fo.close()
 
@@ -373,11 +377,10 @@ def test_1_batch_examples(starter, ender, model):
     correct_k = 0
     total_time = 0
     num_img = 0
+    num_batch = 0
     is_stop = False
     for i in range(100000):
-        print("pos-1")
         for idx, (input, target) in enumerate(val_loader):
-            print("pos0")
             if torch.cuda.is_available():
                 input = input.cuda(non_blocking=True)
                 target = target.cuda(non_blocking=True)
@@ -388,15 +391,16 @@ def test_1_batch_examples(starter, ender, model):
             curr_time = starter.elapsed_time(ender)
             total_time += curr_time
             num_img += args.batch_size
-            print("image number", num_img, " idx=", idx)
+            num_batch += 1
+            print("image number", num_img, " idx=", idx, "num_batch=", num_batch)
             correct_k += accuracy_float(output, target, topk=(1, 1))
-            if num_img >= args.predict_image_nums:
+            if num_img >= args.predict_batch_nums*args.batch_size:
                 is_stop = True
                 break
 
         if is_stop == True:
             break
-    return correct_k, num_img, total_time
+    return correct_k, num_img, total_time, num_batch
 
 
 if __name__ == '__main__':
