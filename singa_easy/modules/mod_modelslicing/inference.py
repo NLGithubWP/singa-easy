@@ -235,12 +235,19 @@ def main():
     starter = torch.cuda.Event(enable_timing=True)
     ender = torch.cuda.Event(enable_timing=True)
 
-    #GPU-WARM-UP
+    warmUpTime = 0
     for idx, (input, target) in enumerate(val_loader):
+        warmUpTime += 1
+        print("GPU-WARM-UP batchid", idx)
         if torch.cuda.is_available():
-            input.cuda(non_blocking=True)
-        break
+            input = input.cuda(non_blocking=True)
+            target.cuda(non_blocking=True)
+        model(input)
+        torch.cuda.synchronize()
+        if warmUpTime>5:
+            break
 
+    print("GPU-WARM-UP done")
     result = []
     fo = open(args.predicted_save_file + ".txt", "a+")
 
