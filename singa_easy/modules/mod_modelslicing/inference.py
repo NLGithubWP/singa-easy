@@ -244,8 +244,8 @@ def main():
         correct_k, num_img, total_time = test_1_batch_examples(starter, ender, model)
         result.append([correct_k, num_img, total_time, args.sr_list[sr_idx]])
 
-    fo = open("prediction_res.txt", "a")
-
+    fo = open("prediction_res.txt", "a+")
+    fo.write("When num_img=" + str(args.predict_image_nums) + "\n")
     for ele in result:
         correct_k, num_img, total_time, sr_idx = ele[0], ele[1], ele[2], ele[3]
         print("sr_idx=", sr_idx, " correct_k", correct_k)
@@ -255,14 +255,14 @@ def main():
         print("sr_idx=", sr_idx, " throughput", num_img / total_time)
         print("sr_idx=", sr_idx, " End", "---" * 20)
 
-        fo.write("When num_img=" + str(num_img) + "\n")
-        fo.write("sr_idx=" + str(sr_idx) + " num_img=" + str(num_img) + "\n")
-        fo.write("sr_idx=" + str(sr_idx) + " correct_k=" + str(correct_k) + "\n")
-        fo.write("sr_idx=" + str(sr_idx) + " accuracy=" + str(correct_k / num_img) + "\n")
-        fo.write("sr_idx=" + str(sr_idx) + " average_time=" + str(total_time / num_img) + "\n")
-        fo.write("sr_idx=" + str(sr_idx) + " throughput=" + str(num_img / total_time) + "\n")
+        fo.write("     sr_idx=" + str(sr_idx) + " num_img=" + str(num_img) + "\n")
+        fo.write("     sr_idx=" + str(sr_idx) + " correct_k=" + str(correct_k) + "\n")
+        fo.write("     sr_idx=" + str(sr_idx) + " accuracy=" + str(correct_k / num_img) + "\n")
+        fo.write("     sr_idx=" + str(sr_idx) + " average_time=" + str(total_time / num_img) + "\n")
+        fo.write("     sr_idx=" + str(sr_idx) + " throughput=" + str(num_img / total_time) + "\n")
         fo.write("\n")
     fo.close()
+
 
 def create_model(args, print_logger):
     print_logger.info("==> creating model '{}'".format(args.net_type))
