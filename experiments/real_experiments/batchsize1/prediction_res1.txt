@@ -1,0 +1,406 @@
+When num_img=1
+     sr_idx=0.25 num_img=1
+     sr_idx=0.25 correct_k=tensor([1.], device='cuda:0')
+     sr_idx=0.25 accuracy=tensor([1.], device='cuda:0')
+     sr_idx=0.25 average_time=95.28777313232422
+     sr_idx=0.25 total_time=95.28777313232422
+     sr_idx=0.25 throughput=0.010494525867566662
+
+     sr_idx=0.5 num_img=1
+     sr_idx=0.5 correct_k=tensor([0.], device='cuda:0')
+     sr_idx=0.5 accuracy=tensor([0.], device='cuda:0')
+     sr_idx=0.5 average_time=83.72473907470703
+     sr_idx=0.5 total_time=83.72473907470703
+     sr_idx=0.5 throughput=0.011943901062596404
+
+     sr_idx=0.75 num_img=1
+     sr_idx=0.75 correct_k=tensor([1.], device='cuda:0')
+     sr_idx=0.75 accuracy=tensor([1.], device='cuda:0')
+     sr_idx=0.75 average_time=151.56568908691406
+     sr_idx=0.75 total_time=151.56568908691406
+     sr_idx=0.75 throughput=0.0065977993174072425
+
+     sr_idx=1.0 num_img=1
+     sr_idx=1.0 correct_k=tensor([1.], device='cuda:0')
+     sr_idx=1.0 accuracy=tensor([1.], device='cuda:0')
+     sr_idx=1.0 average_time=228.13194274902344
+     sr_idx=1.0 total_time=228.13194274902344
+     sr_idx=1.0 throughput=0.004383428238719458
+
+When num_img=5
+     sr_idx=0.25 num_img=5
+     sr_idx=0.25 correct_k=tensor([3.], device='cuda:0')
+     sr_idx=0.25 accuracy=tensor([0.6000], device='cuda:0')
+     sr_idx=0.25 average_time=40.1185661315918
+     sr_idx=0.25 total_time=200.59283065795898
+     sr_idx=0.25 throughput=0.02492611517370605
+
+     sr_idx=0.5 num_img=5
+     sr_idx=0.5 correct_k=tensor([3.], device='cuda:0')
+     sr_idx=0.5 accuracy=tensor([0.6000], device='cuda:0')
+     sr_idx=0.5 average_time=37.27684421539307
+     sr_idx=0.5 total_time=186.38422107696533
+     sr_idx=0.5 throughput=0.026826305204963163
+
+     sr_idx=0.75 num_img=5
+     sr_idx=0.75 correct_k=tensor([2.], device='cuda:0')
+     sr_idx=0.75 accuracy=tensor([0.4000], device='cuda:0')
+     sr_idx=0.75 average_time=43.56571388244629
+     sr_idx=0.75 total_time=217.82856941223145
+     sr_idx=0.75 throughput=0.02295383022296634
+
+     sr_idx=1.0 num_img=5
+     sr_idx=1.0 correct_k=tensor([5.], device='cuda:0')
+     sr_idx=1.0 accuracy=tensor([1.], device='cuda:0')
+     sr_idx=1.0 average_time=70.04298839569091
+     sr_idx=1.0 total_time=350.2149419784546
+     sr_idx=1.0 throughput=0.014276946528191259
+
+When num_img=10
+     sr_idx=0.25 num_img=10
+     sr_idx=0.25 correct_k=tensor([8.], device='cuda:0')
+     sr_idx=0.25 accuracy=tensor([0.8000], device='cuda:0')
+     sr_idx=0.25 average_time=27.59609537124634
+     sr_idx=0.25 total_time=275.9609537124634
+     sr_idx=0.25 throughput=0.036237010582371984
+
+     sr_idx=0.5 num_img=10
+     sr_idx=0.5 correct_k=tensor([6.], device='cuda:0')
+     sr_idx=0.5 accuracy=tensor([0.6000], device='cuda:0')
+     sr_idx=0.5 average_time=21.30684118270874
+     sr_idx=0.5 total_time=213.0684118270874
+     sr_idx=0.5 throughput=0.04693328266845747
+
+     sr_idx=0.75 num_img=10
+     sr_idx=0.75 correct_k=tensor([8.], device='cuda:0')
+     sr_idx=0.75 accuracy=tensor([0.8000], device='cuda:0')
+     sr_idx=0.75 average_time=27.477664470672607
+     sr_idx=0.75 total_time=274.7766447067261
+     sr_idx=0.75 throughput=0.03639319495539068
+
+     sr_idx=1.0 num_img=10
+     sr_idx=1.0 correct_k=tensor([9.], device='cuda:0')
+     sr_idx=1.0 accuracy=tensor([0.9000], device='cuda:0')
+     sr_idx=1.0 average_time=34.812757873535155
+     sr_idx=1.0 total_time=348.12757873535156
+     sr_idx=1.0 throughput=0.02872510140198359
+
+When num_img=20
+     sr_idx=0.25 num_img=20
+     sr_idx=0.25 correct_k=tensor([14.], device='cuda:0')
+     sr_idx=0.25 accuracy=tensor([0.7000], device='cuda:0')
+     sr_idx=0.25 average_time=17.533544063568115
+     sr_idx=0.25 total_time=350.6708812713623
+     sr_idx=0.25 throughput=0.05703353505569015
+
+     sr_idx=0.5 num_img=20
+     sr_idx=0.5 correct_k=tensor([13.], device='cuda:0')
+     sr_idx=0.5 accuracy=tensor([0.6500], device='cuda:0')
+     sr_idx=0.5 average_time=20.467112016677856
+     sr_idx=0.5 total_time=409.34224033355713
+     sr_idx=0.5 throughput=0.04885887169548585
+
+     sr_idx=0.75 num_img=20
+     sr_idx=0.75 correct_k=tensor([14.], device='cuda:0')
+     sr_idx=0.75 accuracy=tensor([0.7000], device='cuda:0')
+     sr_idx=0.75 average_time=22.543801736831664
+     sr_idx=0.75 total_time=450.8760347366333
+     sr_idx=0.75 throughput=0.04435809060395601
+
+     sr_idx=1.0 num_img=20
+     sr_idx=1.0 correct_k=tensor([14.], device='cuda:0')
+     sr_idx=1.0 accuracy=tensor([0.7000], device='cuda:0')
+     sr_idx=1.0 average_time=27.907310199737548
+     sr_idx=1.0 total_time=558.146203994751
+     sr_idx=1.0 throughput=0.035832905172258574
+
+When num_img=30
+     sr_idx=0.25 num_img=30
+     sr_idx=0.25 correct_k=tensor([19.], device='cuda:0')
+     sr_idx=0.25 accuracy=tensor([0.6333], device='cuda:0')
+     sr_idx=0.25 average_time=15.793164761861165
+     sr_idx=0.25 total_time=473.79494285583496
+     sr_idx=0.25 throughput=0.06331853147096236
+
+     sr_idx=0.5 num_img=30
+     sr_idx=0.5 correct_k=tensor([25.], device='cuda:0')
+     sr_idx=0.5 accuracy=tensor([0.8333], device='cuda:0')
+     sr_idx=0.5 average_time=15.36626459757487
+     sr_idx=0.5 total_time=460.9879379272461
+     sr_idx=0.5 throughput=0.06507762466603768
+
+     sr_idx=0.75 num_img=30
+     sr_idx=0.75 correct_k=tensor([21.], device='cuda:0')
+     sr_idx=0.75 accuracy=tensor([0.7000], device='cuda:0')
+     sr_idx=0.75 average_time=17.411675866444906
+     sr_idx=0.75 total_time=522.3502759933472
+     sr_idx=0.75 throughput=0.057432725469416794
+
+     sr_idx=1.0 num_img=30
+     sr_idx=1.0 correct_k=tensor([20.], device='cuda:0')
+     sr_idx=1.0 accuracy=tensor([0.6667], device='cuda:0')
+     sr_idx=1.0 average_time=24.628800264994304
+     sr_idx=1.0 total_time=738.8640079498291
+     sr_idx=1.0 throughput=0.04060287099820009
+
+When num_img=40
+     sr_idx=0.25 num_img=40
+     sr_idx=0.25 correct_k=tensor([31.], device='cuda:0')
+     sr_idx=0.25 accuracy=tensor([0.7750], device='cuda:0')
+     sr_idx=0.25 average_time=14.961615943908692
+     sr_idx=0.25 total_time=598.4646377563477
+     sr_idx=0.25 throughput=0.06683770013540075
+
+     sr_idx=0.5 num_img=40
+     sr_idx=0.5 correct_k=tensor([32.], device='cuda:0')
+     sr_idx=0.5 accuracy=tensor([0.8000], device='cuda:0')
+     sr_idx=0.5 average_time=16.926785635948182
+     sr_idx=0.5 total_time=677.0714254379272
+     sr_idx=0.5 throughput=0.05907796208373164
+
+     sr_idx=0.75 num_img=40
+     sr_idx=0.75 correct_k=tensor([31.], device='cuda:0')
+     sr_idx=0.75 accuracy=tensor([0.7750], device='cuda:0')
+     sr_idx=0.75 average_time=18.303681540489197
+     sr_idx=0.75 total_time=732.1472616195679
+     sr_idx=0.75 throughput=0.05463381767148432
+
+     sr_idx=1.0 num_img=40
+     sr_idx=1.0 correct_k=tensor([32.], device='cuda:0')
+     sr_idx=1.0 accuracy=tensor([0.8000], device='cuda:0')
+     sr_idx=1.0 average_time=18.647618687152864
+     sr_idx=1.0 total_time=745.9047474861145
+     sr_idx=1.0 throughput=0.053626150168382763
+
+When num_img=50
+     sr_idx=0.25 num_img=50
+     sr_idx=0.25 correct_k=tensor([35.], device='cuda:0')
+     sr_idx=0.25 accuracy=tensor([0.7000], device='cuda:0')
+     sr_idx=0.25 average_time=15.256270751953124
+     sr_idx=0.25 total_time=762.8135375976562
+     sr_idx=0.25 throughput=0.06554681784681744
+
+     sr_idx=0.5 num_img=50
+     sr_idx=0.5 correct_k=tensor([41.], device='cuda:0')
+     sr_idx=0.5 accuracy=tensor([0.8200], device='cuda:0')
+     sr_idx=0.5 average_time=15.56063232421875
+     sr_idx=0.5 total_time=778.0316162109375
+     sr_idx=0.5 throughput=0.06426474060720452
+
+     sr_idx=0.75 num_img=50
+     sr_idx=0.75 correct_k=tensor([31.], device='cuda:0')
+     sr_idx=0.75 accuracy=tensor([0.6200], device='cuda:0')
+     sr_idx=0.75 average_time=16.566742973327635
+     sr_idx=0.75 total_time=828.3371486663818
+     sr_idx=0.75 throughput=0.060361895009175576
+
+     sr_idx=1.0 num_img=50
+     sr_idx=1.0 correct_k=tensor([35.], device='cuda:0')
+     sr_idx=1.0 accuracy=tensor([0.7000], device='cuda:0')
+     sr_idx=1.0 average_time=19.90921583175659
+     sr_idx=1.0 total_time=995.4607915878296
+     sr_idx=1.0 throughput=0.05022799533896911
+
+When num_img=60
+     sr_idx=0.25 num_img=60
+     sr_idx=0.25 correct_k=tensor([40.], device='cuda:0')
+     sr_idx=0.25 accuracy=tensor([0.6667], device='cuda:0')
+     sr_idx=0.25 average_time=12.79171633720398
+     sr_idx=0.25 total_time=767.5029802322388
+     sr_idx=0.25 throughput=0.07817559220661865
+
+     sr_idx=0.5 num_img=60
+     sr_idx=0.5 correct_k=tensor([47.], device='cuda:0')
+     sr_idx=0.5 accuracy=tensor([0.7833], device='cuda:0')
+     sr_idx=0.5 average_time=14.01565170288086
+     sr_idx=0.5 total_time=840.9391021728516
+     sr_idx=0.5 throughput=0.07134880497882622
+
+     sr_idx=0.75 num_img=60
+     sr_idx=0.75 correct_k=tensor([37.], device='cuda:0')
+     sr_idx=0.75 accuracy=tensor([0.6167], device='cuda:0')
+     sr_idx=0.75 average_time=15.03942616780599
+     sr_idx=0.75 total_time=902.3655700683594
+     sr_idx=0.75 throughput=0.06649189861649382
+
+     sr_idx=1.0 num_img=60
+     sr_idx=1.0 correct_k=tensor([48.], device='cuda:0')
+     sr_idx=1.0 accuracy=tensor([0.8000], device='cuda:0')
+     sr_idx=1.0 average_time=15.441742340723673
+     sr_idx=1.0 total_time=926.5045404434204
+     sr_idx=1.0 throughput=0.06475953153050314
+
+When num_img=70
+     sr_idx=0.25 num_img=70
+     sr_idx=0.25 correct_k=tensor([44.], device='cuda:0')
+     sr_idx=0.25 accuracy=tensor([0.6286], device='cuda:0')
+     sr_idx=0.25 average_time=14.484896877833775
+     sr_idx=0.25 total_time=1013.9427814483643
+     sr_idx=0.25 throughput=0.06903742625398315
+
+     sr_idx=0.5 num_img=70
+     sr_idx=0.5 correct_k=tensor([52.], device='cuda:0')
+     sr_idx=0.5 accuracy=tensor([0.7429], device='cuda:0')
+     sr_idx=0.5 average_time=14.6761659349714
+     sr_idx=0.5 total_time=1027.331615447998
+     sr_idx=0.5 throughput=0.06813768694295896
+
+     sr_idx=0.75 num_img=70
+     sr_idx=0.75 correct_k=tensor([48.], device='cuda:0')
+     sr_idx=0.75 accuracy=tensor([0.6857], device='cuda:0')
+     sr_idx=0.75 average_time=15.531340830666679
+     sr_idx=0.75 total_time=1087.1938581466675
+     sr_idx=0.75 throughput=0.0643859413622227
+
+     sr_idx=1.0 num_img=70
+     sr_idx=1.0 correct_k=tensor([48.], device='cuda:0')
+     sr_idx=1.0 accuracy=tensor([0.6857], device='cuda:0')
+     sr_idx=1.0 average_time=16.620503466469902
+     sr_idx=1.0 total_time=1163.435242652893
+     sr_idx=1.0 throughput=0.06016664910406557
+
+When num_img=80
+     sr_idx=0.25 num_img=80
+     sr_idx=0.25 correct_k=tensor([57.], device='cuda:0')
+     sr_idx=0.25 accuracy=tensor([0.7125], device='cuda:0')
+     sr_idx=0.25 average_time=13.417908036708832
+     sr_idx=0.25 total_time=1073.4326429367065
+     sr_idx=0.25 throughput=0.07452726589451882
+
+     sr_idx=0.5 num_img=80
+     sr_idx=0.5 correct_k=tensor([52.], device='cuda:0')
+     sr_idx=0.5 accuracy=tensor([0.6500], device='cuda:0')
+     sr_idx=0.5 average_time=13.503073167800903
+     sr_idx=0.5 total_time=1080.2458534240723
+     sr_idx=0.5 throughput=0.07405721553702127
+
+     sr_idx=0.75 num_img=80
+     sr_idx=0.75 correct_k=tensor([56.], device='cuda:0')
+     sr_idx=0.75 accuracy=tensor([0.7000], device='cuda:0')
+     sr_idx=0.75 average_time=13.908633196353913
+     sr_idx=0.75 total_time=1112.690655708313
+     sr_idx=0.75 throughput=0.07189779080967824
+
+     sr_idx=1.0 num_img=80
+     sr_idx=1.0 correct_k=tensor([66.], device='cuda:0')
+     sr_idx=1.0 accuracy=tensor([0.8250], device='cuda:0')
+     sr_idx=1.0 average_time=14.705081731081009
+     sr_idx=1.0 total_time=1176.4065384864807
+     sr_idx=1.0 throughput=0.06800370227704185
+
+When num_img=100
+     sr_idx=0.25 num_img=100
+     sr_idx=0.25 correct_k=tensor([66.], device='cuda:0')
+     sr_idx=0.25 accuracy=tensor([0.6600], device='cuda:0')
+     sr_idx=0.25 average_time=13.140983648300171
+     sr_idx=0.25 total_time=1314.098364830017
+     sr_idx=0.25 throughput=0.07609780414949023
+
+     sr_idx=0.5 num_img=100
+     sr_idx=0.5 correct_k=tensor([79.], device='cuda:0')
+     sr_idx=0.5 accuracy=tensor([0.7900], device='cuda:0')
+     sr_idx=0.5 average_time=13.637041635513306
+     sr_idx=0.5 total_time=1363.7041635513306
+     sr_idx=0.5 throughput=0.07332968738584918
+
+     sr_idx=0.75 num_img=100
+     sr_idx=0.75 correct_k=tensor([82.], device='cuda:0')
+     sr_idx=0.75 accuracy=tensor([0.8200], device='cuda:0')
+     sr_idx=0.75 average_time=13.607569398880004
+     sr_idx=0.75 total_time=1360.7569398880005
+     sr_idx=0.75 throughput=0.0734885100113696
+
+     sr_idx=1.0 num_img=100
+     sr_idx=1.0 correct_k=tensor([70.], device='cuda:0')
+     sr_idx=1.0 accuracy=tensor([0.7000], device='cuda:0')
+     sr_idx=1.0 average_time=13.430684423446655
+     sr_idx=1.0 total_time=1343.0684423446655
+     sr_idx=1.0 throughput=0.07445636934587244
+
+When num_img=120
+     sr_idx=0.25 num_img=120
+     sr_idx=0.25 correct_k=tensor([85.], device='cuda:0')
+     sr_idx=0.25 accuracy=tensor([0.7083], device='cuda:0')
+     sr_idx=0.25 average_time=10.757225648562114
+     sr_idx=0.25 total_time=1290.8670778274536
+     sr_idx=0.25 throughput=0.09296077191926033
+
+     sr_idx=0.5 num_img=120
+     sr_idx=0.5 correct_k=tensor([90.], device='cuda:0')
+     sr_idx=0.5 accuracy=tensor([0.7500], device='cuda:0')
+     sr_idx=0.5 average_time=12.504225365320842
+     sr_idx=0.5 total_time=1500.507043838501
+     sr_idx=0.5 throughput=0.07997296679995829
+
+     sr_idx=0.75 num_img=120
+     sr_idx=0.75 correct_k=tensor([86.], device='cuda:0')
+     sr_idx=0.75 accuracy=tensor([0.7167], device='cuda:0')
+     sr_idx=0.75 average_time=12.723340288798015
+     sr_idx=0.75 total_time=1526.8008346557617
+     sr_idx=0.75 throughput=0.07859571286326658
+
+     sr_idx=1.0 num_img=120
+     sr_idx=1.0 correct_k=tensor([90.], device='cuda:0')
+     sr_idx=1.0 accuracy=tensor([0.7500], device='cuda:0')
+     sr_idx=1.0 average_time=12.62195018529892
+     sr_idx=1.0 total_time=1514.6340222358704
+     sr_idx=1.0 throughput=0.0792270596317773
+
+When num_img=140
+     sr_idx=0.25 num_img=140
+     sr_idx=0.25 correct_k=tensor([99.], device='cuda:0')
+     sr_idx=0.25 accuracy=tensor([0.7071], device='cuda:0')
+     sr_idx=0.25 average_time=11.609457329341344
+     sr_idx=0.25 total_time=1625.324026107788
+     sr_idx=0.25 throughput=0.08613667044303909
+
+     sr_idx=0.5 num_img=140
+     sr_idx=0.5 correct_k=tensor([99.], device='cuda:0')
+     sr_idx=0.5 accuracy=tensor([0.7071], device='cuda:0')
+     sr_idx=0.5 average_time=12.749979673113142
+     sr_idx=0.5 total_time=1784.9971542358398
+     sr_idx=0.5 throughput=0.07843149758966099
+
+     sr_idx=0.75 num_img=140
+     sr_idx=0.75 correct_k=tensor([95.], device='cuda:0')
+     sr_idx=0.75 accuracy=tensor([0.6786], device='cuda:0')
+     sr_idx=0.75 average_time=13.425701979228428
+     sr_idx=0.75 total_time=1879.59827709198
+     sr_idx=0.75 throughput=0.0744840010263262
+
+     sr_idx=1.0 num_img=140
+     sr_idx=1.0 correct_k=tensor([102.], device='cuda:0')
+     sr_idx=1.0 accuracy=tensor([0.7286], device='cuda:0')
+     sr_idx=1.0 average_time=13.002790113857815
+     sr_idx=1.0 total_time=1820.390615940094
+     sr_idx=1.0 throughput=0.07690657091620998
+
+When num_img=150
+     sr_idx=0.25 num_img=150
+     sr_idx=0.25 correct_k=tensor([109.], device='cuda:0')
+     sr_idx=0.25 accuracy=tensor([0.7267], device='cuda:0')
+     sr_idx=0.25 average_time=11.27739673614502
+     sr_idx=0.25 total_time=1691.609510421753
+     sr_idx=0.25 throughput=0.08867294672669576
+
+     sr_idx=0.5 num_img=150
+     sr_idx=0.5 correct_k=tensor([105.], device='cuda:0')
+     sr_idx=0.5 accuracy=tensor([0.7000], device='cuda:0')
+     sr_idx=0.5 average_time=10.40029951731364
+     sr_idx=0.5 total_time=1560.044927597046
+     sr_idx=0.5 throughput=0.09615107702766396
+
+     sr_idx=0.75 num_img=150
+     sr_idx=0.75 correct_k=tensor([105.], device='cuda:0')
+     sr_idx=0.75 accuracy=tensor([0.7000], device='cuda:0')
+     sr_idx=0.75 average_time=10.196819868087768
+     sr_idx=0.75 total_time=1529.5229802131653
+     sr_idx=0.75 throughput=0.09806979165432017
+
+     sr_idx=1.0 num_img=150
+     sr_idx=1.0 correct_k=tensor([118.], device='cuda:0')
+     sr_idx=1.0 accuracy=tensor([0.7867], device='cuda:0')
+     sr_idx=1.0 average_time=10.43771283785502
+     sr_idx=1.0 total_time=1565.6569256782532
+     sr_idx=1.0 throughput=0.09580642958227836
+
