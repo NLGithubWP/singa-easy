@@ -251,8 +251,9 @@ def main():
         args.sr_idx = sr_idx
         print("Begin", "---" * 20)
         print("Under slice rate ", args.sr_list[sr_idx], "---" * 5)
+        print("pos-3")
         model.module.update_sr_idx(sr_idx)
-
+        print("pos-2")
         correct_k, num_img, total_time = test_1_batch_examples(starter, ender, model)
         result.append([correct_k, num_img, total_time, args.sr_list[sr_idx]])
 
@@ -376,17 +377,20 @@ def test_1_batch_examples(starter, ender, model):
     num_img = 0
     is_stop = False
     for i in range(100000):
+        print("pos-1")
         for idx, (input, target) in enumerate(val_loader):
+            print("pos0")
             if torch.cuda.is_available():
                 input = input.cuda(non_blocking=True)
                 target = target.cuda(non_blocking=True)
+            print("pos1")
             starter.record()
             output = model(input)
             ender.record()
             torch.cuda.synchronize()
             curr_time = starter.elapsed_time(ender)
             total_time += curr_time
-
+            print("pos2")
             num_img += args.batch_size
             print("image number", num_img, " idx=", idx)
             correct_k += accuracy_float(output, target, topk=(1, 1))
