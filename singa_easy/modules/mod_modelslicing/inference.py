@@ -259,6 +259,7 @@ def main():
         fo.write("     sr_idx=" + str(sr_idx) + " correct_k=" + str(correct_k) + "\n")
         fo.write("     sr_idx=" + str(sr_idx) + " accuracy=" + str(correct_k / num_img) + "\n")
         fo.write("     sr_idx=" + str(sr_idx) + " average_time=" + str(total_time / num_img) + "\n")
+        fo.write("     sr_idx=" + str(sr_idx) + " total_time=" + str(total_time) + "\n")
         fo.write("     sr_idx=" + str(sr_idx) + " throughput=" + str(num_img / total_time) + "\n")
         fo.write("\n")
     fo.close()
