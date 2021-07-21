@@ -19,6 +19,18 @@ warnings.filterwarnings("ignore", category=SourceChangeWarning)
 
 parser = argparse.ArgumentParser(
     description='CIFAR-10, CIFAR-100 and ImageNet-1k Model Slicing Training')
+
+parser.add_argument(
+    '--predict_image_nums',
+    default=1,
+    type=int,
+    help='number of processing a batch of images.')
+
+parser.add_argument('--depth',
+                    default=50,
+                    type=int,
+                    help='depth of the network')
+
 parser.add_argument(
     '--exp_name',
     default='',
@@ -324,10 +336,6 @@ def test_any_batch_examples(starter, ender, model):
         num_img += args.batch_size
         print("image number", num_img)
         correct_k += accuracy_float(output, target, topk=(1, 1))
-        if nbatch >= 20:
-            break
-        else:
-            nbatch += 1
     print("correct_k", correct_k)
     print("num_img", num_img)
     print("accuracy", correct_k / num_img)
@@ -335,13 +343,15 @@ def test_any_batch_examples(starter, ender, model):
     print("End", "---" * 20)
 
 
-def test_1_batch_examples(starter, ender, model, times):
+def test_1_batch_examples(starter, ender, model):
     correct_k = 0
     total_time = 0
-    nbatch = 1
     num_img = 0
-    for i in range(times):
+    is_stop = False
+    for i in range(100000):
         for idx, (input, target) in enumerate(val_loader):
+            if idx!=i:
+                continue
             if torch.cuda.is_available():
                 input = input.cuda(non_blocking=True)
                 target = target.cuda(non_blocking=True)
@@ -356,10 +366,12 @@ def test_1_batch_examples(starter, ender, model, times):
             num_img += args.batch_size
             print("image number", num_img)
             correct_k += accuracy_float(output, target, topk=(1, 1))
-            if nbatch >= 20:
+            if num_img >= args.predict_image_nums:
+                is_stop = True
                 break
-            else:
-                nbatch += 1
+        if is_stop == True:
+            break
+
     print("correct_k", correct_k)
     print("num_img", num_img)
     print("accuracy", correct_k / num_img)
