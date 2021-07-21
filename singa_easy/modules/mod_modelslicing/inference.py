@@ -241,7 +241,7 @@ def main():
         print("Under slice rate ", args.sr_list[sr_idx], "---" * 5)
         model.module.update_sr_idx(sr_idx)
 
-        test_1_batch_examples(starter, ender, model, sr_idx)
+        test_1_batch_examples(starter, ender, model, args.sr_list[sr_idx])
 
 
 def create_model(args, print_logger):
