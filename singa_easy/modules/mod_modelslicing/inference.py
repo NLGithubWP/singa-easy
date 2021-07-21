@@ -26,11 +26,6 @@ parser.add_argument(
     type=int,
     help='number of processing a batch of images.')
 
-parser.add_argument('--depth',
-                    default=50,
-                    type=int,
-                    help='depth of the network')
-
 parser.add_argument(
     '--exp_name',
     default='',
@@ -239,6 +234,7 @@ def main():
             input.cuda(non_blocking=True)
         break
 
+    print("predict_image_nums is ", args.predict_image_nums)
     for sr_idx in reversed(range(len(args.sr_list))):
         args.sr_idx = sr_idx
         print("Begin", "---" * 20)
