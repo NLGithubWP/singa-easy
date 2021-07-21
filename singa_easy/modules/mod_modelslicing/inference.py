@@ -254,11 +254,13 @@ def main():
         print("sr_idx=", sr_idx, " average_time", total_time / num_img)
         print("sr_idx=", sr_idx, " throughput", num_img / total_time)
         print("sr_idx=", sr_idx, " End", "---" * 20)
-        fo.write("sr_idx=" + str(sr_idx) + " correct_k" + str(correct_k) + "\n")
-        fo.write("sr_idx=" + str(sr_idx) + " num_img" + str(num_img) + "\n")
-        fo.write("sr_idx=" + str(sr_idx) + " accuracy" + str(correct_k / num_img) + "\n")
-        fo.write("sr_idx=" + str(sr_idx) + " average_time" + str(total_time / num_img) + "\n")
-        fo.write("sr_idx=" + str(sr_idx) + " throughput" + str(num_img / total_time) + "\n")
+
+        fo.write("When num_img=" + str(num_img) + "\n")
+        fo.write("sr_idx=" + str(sr_idx) + " num_img=" + str(num_img) + "\n")
+        fo.write("sr_idx=" + str(sr_idx) + " correct_k=" + str(correct_k) + "\n")
+        fo.write("sr_idx=" + str(sr_idx) + " accuracy=" + str(correct_k / num_img) + "\n")
+        fo.write("sr_idx=" + str(sr_idx) + " average_time=" + str(total_time / num_img) + "\n")
+        fo.write("sr_idx=" + str(sr_idx) + " throughput=" + str(num_img / total_time) + "\n")
         fo.write("\n")
     fo.close()
 
