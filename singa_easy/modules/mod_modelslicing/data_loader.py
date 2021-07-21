@@ -149,7 +149,7 @@ def data_loader(args):
                 normalize,
             ])),
             batch_size=args.batch_size,
-            shuffle=False,
+            shuffle=True,
             num_workers=args.workers,
             pin_memory=True)
 

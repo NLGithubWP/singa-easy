@@ -25,6 +25,14 @@ parser.add_argument(
     type=int,
     help='number of processing a batch of images.')
 
+
+parser.add_argument(
+    '--predicted_save_file',
+    default="a",
+    type=str,
+    help='save file for predicted images')
+
+
 parser.add_argument(
     '--exp_name',
     default='',
@@ -233,8 +241,12 @@ def main():
             input.cuda(non_blocking=True)
         break
 
-    print("predict_image_nums is ", args.predict_image_nums)
+    print("predict_image_nums is ", args.predict_image_nums, "  predicted_save_file is ", args.predicted_save_file)
     result = []
+    fo = open(args.predicted_save_file + ".txt", "a+")
+
+    fo.write("When num_img=" + str(args.predict_image_nums) + "\n")
+
     for sr_idx in reversed(range(len(args.sr_list))):
         args.sr_idx = sr_idx
         print("Begin", "---" * 20)
@@ -244,8 +256,6 @@ def main():
         correct_k, num_img, total_time = test_1_batch_examples(starter, ender, model)
         result.append([correct_k, num_img, total_time, args.sr_list[sr_idx]])
 
-    fo = open("prediction_res3.txt", "a+")
-    fo.write("When num_img=" + str(args.predict_image_nums) + "\n")
     for ele in result:
         correct_k, num_img, total_time, sr_idx = ele[0], ele[1], ele[2], ele[3]
         print("sr_idx=", sr_idx, " correct_k", correct_k)
@@ -367,8 +377,6 @@ def test_1_batch_examples(starter, ender, model):
     is_stop = False
     for i in range(100000):
         for idx, (input, target) in enumerate(val_loader):
-            if idx!=i:
-                continue
             if torch.cuda.is_available():
                 input = input.cuda(non_blocking=True)
                 target = target.cuda(non_blocking=True)
@@ -377,11 +385,10 @@ def test_1_batch_examples(starter, ender, model):
             ender.record()
             torch.cuda.synchronize()
             curr_time = starter.elapsed_time(ender)
-            # calculate
             total_time += curr_time
-            # print(" input.size()", len(target), target)
+
             num_img += args.batch_size
-            print("image number", num_img)
+            print("image number", num_img, " idx=", idx)
             correct_k += accuracy_float(output, target, topk=(1, 1))
             if num_img >= args.predict_image_nums:
                 is_stop = True
