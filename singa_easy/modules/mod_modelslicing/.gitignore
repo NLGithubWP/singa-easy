@@ -23,7 +23,7 @@ fig
 checkpoint
 
 # bash files
-*.sh
+
 info.py
 train_hold.py
 
