@@ -235,15 +235,14 @@ def main():
     starter = torch.cuda.Event(enable_timing=True)
     ender = torch.cuda.Event(enable_timing=True)
 
-    for i in range(5):
-        for idx, (input, target) in enumerate(val_loader):
-            print("GPU-WARM-UP batchid", idx)
-            if torch.cuda.is_available():
-                input = input.cuda(non_blocking=True)
-                target.cuda(non_blocking=True)
-            model(input)
-            torch.cuda.synchronize()
-            break
+    for idx, (input, target) in enumerate(val_loader):
+        print("GPU-WARM-UP batchid", idx)
+        if torch.cuda.is_available():
+            input = input.cuda(non_blocking=True)
+            target.cuda(non_blocking=True)
+        model(input)
+        torch.cuda.synchronize()
+        break
 
     print("GPU-WARM-UP done")
     result = []
