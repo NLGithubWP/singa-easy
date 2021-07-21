@@ -415,24 +415,23 @@ def test_influence(starter, ender, model):
     is_stop = False
     for i in range(100000):
         for idx, (input, target) in enumerate(val_loader):
-            if idx==0:
-                continue
-            if torch.cuda.is_available():
-                input = input.cuda(non_blocking=True)
-                target = target.cuda(non_blocking=True)
-            starter.record()
-            output = model(input)
-            ender.record()
-            torch.cuda.synchronize()
-            curr_time = starter.elapsed_time(ender)
-            total_time += curr_time
-            num_img += args.batch_size
-            num_batch += 1
-            print("image number", num_img, " idx=", idx, "num_batch=", num_batch)
-            correct_k += accuracy_float(output, target, topk=(1, 1))
-            if num_img >= args.predict_batch_nums*args.batch_size:
-                is_stop = True
-                break
+            if idx==4:
+                if torch.cuda.is_available():
+                    input = input.cuda(non_blocking=True)
+                    target = target.cuda(non_blocking=True)
+                starter.record()
+                output = model(input)
+                ender.record()
+                torch.cuda.synchronize()
+                curr_time = starter.elapsed_time(ender)
+                total_time += curr_time
+                num_img += args.batch_size
+                num_batch += 1
+                print("image number", num_img, " idx=", idx, "num_batch=", num_batch)
+                correct_k += accuracy_float(output, target, topk=(1, 1))
+                if num_img >= args.predict_batch_nums*args.batch_size:
+                    is_stop = True
+                    break
 
         if is_stop == True:
             break
