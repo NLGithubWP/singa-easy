@@ -235,14 +235,17 @@ def main():
     starter = torch.cuda.Event(enable_timing=True)
     ender = torch.cuda.Event(enable_timing=True)
 
-    for idx, (input, target) in enumerate(val_loader):
-        print("GPU-WARM-UP batchid", idx)
-        if torch.cuda.is_available():
-            input = input.cuda(non_blocking=True)
-            target.cuda(non_blocking=True)
-        model(input)
-        torch.cuda.synchronize()
-        break
+    for sr_idx in reversed(range(len(args.sr_list))):
+        args.sr_idx = sr_idx
+        model.module.update_sr_idx(sr_idx)
+        for idx, (input, target) in enumerate(val_loader):
+            print("GPU-WARM-UP batchid", idx, "Under slice rate ", args.sr_list[sr_idx], "---" * 5)
+            if torch.cuda.is_available():
+                input = input.cuda(non_blocking=True)
+                target.cuda(non_blocking=True)
+            model(input)
+            torch.cuda.synchronize()
+            break
 
     print("GPU-WARM-UP done")
     result = []
