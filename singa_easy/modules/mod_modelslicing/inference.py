@@ -336,10 +336,9 @@ def test_scheduler_batch_examples(starter, ender, model):
 
     result = []
     fo = open(args.predicted_save_file + ".txt", "a+")
-
+    max_images_num = args.predict_batch_nums * args.batch_size
     fo.write("When num_img/batch_size=" + str(args.predict_batch_nums) + "\n")
-
-    max_images_num = args.predict_batch_nums*args.batch_size
+    fo.write("And max_images_num=" + str(max_images_num) + "\n")
 
     if max_images_num in scheduler_map:
         n1, n2, n3, n4 = scheduler_map[max_images_num]
@@ -460,6 +459,8 @@ def test_1_batch_examples(starter, ender, model, maximg):
     for i in range(99999999):
         for idx, (input, target) in enumerate(val_loader):
             print("Size is ", target.size(), int(target.size()[0]))
+            if int(target.size()[0]) != 32:
+                continue
             if torch.cuda.is_available():
                 input = input.cuda(non_blocking=True)
                 target = target.cuda(non_blocking=True)
