@@ -342,6 +342,13 @@ def test_scheduler_batch_examples(starter, ender, model):
 
     if max_images_num in scheduler_map:
         n1, n2, n3, n4 = scheduler_map[max_images_num]
+        fo.write("Schedule result=[" +
+                 str(n1) + " " +
+                 str(n2) + " " +
+                 str(n3) + " " +
+                 str(n4) + " " + "]"
+                 "\n")
+
     else:
         fo.write("     scheduler not support the current workload\n")
         fo.close()
