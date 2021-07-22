@@ -316,7 +316,7 @@ def main():
 
     print("GPU-WARM-UP done")
 
-    log_test_1_batch_examples(model, starter, ender)
+    test_scheduler_batch_examples(model, starter, ender)
 
 
 def test_scheduler_batch_examples(starter, ender, model):
