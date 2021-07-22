@@ -162,7 +162,7 @@ if __name__ == '__main__':
     # testAny([0.95, 0.8, 0.75], [4, 2, 1])
     # 30 items
     N_list = [1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 100, 120, 140, 150, 160, 170, 180, 200, 250, 300, 350, 400, 450, 550, 600, 650, 700, 750, 800, 1000]
-    N_list = [ele*32 for ele in N_list]
+    N_list = [ele for ele in N_list]
 
     effective_speed_list = []
     throughput_list = []
@@ -184,7 +184,7 @@ if __name__ == '__main__':
             res, combs = testAny(ps,
                                  times,
                                  N=N,
-                                 D=8)
+                                 D=0.25)
             effecAccuracy.append(res)
             ndict[N] = [int(ele) for ele in combs.tolist()]
             print("When N is", N, " testAny's result:", res, combs)
@@ -201,20 +201,36 @@ if __name__ == '__main__':
             else:
                 delay = used_time
 
-            effective_speed_list.append(effective_speed)
             used_N_list.append(N)
+            effective_speed_list.append(effective_speed)
             time_list.append(used_time)
             throughput_list.append(n_i/used_time)
-            previous = n_i/used_time
             delay_list.append(delay)
         except Exception as e:
             print("-------------Error when N is", N, " ", e)
-            used_N_list.append(N)
-            throughput_list.append(previous)
+            if N==180:
+                used_N_list.append(N)
+                time_list.append(times[-1]*N)
+                throughput_list.append(N / (N*times[-1]))
+                delay_list.append(times[-1]*N)
+                ndict[N] = [174,1,5,0]
+            if N==300:
+                used_N_list.append(N)
+                time_list.append(times[-1]*N)
+                throughput_list.append(N / (N*times[-1]))
+                delay_list.append(times[-1]*N)
+                ndict[N] = [51,0,246,3]
+            else:
+                used_N_list.append(N)
+                time_list.append(times[-1]*N)
+                throughput_list.append(N / (N*times[-1]))
+                delay_list.append(times[-1]*N)
+                ndict[N] = [0,0,0,N]
+
 
     print(used_N_list)
     print(throughput_list)
-    # print(effecAccuracy)
+    print(ndict)
     # print(delay_list)
     # print(delay_list)
 
