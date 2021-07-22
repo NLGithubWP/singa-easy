@@ -457,8 +457,9 @@ def test_1_batch_examples(starter, ender, model, maximg):
     num_img = 0
     num_batch = 0
     is_stop = False
-    for i in range(100000):
+    for i in range(99999999):
         for idx, (input, target) in enumerate(val_loader):
+            print("Size is ", target.size())
             if torch.cuda.is_available():
                 input = input.cuda(non_blocking=True)
                 target = target.cuda(non_blocking=True)
