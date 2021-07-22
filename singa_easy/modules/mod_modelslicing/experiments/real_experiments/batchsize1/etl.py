@@ -64,8 +64,6 @@ for ele in contents:
     if "sr_idx=1.0 throughput=" in ele:
         throughput_1.append(float(ele[22:])*1000)
 
-
-
 print("X->")
 print(X)
 
