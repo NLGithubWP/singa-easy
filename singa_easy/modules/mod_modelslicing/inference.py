@@ -321,13 +321,14 @@ def main():
 
 def test_scheduler_batch_examples(starter, ender, model):
     scheduler_map = \
-        {32: [32, 0, 0, 0], 160: [160, 0, 0, 0], 320: [320, 0, 0, 0], 640: [640, 0, 0, 0], 960: [960, 0, 0, 0],
-         1280: [1280, 0, 0, 0], 1600: [1600, 0, 0, 0], 1920: [1920, 0, 0, 0], 2240: [2240, 0, 0, 0], 2560: [2560, 0, 0, 0],
-         3200: [3200, 0, 0, 0], 3840: [3840, 0, 0, 0], 4480: [4480, 0, 0, 0], 4800: [4800, 0, 0, 0], 5120: [5120, 0, 0, 0],
-         5440: [5440, 0, 0, 0], 5760: [5586, 0, 174, 0], 6400: [4937, 0, 1463, 0], 8000: [3314, 0, 4686, 0],
-         9600: [1691, 0, 7909, 0], 11200: [68, 1, 11131, 0], 12800: [0, 0, 7854, 4946], 17600: [0, 0, 1, 16325],
-         19200: [0, 0, 1, 16325], 20800: [0, 0, 1, 16325], 22400: [0, 0, 1, 16325], 24000: [0, 0, 1, 16325],
-         25600: [0, 0, 1, 16325], 32000: [0, 0, 1, 16325]}
+        {1: [1, 0, 0, 0], 5: [5, 0, 0, 0], 10: [10, 0, 0, 0], 20: [20, 0, 0, 0],
+         30: [30, 0, 0, 0], 40: [40, 0, 0, 0], 50: [50, 0, 0, 0], 60: [60, 0, 0, 0],
+         70: [70, 0, 0, 0], 80: [80, 0, 0, 0], 100: [100, 0, 0, 0], 120: [120, 0, 0, 0],
+         140: [140, 0, 0, 0], 150: [150, 0, 0, 0], 160: [160, 0, 0, 0], 170: [170, 0, 0, 0],
+         180: [0, 0, 0, 180], 200: [154, 0, 46, 0], 250: [103, 1, 146, 0], 300: [51, 0, 246, 3],
+         350: [2, 0, 348, 0], 400: [0, 0, 245, 155], 450: [0, 0, 134, 316], 550: [0, 0, 0, 550],
+         600: [0, 0, 0, 600], 650: [0, 0, 0, 650], 700: [0, 0, 0, 700], 750: [0, 0, 0, 750],
+         800: [0, 0, 0, 800], 1000: [0, 0, 0, 1000]}
 
     sliceRateMapper = {0.25: 3,
                        0.5: 2,
@@ -336,12 +337,11 @@ def test_scheduler_batch_examples(starter, ender, model):
 
     result = []
     fo = open(args.predicted_save_file + ".txt", "a+")
-    max_images_num = args.predict_batch_nums * args.batch_size
-    fo.write("When num_img/batch_size=" + str(args.predict_batch_nums) + "\n")
-    fo.write("And max_images_num=" + str(max_images_num) + "\n")
+    max_batch = args.predict_batch_nums
+    fo.write("When num_img/batch_size=" + str(max_batch) + "\n")
 
-    if max_images_num in scheduler_map:
-        n1, n2, n3, n4 = scheduler_map[max_images_num]
+    if max_batch in scheduler_map:
+        n1, n2, n3, n4 = scheduler_map[max_batch]
         fo.write("Schedule result=[" +
                  str(n1) + " " +
                  str(n2) + " " +
@@ -360,7 +360,7 @@ def test_scheduler_batch_examples(starter, ender, model):
     num_batch = 0
 
     if n1 != 0:
-        print("Switch to model with slice-rate=", sliceRateMapper[1.0])
+        print("Switch to model with slice-rate=", 1.0)
         model.module.update_sr_idx(sliceRateMapper[1.0])
         correct_k_tmp, num_img_tmp, total_time_tmp, num_batch_tmp = test_1_batch_examples(starter, ender, model, n1)
 
@@ -369,7 +369,7 @@ def test_scheduler_batch_examples(starter, ender, model):
         num_img += num_img_tmp
 
     if n2 != 0:
-        print("Switch to model with slice-rate=", sliceRateMapper[0.75])
+        print("Switch to model with slice-rate=", 0.75)
         model.module.update_sr_idx(sliceRateMapper[0.75])
         correct_k_tmp, num_img_tmp, total_time_tmp, num_batch_tmp = test_1_batch_examples(starter, ender, model, n2)
 
@@ -378,7 +378,7 @@ def test_scheduler_batch_examples(starter, ender, model):
         num_img += num_img_tmp
 
     if n3 != 0:
-        print("Switch to model with slice-rate=", sliceRateMapper[0.5])
+        print("Switch to model with slice-rate=", 0.5)
         model.module.update_sr_idx(sliceRateMapper[0.5])
         correct_k_tmp, num_img_tmp, total_time_tmp, num_batch_tmp = test_1_batch_examples(starter, ender, model, n3)
 
@@ -387,7 +387,7 @@ def test_scheduler_batch_examples(starter, ender, model):
         num_img += num_img_tmp
 
     if n4 != 0:
-        print("Switch to model with slice-rate=", sliceRateMapper[0.25])
+        print("Switch to model with slice-rate=", 0.25)
         model.module.update_sr_idx(sliceRateMapper[0.25])
         correct_k_tmp, num_img_tmp, total_time_tmp, num_batch_tmp = test_1_batch_examples(starter, ender, model, n4)
 
@@ -457,7 +457,7 @@ def log_test_1_batch_examples(model, starter, ender):
         fo.write("\n")
     fo.close()
 
-def test_1_batch_examples(starter, ender, model, maximg):
+def test_1_batch_examples(starter, ender, model, maxValue):
     correct_k = 0
     total_time = 0
     num_img = 0
@@ -481,7 +481,7 @@ def test_1_batch_examples(starter, ender, model, maximg):
             num_batch += 1
             print("image number", num_img, " idx=", idx, "num_batch=", num_batch)
             correct_k += accuracy_float(output, target, topk=(1, 1))
-            if num_img >= maximg:
+            if num_batch >= maxValue:
                 is_stop = True
                 break
 
