@@ -1,0 +1,300 @@
+When num_img/batch_size=1
+     sr_idx=scheduler num_img=32
+     sr_idx=scheduler correct_k=tensor([27.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.8438], device='cuda:0')
+     sr_idx=scheduler average_time=1.6346780061721802
+     sr_idx=scheduler total_time=52.309696197509766
+     sr_idx=scheduler throughput=0.6117412702833357
+     sr_idx=scheduler average_batch_time=52.309696197509766
+     sr_idx=scheduler throughput_batch=0.01911691469635424
+
+When num_img/batch_size=5
+     sr_idx=scheduler num_img=160
+     sr_idx=scheduler correct_k=tensor([117.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7312], device='cuda:0')
+     sr_idx=scheduler average_time=1.5805366039276123
+     sr_idx=scheduler total_time=252.88585662841797
+     sr_idx=scheduler throughput=0.6326965142819302
+     sr_idx=scheduler average_batch_time=50.577171325683594
+     sr_idx=scheduler throughput_batch=0.01977176607131032
+
+When num_img/batch_size=10
+     sr_idx=scheduler num_img=320
+     sr_idx=scheduler correct_k=tensor([246.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7688], device='cuda:0')
+     sr_idx=scheduler average_time=3.1393051147460938
+     sr_idx=scheduler total_time=1004.57763671875
+     sr_idx=scheduler throughput=0.3185418312169634
+     sr_idx=scheduler average_batch_time=100.457763671875
+     sr_idx=scheduler throughput_batch=0.009954432225530106
+
+When num_img/batch_size=20
+     sr_idx=scheduler num_img=640
+     sr_idx=scheduler correct_k=tensor([465.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7266], device='cuda:0')
+     sr_idx=scheduler average_time=3.369006985425949
+     sr_idx=scheduler total_time=2156.1644706726074
+     sr_idx=scheduler throughput=0.2968233679318324
+     sr_idx=scheduler average_batch_time=107.80822353363037
+     sr_idx=scheduler throughput_batch=0.009275730247869762
+
+When num_img/batch_size=30
+     sr_idx=scheduler num_img=960
+     sr_idx=scheduler correct_k=tensor([696.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7250], device='cuda:0')
+     sr_idx=scheduler average_time=2.417709028720856
+     sr_idx=scheduler total_time=2321.0006675720215
+     sr_idx=scheduler throughput=0.4136147022328294
+     sr_idx=scheduler average_batch_time=77.36668891906739
+     sr_idx=scheduler throughput_batch=0.01292545944477592
+
+When num_img/batch_size=40
+     sr_idx=scheduler num_img=1280
+     sr_idx=scheduler correct_k=tensor([930.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7266], device='cuda:0')
+     sr_idx=scheduler average_time=2.9491504028439524
+     sr_idx=scheduler total_time=3774.912515640259
+     sr_idx=scheduler throughput=0.3390807057638263
+     sr_idx=scheduler average_batch_time=94.37281289100648
+     sr_idx=scheduler throughput_batch=0.010596272055119572
+
+When num_img/batch_size=50
+     sr_idx=scheduler num_img=1600
+     sr_idx=scheduler correct_k=tensor([1167.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7294], device='cuda:0')
+     sr_idx=scheduler average_time=3.0551509010791777
+     sr_idx=scheduler total_time=4888.241441726685
+     sr_idx=scheduler throughput=0.32731607451755257
+     sr_idx=scheduler average_batch_time=97.76482883453369
+     sr_idx=scheduler throughput_batch=0.010228627328673518
+
+When num_img/batch_size=60
+     sr_idx=scheduler num_img=1920
+     sr_idx=scheduler correct_k=tensor([1395.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7266], device='cuda:0')
+     sr_idx=scheduler average_time=2.3467923452456794
+     sr_idx=scheduler total_time=4505.841302871704
+     sr_idx=scheduler throughput=0.42611354260886375
+     sr_idx=scheduler average_batch_time=75.09735504786174
+     sr_idx=scheduler throughput_batch=0.013316048206526992
+
+When num_img/batch_size=70
+     sr_idx=scheduler num_img=2240
+     sr_idx=scheduler correct_k=tensor([1640.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7321], device='cuda:0')
+     sr_idx=scheduler average_time=2.1513006235871996
+     sr_idx=scheduler total_time=4818.913396835327
+     sr_idx=scheduler throughput=0.46483508117640193
+     sr_idx=scheduler average_batch_time=68.84161995479039
+     sr_idx=scheduler throughput_batch=0.01452609628676256
+
+When num_img/batch_size=80
+     sr_idx=scheduler num_img=2560
+     sr_idx=scheduler correct_k=tensor([1860.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7266], device='cuda:0')
+     sr_idx=scheduler average_time=1.994582685083151
+     sr_idx=scheduler total_time=5106.131673812866
+     sr_idx=scheduler throughput=0.5013580071052867
+     sr_idx=scheduler average_batch_time=63.82664592266083
+     sr_idx=scheduler throughput_batch=0.015667437722040208
+
+When num_img/batch_size=100
+     sr_idx=scheduler num_img=3200
+     sr_idx=scheduler correct_k=tensor([2325.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7266], device='cuda:0')
+     sr_idx=scheduler average_time=1.8479119485616684
+     sr_idx=scheduler total_time=5913.318235397339
+     sr_idx=scheduler throughput=0.5411513252989977
+     sr_idx=scheduler average_batch_time=59.13318235397339
+     sr_idx=scheduler throughput_batch=0.016910978915593677
+
+When num_img/batch_size=120
+     sr_idx=scheduler num_img=3840
+     sr_idx=scheduler correct_k=tensor([2790.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7266], device='cuda:0')
+     sr_idx=scheduler average_time=1.554948315024376
+     sr_idx=scheduler total_time=5971.0015296936035
+     sr_idx=scheduler throughput=0.64310819230305
+     sr_idx=scheduler average_batch_time=49.75834608078003
+     sr_idx=scheduler throughput_batch=0.020097131009470314
+
+When num_img/batch_size=140
+     sr_idx=scheduler num_img=4480
+     sr_idx=scheduler correct_k=tensor([3255.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7266], device='cuda:0')
+     sr_idx=scheduler average_time=1.6945807073797499
+     sr_idx=scheduler total_time=7591.721569061279
+     sr_idx=scheduler throughput=0.5901164787519934
+     sr_idx=scheduler average_batch_time=54.226582636151996
+     sr_idx=scheduler throughput_batch=0.018441139960999792
+
+When num_img/batch_size=150
+     sr_idx=scheduler num_img=4800
+     sr_idx=scheduler correct_k=tensor([3495.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7281], device='cuda:0')
+     sr_idx=scheduler average_time=1.6343822149435678
+     sr_idx=scheduler total_time=7845.034631729126
+     sr_idx=scheduler throughput=0.6118519834936702
+     sr_idx=scheduler average_batch_time=52.30023087819417
+     sr_idx=scheduler throughput_batch=0.019120374484177194
+
+When num_img/batch_size=160
+     sr_idx=scheduler num_img=5120
+     sr_idx=scheduler correct_k=tensor([3720.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7266], device='cuda:0')
+     sr_idx=scheduler average_time=1.664178005233407
+     sr_idx=scheduler total_time=8520.591386795044
+     sr_idx=scheduler throughput=0.6008972578986503
+     sr_idx=scheduler average_batch_time=53.25369616746902
+     sr_idx=scheduler throughput_batch=0.018778039309332823
+
+When num_img/batch_size=170
+     sr_idx=scheduler num_img=5440
+     sr_idx=scheduler correct_k=tensor([3944.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7250], device='cuda:0')
+     sr_idx=scheduler average_time=1.657041577731862
+     sr_idx=scheduler total_time=9014.306182861328
+     sr_idx=scheduler throughput=0.6034851589957011
+     sr_idx=scheduler average_batch_time=53.02533048741958
+     sr_idx=scheduler throughput_batch=0.01885891121861566
+
+When num_img/batch_size=180
+     sr_idx=scheduler num_img=5792
+     sr_idx=scheduler correct_k=tensor([4220.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7286], device='cuda:0')
+     sr_idx=scheduler average_time=1.5820878174423514
+     sr_idx=scheduler total_time=9163.452638626099
+     sr_idx=scheduler throughput=0.6320761647837152
+     sr_idx=scheduler average_batch_time=50.626810158155244
+     sr_idx=scheduler throughput_batch=0.0197523801494911
+
+When num_img/batch_size=200
+     sr_idx=scheduler num_img=6432
+     sr_idx=scheduler correct_k=tensor([4648.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7226], device='cuda:0')
+     sr_idx=scheduler average_time=1.5518582531468785
+     sr_idx=scheduler total_time=9981.552284240723
+     sr_idx=scheduler throughput=0.6443887500499398
+     sr_idx=scheduler average_batch_time=49.65946410070011
+     sr_idx=scheduler throughput_batch=0.02013714843906062
+
+When num_img/batch_size=250
+     sr_idx=scheduler num_img=8032
+     sr_idx=scheduler correct_k=tensor([5734.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7139], device='cuda:0')
+     sr_idx=scheduler average_time=1.228970756687491
+     sr_idx=scheduler total_time=9871.093117713928
+     sr_idx=scheduler throughput=0.8136890113604917
+     sr_idx=scheduler average_batch_time=39.32706421399971
+     sr_idx=scheduler throughput_batch=0.025427781605015364
+
+When num_img/batch_size=300
+     sr_idx=scheduler num_img=9632
+     sr_idx=scheduler correct_k=tensor([6820.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7081], device='cuda:0')
+     sr_idx=scheduler average_time=1.107639944335551
+     sr_idx=scheduler total_time=10668.787943840027
+     sr_idx=scheduler throughput=0.9028204563350938
+     sr_idx=scheduler average_batch_time=35.44447821873763
+     sr_idx=scheduler throughput_batch=0.02821313926047168
+
+When num_img/batch_size=350
+     sr_idx=scheduler num_img=11264
+     sr_idx=scheduler correct_k=tensor([7923.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.7034], device='cuda:0')
+     sr_idx=scheduler average_time=0.7143496948040344
+     sr_idx=scheduler total_time=8046.434962272644
+     sr_idx=scheduler throughput=1.3998746094156689
+     sr_idx=scheduler average_batch_time=22.8591902337291
+     sr_idx=scheduler throughput_batch=0.04374608154423965
+
+When num_img/batch_size=400
+     sr_idx=scheduler num_img=12832
+     sr_idx=scheduler correct_k=tensor([8862.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.6906], device='cuda:0')
+     sr_idx=scheduler average_time=0.745433522430144
+     sr_idx=scheduler total_time=9565.402959823608
+     sr_idx=scheduler throughput=1.341501247139998
+     sr_idx=scheduler average_batch_time=23.85387271776461
+     sr_idx=scheduler throughput_batch=0.04192191397312494
+
+When num_img/batch_size=450
+     sr_idx=scheduler num_img=14400
+     sr_idx=scheduler correct_k=tensor([8862.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.6906], device='cuda:0')
+     sr_idx=scheduler average_time=0.745433522430144
+     sr_idx=scheduler total_time=9565.402959823608
+     sr_idx=scheduler throughput=1.341501247139998
+     sr_idx=scheduler average_batch_time=23.85387271776461
+     sr_idx=scheduler throughput_batch=0.04192191397312494
+
+When num_img/batch_size=550
+     sr_idx=scheduler num_img=16384
+     sr_idx=scheduler correct_k=tensor([11030.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.6732], device='cuda:0')
+     sr_idx=scheduler average_time=0.5286554016638547
+     sr_idx=scheduler total_time=8661.490100860596
+     sr_idx=scheduler throughput=1.8915913785287481
+     sr_idx=scheduler average_batch_time=16.91697285324335
+     sr_idx=scheduler throughput_batch=0.05911223057902338
+
+When num_img/batch_size=600
+     sr_idx=scheduler num_img=16384
+     sr_idx=scheduler correct_k=tensor([11034.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.6735], device='cuda:0')
+     sr_idx=scheduler average_time=0.519361096288776
+     sr_idx=scheduler total_time=8509.212201595306
+     sr_idx=scheduler throughput=1.9254426393231008
+     sr_idx=scheduler average_batch_time=16.619555081240833
+     sr_idx=scheduler throughput_batch=0.0601700824788469
+
+When num_img/batch_size=650
+     sr_idx=scheduler num_img=16384
+     sr_idx=scheduler correct_k=tensor([11051.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.6745], device='cuda:0')
+     sr_idx=scheduler average_time=0.43976292965817265
+     sr_idx=scheduler total_time=7205.075839519501
+     sr_idx=scheduler throughput=2.2739524697484144
+     sr_idx=scheduler average_batch_time=14.072413749061525
+     sr_idx=scheduler throughput_batch=0.07106101467963795
+
+When num_img/batch_size=700
+     sr_idx=scheduler num_img=16384
+     sr_idx=scheduler correct_k=tensor([11043.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.6740], device='cuda:0')
+     sr_idx=scheduler average_time=0.5185913871973753
+     sr_idx=scheduler total_time=8496.601287841797
+     sr_idx=scheduler throughput=1.9283004397822772
+     sr_idx=scheduler average_batch_time=16.59492439031601
+     sr_idx=scheduler throughput_batch=0.06025938874319616
+
+When num_img/batch_size=750
+     sr_idx=scheduler num_img=16384
+     sr_idx=scheduler correct_k=tensor([11041.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.6739], device='cuda:0')
+     sr_idx=scheduler average_time=0.5352339079254307
+     sr_idx=scheduler total_time=8769.272347450256
+     sr_idx=scheduler throughput=1.8683420186811501
+     sr_idx=scheduler average_batch_time=17.127485053613782
+     sr_idx=scheduler throughput_batch=0.05838568808378594
+
+When num_img/batch_size=800
+     sr_idx=scheduler num_img=16384
+     sr_idx=scheduler correct_k=tensor([11050.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.6744], device='cuda:0')
+     sr_idx=scheduler average_time=0.522898206312675
+     sr_idx=scheduler total_time=8567.164212226868
+     sr_idx=scheduler throughput=1.9124181110731036
+     sr_idx=scheduler average_batch_time=16.7327426020056
+     sr_idx=scheduler throughput_batch=0.059763065971034486
+
+When num_img/batch_size=1000
+     sr_idx=scheduler num_img=16384
+     sr_idx=scheduler correct_k=tensor([11048.], device='cuda:0')
+     sr_idx=scheduler accuracy=tensor([0.6743], device='cuda:0')
+     sr_idx=scheduler average_time=0.44274960673647
+     sr_idx=scheduler total_time=7254.009556770325
+     sr_idx=scheduler throughput=2.258612960429375
+     sr_idx=scheduler average_batch_time=14.16798741556704
+     sr_idx=scheduler throughput_batch=0.07058165501341797
+

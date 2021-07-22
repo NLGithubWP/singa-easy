@@ -1,153 +1,90 @@
 
 
-
-
-fo = open("prediction_32_wu.txt", "r")
+fo = open("prediction_32_scheduler_example.txt", "r")
 contents = fo.readlines()
 
-throughput_025 = []
-throughput_05 = []
-throughput_075 = []
-throughput_1 = []
-
-latency_025 = []
-latency_05 = []
-latency_075 = []
-latency_1 = []
-
-pertime025 = []
-pertime05 = []
-pertime075 = []
-pertime1 = []
-
-averageBatchT025 = []
-averageBatchT05 = []
-averageBatchT075 = []
-averageBatchT1 = []
-
-batchThrough025 = []
-batchThrough05 = []
-batchThrough075 = []
-batchThrough1 = []
+throughput = []
+latency = []
+pertim = []
+averageBatch = []
+batchThroug = []
+imgNum = []
 
 X = []
 
 for ele in contents:
     ele = ele.strip()
 
-    if "When num_img/batch_size=" in ele:
-        X.append(int(ele[24:]))
+    imgn = "When num_img/batch_size="
+    if imgn in ele:
+        X.append(int(ele[len(imgn):]))
 
+    o = "sr_idx=scheduler num_img="
+    a = "sr_idx=scheduler average_time="
+    b = "sr_idx=scheduler total_time="
+    c = "sr_idx=scheduler throughput="
+    d = "sr_idx=scheduler average_batch_time="
+    e = "sr_idx=scheduler throughput_batch="
 
-    a ="sr_idx=0.25 average_time="
-    b ="sr_idx=0.25 total_time="
-    c ="sr_idx=0.25 throughput="
-    d ="sr_idx=0.25 average_batch_time="
-    e ="sr_idx=0.25 throughput_batch="
-
+    if o in ele:
+        imgNum.append(float(ele[len(o):]))
     if a in ele:
-        pertime025.append(float(ele[len(a):]))
+        pertim.append(float(ele[len(a):]))
     if b in ele:
-        latency_025.append(float(ele[len(b):]))
+        latency.append(float(ele[len(b):]))
     if c in ele:
-        throughput_025.append(float(ele[len(c):])*1000)
+        throughput.append(float(ele[len(c):])*1000)
     if d in ele:
-        averageBatchT025.append(float(ele[len(d):]))
+        averageBatch.append(float(ele[len(d):]))
     if e in ele:
-        batchThrough025.append(float(ele[len(e):])*1000)
-
-
-    a ="sr_idx=0.5 average_time="
-    b ="sr_idx=0.5 total_time="
-    c ="sr_idx=0.5 throughput="
-    d ="sr_idx=0.5 average_batch_time="
-    e ="sr_idx=0.5 throughput_batch="
-
-    if a in ele:
-        pertime05.append(float(ele[len(a):]))
-    if b  in ele:
-        latency_05.append(float(ele[len(b):]))
-    if c in ele:
-        throughput_05.append(float(ele[len(c):])*1000)
-    if d in ele:
-        averageBatchT05.append(float(ele[len(d):]))
-    if e in ele:
-        batchThrough05.append(float(ele[len(e):])*1000)
-
-
-
-    a ="sr_idx=0.75 average_time="
-    b ="sr_idx=0.75 total_time="
-    c ="sr_idx=0.75 throughput="
-    d ="sr_idx=0.75 average_batch_time="
-    e ="sr_idx=0.75 throughput_batch="
-
-    if a in ele:
-        pertime075.append(float(ele[len(a):]))
-    if b in ele:
-        latency_075.append(float(ele[len(b):]))
-    if c in ele:
-        throughput_075.append(float(ele[len(c):])*1000)
-    if d in ele:
-        averageBatchT075.append(float(ele[len(d):]))
-    if e in ele:
-        batchThrough075.append(float(ele[len(e):])*1000)
-
-
-    a = "sr_idx=1.0 average_time="
-    b = "sr_idx=1.0 total_time="
-    c = "sr_idx=1.0 throughput="
-    d = "sr_idx=1.0 average_batch_time="
-    e = "sr_idx=1.0 throughput_batch="
-    if a in ele:
-        pertime1.append(float(ele[len(a):]))
-    if b in ele:
-        latency_1.append(float(ele[len(b):]))
-    if c in ele:
-        throughput_1.append(float(ele[len(c):])*1000)
-    if d in ele:
-        averageBatchT1.append(float(ele[len(d):]))
-    if e in ele:
-        batchThrough1.append(float(ele[len(e):])*1000)
-
-
+        batchThroug.append(float(ele[len(e):])*1000)
 
 print("X->")
 print(X)
 
 print("Throughput->")
-print("a=",throughput_025)
-print("b=",throughput_05)
-print("c=",throughput_075)
-print("d=",throughput_1)
+print("a=", throughput)
 
 print("Latency->")
-print("a=",latency_025)
-print("b=",latency_05)
-print("c=",latency_075)
-print("d=",latency_1)
+print("a=", latency)
 
 print("BatchThroughput->")
-print("a=",batchThrough025)
-print("b=",batchThrough05)
-print("c=",batchThrough075)
-print("d=",batchThrough1)
+print("a=", batchThroug)
 
 
 print("AverageTime->")
-print("a=",pertime025)
-print("b=",pertime05)
-print("c=",pertime075)
-print("d=",pertime1)
+print("a=", pertim)
 
 print("AverageBatchTime->")
-print("a=",averageBatchT025)
-print("b=",averageBatchT05)
-print("c=",averageBatchT075)
-print("d=",averageBatchT1)
+print("a=", averageBatch)
+
+print("imgNum->")
+print("o=", imgNum)
 
 fo.close()
 
 
+'''
+X->
+[1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 100, 120, 140, 150, 160, 170, 180, 200, 250, 300, 350, 400, 450, 550, 600, 650, 700, 750, 800, 1000]
+
+Throughput->
+a= [611.7412702833357, 632.6965142819301, 318.5418312169634, 296.8233679318324, 413.6147022328294, 339.0807057638263, 327.3160745175526, 426.1135426088637, 464.83508117640196, 501.3580071052867, 541.1513252989977, 643.10819230305, 590.1164787519933, 611.8519834936702, 600.8972578986503, 603.4851589957011, 632.0761647837152, 644.3887500499397, 813.6890113604917, 902.8204563350938, 1399.8746094156688, 1341.501247139998, 1891.5913785287482, 1925.4426393231008, 2273.9524697484144, 1928.3004397822772, 1868.3420186811502, 1912.4181110731035, 2258.612960429375]
+
+Latency->
+a= [52.309696197509766, 252.88585662841797, 1004.57763671875, 2156.1644706726074, 2321.0006675720215, 3774.912515640259, 4888.241441726685, 4505.841302871704, 4818.913396835327, 5106.131673812866, 5913.318235397339, 5971.0015296936035, 7591.721569061279, 7845.034631729126, 8520.591386795044, 9014.306182861328, 9163.452638626099, 9981.552284240723, 9871.093117713928, 10668.787943840027, 8046.434962272644, 9565.402959823608, 9565.402959823608, 8661.490100860596, 8509.212201595306, 7205.075839519501, 8496.601287841797, 8769.272347450256, 8567.164212226868, 7254.009556770325]
+
+BatchThroughput->
+a= [19.11691469635424, 19.771766071310317, 9.954432225530105, 9.275730247869763, 12.92545944477592, 10.596272055119572, 10.228627328673518, 13.316048206526991, 14.526096286762561, 15.667437722040209, 16.910978915593677, 20.097131009470314, 18.44113996099979, 19.120374484177194, 18.778039309332822, 18.85891121861566, 19.7523801494911, 20.137148439060617, 25.427781605015365, 28.21313926047168, 43.74608154423965, 41.92191397312494, 59.11223057902338, 60.1700824788469, 71.06101467963795, 60.25938874319616, 58.38568808378594, 59.763065971034486, 70.58165501341797]
+
+AverageTime->
+a= [1.6346780061721802, 1.5805366039276123, 3.1393051147460938, 3.369006985425949, 2.417709028720856, 2.9491504028439524, 3.0551509010791777, 2.3467923452456794, 2.1513006235871996, 1.994582685083151, 1.8479119485616684, 1.554948315024376, 1.6945807073797499, 1.6343822149435678, 1.664178005233407, 1.657041577731862, 1.5820878174423514, 1.5518582531468785, 1.228970756687491, 1.107639944335551, 0.7143496948040344, 0.745433522430144, 0.5286554016638547, 0.519361096288776, 0.43976292965817265, 0.5185913871973753, 0.5352339079254307, 0.522898206312675, 0.44274960673647]
+
+AverageBatchTime->
+a= [52.309696197509766, 50.577171325683594, 100.457763671875, 107.80822353363037, 77.36668891906739, 94.37281289100648, 97.76482883453369, 75.09735504786174, 68.84161995479039, 63.82664592266083, 59.13318235397339, 49.75834608078003, 54.226582636151996, 52.30023087819417, 53.25369616746902, 53.02533048741958, 50.626810158155244, 49.65946410070011, 39.32706421399971, 35.44447821873763, 22.8591902337291, 23.85387271776461, 16.91697285324335, 16.619555081240833, 14.072413749061525, 16.59492439031601, 17.127485053613782, 16.7327426020056, 14.16798741556704]
+
+imgNum->
+o= [32.0, 160.0, 320.0, 640.0, 960.0, 1280.0, 1600.0, 1920.0, 2240.0, 2560.0, 3200.0, 3840.0, 4480.0, 4800.0, 5120.0, 5440.0, 5792.0, 6432.0, 8032.0, 9632.0, 11264.0, 12832.0, 16384.0, 16384.0, 16384.0, 16384.0, 16384.0, 16384.0, 16384.0]
+'''
 
 
