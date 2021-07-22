@@ -44,7 +44,7 @@ def drawBasic(tlist, x, slicerate):
 
      for k in range(len(tlist)):
 
-          label.append('sub-model with $r_i$ = ' + str(slicerate[k]) + ", $t_i=$" + str(tlist[k]) + "$s$")
+          label.append('sub-model with $r_i$ = ' + str(slicerate[k]))
 
           tmp = []
           for i in range(len(x)):
@@ -59,12 +59,12 @@ import numpy
 x = [1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 100, 120, 140, 150, 160, 170, 180, 200, 250, 300, 350, 400, 450, 550, 600, 650, 700, 750, 800, 1000]
 x = numpy.array(x)
 x = [ele*32 for ele in x]
-y, label, pots = drawBasic([0.0126, 0.0071, 0.00315, 0.00079], x, [1, 0.75, 0.5, 0.25])
+y, label, pots = drawBasic([0.00141, 0.00110, 0.00071, 0.00049], x, [1, 0.75, 0.5, 0.25])
 
 
 fig=plt.figure(figsize=(10, 10))
 ax=fig.add_subplot(111)
-ax.axis([0, 800*32, 0, 2])
+ax.axis([0, 1000*32, 0.25, 1.8])
 
 line_sym = ["-", "--", "-.", "-"]
 pot_sym = ["o", ">", "<", "x"]
@@ -78,7 +78,7 @@ plt.legend(fontsize=15)
 plt.xticks(fontsize=20)
 plt.yticks(fontsize=20)
 ax.set_xlabel('Ingesting rate(#examples/second)', fontsize=20)
-ax.set_ylabel('ProcessTime(millisecond)', fontsize=20)
+ax.set_ylabel('Inference time per example(millisecond)', fontsize=20)
 plt.grid(linestyle='-.')
 plt.savefig('./average_time.jpg')
 plt.show()
