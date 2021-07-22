@@ -160,34 +160,33 @@ if __name__ == '__main__':
     # test2()
     # test3()
     # testAny([0.95, 0.8, 0.75], [4, 2, 1])
-
-    # N_list = [1, 50, 80, 100, 200, 300, 400, 540, 800, 910, 1020, 1282, 1500]
-    N_list = [1, 50, 80, 100]
-
-    base = 100
-    for i in range(40):
-        N_list.append(base)
-        base += 100
+    # 30 items
+    N_list = [1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 100, 120, 140, 150, 160, 170, 180, 200, 250, 300, 350, 400, 450, 550, 600, 650, 700, 750, 800, 1000]
+    N_list = [ele*32 for ele in N_list]
 
     effective_speed_list = []
-    speed_list = []
-    used_list = []
+    throughput_list = []
+    used_N_list = []
     time_list = []
     delay_list = []
 
-    y = []
-    times = [0.0126, 0.0071, 0.00315, 0.00079]
-    ps = [0.7609, 0.7374, 0.7109, 0.6391]
+    effecAccuracy = []
+    times = [0.00141, 0.00110, 0.00071, 0.00049]
+    ps = [0.7937, 0.7188, 0.7094, 0.6512]
 
+    ndict = {}
+
+    previous = 0
     for N in N_list:
-        if N in [ 1500]:
+        if N in [ -1]:
             continue
         try:
             res, combs = testAny(ps,
                                  times,
                                  N=N,
-                                 D=1)
-            y.append(res)
+                                 D=8)
+            effecAccuracy.append(res)
+            ndict[N] = [int(ele) for ele in combs.tolist()]
             print("When N is", N, " testAny's result:", res, combs)
             effective_speed = 0
             n_i = 0
@@ -198,17 +197,24 @@ if __name__ == '__main__':
                 n_i += combs[m]
 
             if N > n_i:
-                delay = used_time+(N-n_i)*0.00079
+                delay = used_time+(N-n_i)*0.00049
             else:
                 delay = used_time
+
             effective_speed_list.append(effective_speed)
-            used_list.append(N)
+            used_N_list.append(N)
             time_list.append(used_time)
-            speed_list.append(n_i/used_time)
+            throughput_list.append(n_i/used_time)
+            previous = n_i/used_time
             delay_list.append(delay)
         except Exception as e:
             print("-------------Error when N is", N, " ", e)
+            used_N_list.append(N)
+            throughput_list.append(previous)
 
-    print(used_list)
-    print(delay_list)
+    print(used_N_list)
+    print(throughput_list)
+    # print(effecAccuracy)
+    # print(delay_list)
+    # print(delay_list)
 
