@@ -44,7 +44,7 @@ def drawBasic(tlist, x, slicerate):
 
      for k in range(len(tlist)):
 
-          label.append('sub-model with $r_i$ = ' + str(slicerate[k]))
+          label.append('Sub-model with $r_i$ = ' + str(slicerate[k]))
 
           tmp = []
           for i in range(len(x)):

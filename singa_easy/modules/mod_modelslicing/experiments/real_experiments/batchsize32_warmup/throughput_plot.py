@@ -43,7 +43,7 @@ def drawBasic(tlist, x, slicerate):
 
      for k in range(len(tlist)):
 
-          label.append('sub-model with $r_i$ = ' + str(slicerate[k]))
+          label.append('Sub-model with $r_i$ = ' + str(slicerate[k]))
 
           tmp = []
           for i in range(len(x)):
@@ -72,22 +72,23 @@ colors = ['blue', 'brown', 'aqua', 'green']
 for i in range(len(y)):
      ax.plot(x, y[i], line_sym[i], marker=pot_sym[i], ms=10, label=label[i], linewidth=2, color=colors[i])
 
-y_sche = [709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581560283, 709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581560283, 709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581560284, 720.0180004500112, 800.0100001250015, 1000.0250006250155, 1200.0450016875632, 1400.0017500021875, 1600.0240003600054, 1600.0240003600054, 2040.760203801019, 2040.760203801019, 2040.760203801019, 2040.760203801019, 2040.760203801019, 2040.760203801019, 2040.760203801019]
 
-y_sche1 = [d[i]-random.randrange(-50,30) if x[i]<200*32 else 0 for i in range(len(x))]
-y_sche2 = [y_sche[i] if x[i]>=200*32 and x[i]<400*32 else 0 for i in range(len(x))]
+y_idealy = [709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581560283, 709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581560283, 709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581560284, 720.0180004500112, 800.0100001250015, 1000.0250006250155, 1200.0450016875632, 1400.0017500021875, 1600.0240003600054, 1600.0240003600054, 2040.760203801019, 2040.760203801019, 2040.760203801019, 2040.760203801019, 2040.760203801019, 2040.760203801019, 2040.760203801019]
+# y_sche1 = [d[i]-random.randrange(-50,30) if x[i]<200*32 else 0 for i in range(len(x))]
+# y_sche2 = [y_sche[i] if x[i]>=200*32 and x[i]<400*32 else 0 for i in range(len(x))]
+# y_sche3 = [b[i]-random.randrange(-50,50) if x[i]>=400*32 and x[i]<550*32 else 0 for i in range(len(x))]
+# y_sche4 = [a[i]-random.randrange(-50,50) if x[i]>=550*32 else 0 for i in range(len(x))]
+# y_sche1 = numpy.array(y_sche1)
+# y_sche2 = numpy.array(y_sche2)
+# y_sche3 = numpy.array(y_sche3)
+# y_sche4 = numpy.array(y_sche4)
 
-y_sche3 = [b[i]-random.randrange(-50,50) if x[i]>=400*32 and x[i]<550*32 else 0 for i in range(len(x))]
-y_sche4 = [a[i]-random.randrange(-50,50) if x[i]>=550*32 else 0 for i in range(len(x))]
+# y_schef = y_sche1+y_sche2+y_sche3+y_sche4
+# y_schef[20] += 100
 
-y_sche1 = numpy.array(y_sche1)
-y_sche2 = numpy.array(y_sche2)
-y_sche3 = numpy.array(y_sche3)
-y_sche4 = numpy.array(y_sche4)
-
-y_schef = y_sche1+y_sche2+y_sche3+y_sche4
-y_schef[20] += 100
-ax.plot(x, y_schef, "--", marker='*', ms=15, label="combination of sub-models", linewidth=4)
+y_real_experiment = [633.0488366910487, 660.2020663739888, 696.9070444809888, 413.58714568077846, 757.9607054411246, 767.1975325229297, 763.8781468089422, 763.4920521873797, 643.6349107329457, 767.1107790111308, 665.6662151396764, 774.8611271250163, 763.3099205024894, 710.7785972349673, 779.1044616704534, 770.164707197363, 820.9722173161322, 865.2086862684831, 1081.8927113194084, 1339.7172773808425, 1427.7056211403021, 1748.4424234241985, 1974.104147038498, 2159.880743685082, 2166.387515185857, 1968.3063635706058, 2153.703896139617, 2276.373651213354, 2207.590246106145, 2207.8315041726605]
+ax.plot(x, y_real_experiment, "--", marker='*', ms=15, label="Combination of sub-models", linewidth=4)
+ax.plot(x, y_idealy, "--",label="Theoretical value", linewidth=4)
 
 
 plt.legend(fontsize=15)

@@ -32,10 +32,10 @@ for key in scheduler_map:
 
 
 colors = ['lightskyblue', 'brown', 'aqua', 'plum']
-ax.bar(range(len(y100)), y100, label='sub-model with $r_i$ = 1', tick_label=name_list, fc=colors[0])
-ax.bar(range(len(y75)), y75, bottom=y100, label='sub-model with $r_i$ = 0.75', tick_label=name_list, fc=colors[1])
-ax.bar(range(len(y5)), y5, bottom=y75, label='sub-model with $r_i$ = 0.5', tick_label=name_list, fc=colors[2])
-ax.bar(range(len(y025)), y025, bottom=y5, label='sub-model with $r_i$ = 0.25', fc=colors[3])
+ax.bar(range(len(y100)), y100, label='Sub-model with $r_i$ = 1', tick_label=name_list, fc=colors[0])
+ax.bar(range(len(y75)), y75, bottom=y100, label='Sub-model with $r_i$ = 0.75', tick_label=name_list, fc=colors[1])
+ax.bar(range(len(y5)), y5, bottom=y75, label='Sub-model with $r_i$ = 0.5', tick_label=name_list, fc=colors[2])
+ax.bar(range(len(y025)), y025, bottom=y5, label='Sub-model with $r_i$ = 0.25', fc=colors[3])
 
 
 plt.legend(fontsize=20)

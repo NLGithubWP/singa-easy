@@ -41,12 +41,12 @@ y4 = interval01 + \
 plt.xlim((0, 1.2))
 plt.ylim((0, 1))
 plt.xlabel('$W_{exp}=N/D$ (# examples / deadline constraint)', fontsize=15)
-plt.ylabel('effective accuracy %', fontsize=15)
+plt.ylabel('Effective accuracy %', fontsize=15)
 
 
-plt.plot(x, y1, label='sub-model with accuracy 0.95')
-plt.plot(x, y2, label='sub-model with accuracy 0.8')
-plt.plot(x, y3, label='sub-model with accuracy 0.78')
+plt.plot(x, y1, label='Sub-model with accuracy 0.95')
+plt.plot(x, y2, label='Sub-model with accuracy 0.8')
+plt.plot(x, y3, label='Sub-model with accuracy 0.78')
 # plt.plot(x, y4, label='list4')
 
 # 画点和线

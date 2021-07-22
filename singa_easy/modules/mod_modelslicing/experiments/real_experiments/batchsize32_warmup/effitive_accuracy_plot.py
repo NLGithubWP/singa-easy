@@ -15,7 +15,7 @@ def drawBasic(plist, tlist, x, slicerate):
           interval1 = [plist[k] if (ele/8 > 1/tlist[k]) else 0 for ele in x]
           y1 = interval0 + ((1/tlist[k]) / (x/8)) * interval1
           y.append(y1)
-          label.append('sub-model with $r_i$ = ' + str(slicerate[k]) + ", $p_i$ = " + str(100*plist[k])[:5])
+          label.append('Sub-model with $r_i$ = ' + str(slicerate[k]) + ", $p_i$ = " + str(100*plist[k])[:5])
 
           tmp = []
           for x_ in x[10:]:
@@ -53,14 +53,14 @@ for k in range(len(pots)):
 
 
 ySch = [0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7911534375, 0.774429546875, 0.744321275, 0.7242490937500001, 0.7099126607142857, 0.6869111562500001, 0.6869111562500001, 0.6040653068181817, 0.5537265312499999, 0.5111321826923078, 0.4746227410714286, 0.44298122500000003, 0.4152948984375, 0.33223591874999997]
-ax.plot(x, ySch, "--", marker='*', ms=12, label="combination of sub-models", linewidth=2)
+ax.plot(x, ySch, "--", marker='*', ms=12, label="Combination of sub-models", linewidth=2)
 
 
 plt.legend(fontsize=15)
 plt.xticks(fontsize=20)
 plt.yticks(fontsize=20)
 ax.set_xlabel('$W_{exp}=N/D$ (# examples / deadline constraint)', fontsize=20)
-ax.set_ylabel('effective accuracy %', fontsize=20)
+ax.set_ylabel('Effective accuracy %', fontsize=20)
 plt.grid(linestyle='-.')
 plt.savefig('./effective accuracy.jpg')
 
