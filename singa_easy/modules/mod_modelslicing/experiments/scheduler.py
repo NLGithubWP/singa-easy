@@ -171,7 +171,8 @@ if __name__ == '__main__':
     delay_list = []
 
     effecAccuracy = []
-    times = [0.00141, 0.00110, 0.00071, 0.00049]
+    times = [0.00141*32, 0.00110*32, 0.00071*32, 0.00049*32]
+    print("times", times)
     ps = [0.7937, 0.7188, 0.7094, 0.6512]
 
     ndict = {}
@@ -184,7 +185,7 @@ if __name__ == '__main__':
             res, combs = testAny(ps,
                                  times,
                                  N=N,
-                                 D=0.25)
+                                 D=8)
             effecAccuracy.append(res)
             ndict[N] = [int(ele) for ele in combs.tolist()]
             print("When N is", N, " testAny's result:", res, combs)
