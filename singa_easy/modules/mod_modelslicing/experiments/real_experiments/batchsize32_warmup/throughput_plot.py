@@ -53,7 +53,6 @@ def drawBasic(tlist, x, slicerate):
      return y, label, pots
 
 
-
 x = [1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 100, 120, 140, 150, 160, 170, 180, 200, 250, 300, 350, 400, 450, 550, 600, 650, 700, 750, 800, 1000]
 x = [ele*32 for ele in x]
 x = numpy.array(x)
@@ -63,13 +62,14 @@ print(y)
 
 fig=plt.figure(figsize=(10, 10))
 ax=fig.add_subplot(111)
-ax.axis([0, 1000*32, 0, 2500])
+ax.axis([0, 1000*32, 0, 2500/32])
 
 line_sym = ["-", "--", "-.", "-"]
 pot_sym = ["o", ">", "<", "x"]
 colors = ['blue', 'brown', 'aqua', 'green']
 
 for i in range(len(y)):
+     y[i] = [ele/32 for ele in y[i]]
      ax.plot(x, y[i], line_sym[i], marker=pot_sym[i], ms=10, label=label[i], linewidth=2, color=colors[i])
 
 
@@ -87,15 +87,17 @@ y_idealy = [709.2198581560284, 709.2198581560284, 709.2198581560284, 709.2198581
 # y_schef[20] += 100
 
 y_real_experiment = [633.0488366910487, 660.2020663739888, 696.9070444809888, 413.58714568077846, 757.9607054411246, 767.1975325229297, 763.8781468089422, 763.4920521873797, 643.6349107329457, 767.1107790111308, 665.6662151396764, 774.8611271250163, 763.3099205024894, 710.7785972349673, 779.1044616704534, 770.164707197363, 820.9722173161322, 865.2086862684831, 1081.8927113194084, 1339.7172773808425, 1427.7056211403021, 1748.4424234241985, 1974.104147038498, 2159.880743685082, 2166.387515185857, 1968.3063635706058, 2153.703896139617, 2276.373651213354, 2207.590246106145, 2207.8315041726605]
+y_real_experiment = [ele/32 for ele in y_real_experiment]
+y_idealy = [ele/32 for ele in y_idealy]
 ax.plot(x, y_real_experiment, "--", marker='*', ms=15, label="Combination of sub-models", linewidth=4)
-ax.plot(x, y_idealy, "--",label="Theoretical value", linewidth=4)
+ax.plot(x, y_idealy, "--", label="Theoretical value", linewidth=4)
 
 
 plt.legend(fontsize=15)
 plt.xticks(fontsize=20)
 plt.yticks(fontsize=20)
-ax.set_xlabel('Ingesting rate(#examples/second)', fontsize=20)
-ax.set_ylabel('Throughput(examples processed/second)', fontsize=20)
+ax.set_xlabel('Ingesting rate(#instances/second)', fontsize=20)
+ax.set_ylabel('Throughput(mini-batches processed/second)', fontsize=20)
 plt.grid(linestyle='-.')
 plt.savefig('./throughput.jpg')
 plt.show()

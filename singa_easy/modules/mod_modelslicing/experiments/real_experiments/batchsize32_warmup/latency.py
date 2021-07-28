@@ -89,7 +89,7 @@ plt.hlines(8.1, 0, 85000, label="Deadline constrain=8s", linewidth=4, color="red
 plt.legend(fontsize=15)
 plt.xticks(fontsize=20)
 plt.yticks(fontsize=20)
-ax.set_xlabel('Ingesting rate(#examples/second)', fontsize=20)
+ax.set_xlabel('Ingesting rate(#instances/second)', fontsize=20)
 ax.set_ylabel('Latency(second)', fontsize=20)
 plt.grid(linestyle='-.')
 plt.savefig('./latency.jpg')

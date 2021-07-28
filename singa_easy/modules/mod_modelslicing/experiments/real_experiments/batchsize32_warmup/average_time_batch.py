@@ -45,7 +45,7 @@ def drawBasic(tlist, x, slicerate):
 
      for k in range(len(tlist)):
 
-          label.append('sub-model with $r_i$ = ' + str(slicerate[k]) + ", $t_i=$" + str(tlist[k]) + "$s$")
+          label.append('Sub-model with $r_i$ = ' + str(slicerate[k]))
 
           tmp = []
           for i in range(len(x)):
@@ -65,7 +65,7 @@ y, label, pots = drawBasic([0.0126, 0.0071, 0.00315, 0.00079], x, [1, 0.75, 0.5,
 
 fig=plt.figure(figsize=(10, 10))
 ax=fig.add_subplot(111)
-ax.axis([0, 800*32, 0, 55])
+ax.axis([0, 1000*32, 10, 55])
 
 
 line_sym = ["-", "--", "-.", "-"]
@@ -80,8 +80,8 @@ for i in range(len(y)):
 plt.legend(fontsize=15)
 plt.xticks(fontsize=20)
 plt.yticks(fontsize=20)
-ax.set_xlabel('Ingesting rate(#examples/second)', fontsize=20)
-ax.set_ylabel('ProcessTimeOfABatch(millisecond)', fontsize=20)
+ax.set_xlabel('Ingesting rate(#instances/second)', fontsize=20)
+ax.set_ylabel('Inference time per mini-batch(millisecond)', fontsize=20)
 plt.grid(linestyle='-.')
 plt.savefig('./average_time_batch.jpg')
 plt.show()
