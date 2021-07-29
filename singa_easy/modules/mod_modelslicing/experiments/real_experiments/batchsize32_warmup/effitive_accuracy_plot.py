@@ -62,7 +62,7 @@ plt.yticks(fontsize=20)
 ax.set_xlabel('$W_{exp}=N/D$ (# instances / deadline constraint)', fontsize=20)
 ax.set_ylabel('Effective accuracy %', fontsize=20)
 plt.grid(linestyle='-.')
-plt.savefig('./effective accuracy.jpg')
+plt.savefig('./pdfs/scheduling Result.pdf', bbox_inches='tight', dpi=fig.dpi, pad_inches=0.1)
 
 plt.show()
 

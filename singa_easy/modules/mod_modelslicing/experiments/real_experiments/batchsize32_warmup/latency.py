@@ -64,7 +64,7 @@ y, label, pots = drawBasic([0.00141, 0.00110, 0.00071, 0.00049], x, [1, 0.75, 0.
 
 fig=plt.figure(figsize=(10, 10))
 ax=fig.add_subplot(111)
-ax.axis([0, 1000*32, 0, 20])
+ax.axis([0, 1000*32, 0, 23])
 
 line_sym = ["-", "--", "-.", "-"]
 pot_sym = ["o", ">", "<", "x"]
@@ -92,7 +92,7 @@ plt.yticks(fontsize=20)
 ax.set_xlabel('Ingesting rate(#instances/second)', fontsize=20)
 ax.set_ylabel('Latency(second)', fontsize=20)
 plt.grid(linestyle='-.')
-plt.savefig('./latency.jpg')
+plt.savefig('./pdfs/latency.pdf', bbox_inches='tight', dpi=fig.dpi, pad_inches=0.1)
 plt.show()
 
 

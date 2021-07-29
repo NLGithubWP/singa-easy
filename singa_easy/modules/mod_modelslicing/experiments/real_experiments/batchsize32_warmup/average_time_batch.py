@@ -65,7 +65,7 @@ y, label, pots = drawBasic([0.0126, 0.0071, 0.00315, 0.00079], x, [1, 0.75, 0.5,
 
 fig=plt.figure(figsize=(10, 10))
 ax=fig.add_subplot(111)
-ax.axis([0, 1000*32, 10, 55])
+ax.axis([0, 1000*32, 10, 57])
 
 
 line_sym = ["-", "--", "-.", "-"]
@@ -83,7 +83,7 @@ plt.yticks(fontsize=20)
 ax.set_xlabel('Ingesting rate(#instances/second)', fontsize=20)
 ax.set_ylabel('Inference time per mini-batch(millisecond)', fontsize=20)
 plt.grid(linestyle='-.')
-plt.savefig('./average_time_batch.jpg')
+plt.savefig('./pdfs/average_time_batch.pdf', bbox_inches='tight', dpi=fig.dpi, pad_inches=0.1)
 plt.show()
 
 

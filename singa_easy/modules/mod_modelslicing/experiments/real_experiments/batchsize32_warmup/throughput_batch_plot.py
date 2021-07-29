@@ -81,6 +81,6 @@ plt.yticks(fontsize=20)
 ax.set_xlabel('Ingesting rate(#examples/second)', fontsize=20)
 ax.set_ylabel('Throughput(batches processed/second)', fontsize=20)
 plt.grid(linestyle='-.')
-plt.savefig('./batch_throughput.jpg')
+plt.savefig('./pdfs/batch_throughput.pdf', bbox_inches='tight', dpi=fig.dpi, pad_inches=0.1)
 plt.show()
 # 每妙发送500条

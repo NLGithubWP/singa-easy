@@ -68,7 +68,7 @@ xc1, yc1 = 1, 0.75
 plt.scatter(xc1, yc1, s=80, facecolors='none', edgecolors='r')
 
 plt.legend()
-plt.savefig('./ideal_effitive_accuracy.jpg')
+plt.savefig('./effective accuracy.pdf', bbox_inches='tight', pad_inches=0.1)
 plt.show()
 
 # CUDA_VISIBLE_DEVICES=0,1,2 python train.py --exp_name resnet_50 --net_type resnet --group 8 --depth 50 --sr_list 1.0 0.75 0.5 0.25 --sr_scheduler_type random_min_max --sr_rand_num 1 --epoch 100 --batch_size 256 --lr 0.1  --dataset cifar10 --data_dir $HOME/data/ --log_freq 50
