@@ -20,7 +20,7 @@ scheduler_map = {1: [1, 0, 0, 0],
                  170: [170, 0, 0, 0],
                  180: [180, 0, 0, 0],
                  200: [154, 0, 46, 0],
-                 250: [103, 1, 146, 0],
+                 250: [93, 10, 146, 0],
                  300: [51, 0, 246, 3],
                  350: [2, 0, 348, 0],
                  400: [0, 0, 245, 155],
@@ -45,8 +45,10 @@ name_list = list(scheduler_map.keys()).sort()
 fig = plt.figure(figsize=(10, 10))
 ax = fig.add_subplot(111)
 x = list(scheduler_map.keys())
-print(x)
-ax.axis([1, 800, 0, 800])
+
+x = [ele*32 for ele in x]
+
+ax.axis([1, 1000*32, 0, 800])
 
 y025 = []
 y5 = []
@@ -60,16 +62,16 @@ for key in scheduler_map:
     y100.append(scheduler_map[key][0])
 
 colors = ['lightskyblue', 'brown', 'aqua', 'plum']
-ax.bar(x, y100, label='Sub-model with $r_i$ = 1', tick_label=name_list, fc=colors[0], width=20)
-ax.bar(x, y75, bottom=np.array(y100), label='Sub-model with $r_i$ = 0.75', tick_label=name_list, fc=colors[1], width=20)
-ax.bar(x, y5, bottom=np.array(y100)+np.array(y75), label='Sub-model with $r_i$ = 0.5', tick_label=name_list, fc=colors[2], width=20)
-ax.bar(x, y025, bottom=np.array(y100)+np.array(y75)+np.array(y5), label='Sub-model with $r_i$ = 0.25', fc=colors[3], width=20)
+ax.bar(x, y100, label='Sub-model with $r_i$ = 1', tick_label=name_list, fc=colors[0], width=20*32)
+ax.bar(x, y75, bottom=np.array(y100), label='Sub-model with $r_i$ = 0.75', tick_label=name_list, fc=colors[1], width=20*32)
+ax.bar(x, y5, bottom=np.array(y100)+np.array(y75), label='Sub-model with $r_i$ = 0.5', tick_label=name_list, fc=colors[2], width=20*32)
+ax.bar(x, y025, bottom=np.array(y100)+np.array(y75)+np.array(y5), label='Sub-model with $r_i$ = 0.25', fc=colors[3], width=20*32)
 
 plt.legend(fontsize=20)
 plt.xticks(fontsize=20)
 plt.yticks(fontsize=20)
 
-ax.set_xlabel('Ingesting rate (#instances/32)/second=#mini-batches/second', fontsize=20)
+ax.set_xlabel('Ingesting rate(#instances/second)', fontsize=20)
 ax.set_ylabel('# Mini-batches', fontsize=20)
 
 plt.grid(linestyle='-.')
