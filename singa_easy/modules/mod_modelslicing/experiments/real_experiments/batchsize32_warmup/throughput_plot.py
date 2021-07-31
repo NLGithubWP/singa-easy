@@ -62,7 +62,7 @@ print(y)
 
 fig=plt.figure(figsize=(10, 10))
 ax=fig.add_subplot(111)
-ax.axis([0, 1000*32, 0, 2500/32])
+ax.axis([5, 1000*32, 0, 2500/32])
 
 line_sym = ["-", "--", "-.", "-"]
 pot_sym = ["o", ">", "<", "x"]

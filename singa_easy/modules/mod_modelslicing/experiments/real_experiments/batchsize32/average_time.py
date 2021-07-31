@@ -64,7 +64,7 @@ y, label, pots = drawBasic([0.0126, 0.0071, 0.00315, 0.00079], x, [1, 0.75, 0.5,
 
 fig=plt.figure(figsize=(10, 10))
 ax=fig.add_subplot(111)
-ax.axis([0, 800*32, 0, 10])
+ax.axis([0, 600, 0, 20])
 
 line_sym = ["-", "--", "-.", "-"]
 pot_sym = ["o", ">", "<", "x"]

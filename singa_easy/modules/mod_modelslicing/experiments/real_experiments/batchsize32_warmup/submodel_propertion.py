@@ -1,23 +1,52 @@
 # -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
+import numpy as np
+
+scheduler_map = {1: [1, 0, 0, 0],
+                 5: [5, 0, 0, 0],
+                 10: [10, 0, 0, 0],
+                 20: [20, 0, 0, 0],
+                 30: [30, 0, 0, 0],
+                 40: [40, 0, 0, 0],
+                 50: [50, 0, 0, 0],
+                 60: [60, 0, 0, 0],
+                 70: [70, 0, 0, 0],
+                 80: [80, 0, 0, 0],
+                 100: [100, 0, 0, 0],
+                 120: [120, 0, 0, 0],
+                 140: [140, 0, 0, 0],
+                 150: [150, 0, 0, 0],
+                 160: [160, 0, 0, 0],
+                 170: [170, 0, 0, 0],
+                 180: [180, 0, 0, 0],
+                 200: [154, 0, 46, 0],
+                 250: [103, 1, 146, 0],
+                 300: [51, 0, 246, 3],
+                 350: [2, 0, 348, 0],
+                 400: [0, 0, 245, 155],
+                 450: [0, 0, 134, 316],
+                 500: [0, 0, 22, 478],
+                 550: [0, 0, 0, 550],
+                 600: [0, 0, 0, 600],
+                 650: [0, 0, 0, 650],
+                 700: [0, 0, 0, 700],
+                 750: [0, 0, 0, 750],
+                 800: [0, 0, 0, 800]}
 
 
-scheduler_map = \
-    {32: [32, 0, 0, 0], 160: [160, 0, 0, 0], 320: [320, 0, 0, 0], 640: [640, 0, 0, 0], 960: [960, 0, 0, 0],
-     1280: [1280, 0, 0, 0], 1600: [1600, 0, 0, 0], 1920: [1920, 0, 0, 0], 2240: [2240, 0, 0, 0], 2560: [2560, 0, 0, 0],
-     3200: [3200, 0, 0, 0], 3840: [3840, 0, 0, 0], 4480: [4480, 0, 0, 0], 4800: [4800, 0, 0, 0], 5120: [5120, 0, 0, 0],
-     5440: [5440, 0, 0, 0], 5760: [5586, 0, 174, 0], 6400: [4937, 0, 1463, 0], 8000: [3314, 0, 4686, 0],
-     9600: [1691, 0, 7909, 0], 11200: [68, 1, 11131, 0], 12800: [0, 0, 7854, 4946], 17600: [0, 0, 1, 17600],
-     19200: [0, 0, 1, 19200]}
-
+# scheduler_map = {
+#                  180: [180, 0, 0, 0],
+#                  200: [154, 0, 46, 0],
+#                 }
 
 name_list = list(scheduler_map.keys()).sort()
-# name_list = [32, 3200, 9600, 19200, 25600]
 
 
-fig = plt.figure(figsize=(11, 10))
+fig = plt.figure(figsize=(10, 10))
 ax = fig.add_subplot(111)
-ax.axis([0, len(list(scheduler_map.keys())), 0, 620])
+x = list(scheduler_map.keys())
+print(x)
+ax.axis([1, 800, 0, 800])
 
 y025 = []
 y5 = []
@@ -25,24 +54,22 @@ y75 = []
 y100 = []
 
 for key in scheduler_map:
-    y025.append(scheduler_map[key][3]/32)
-    y5.append(scheduler_map[key][2]/32)
-    y75.append(scheduler_map[key][1]/32)
-    y100.append(scheduler_map[key][0]/32)
-
+    y025.append(scheduler_map[key][3])
+    y5.append(scheduler_map[key][2])
+    y75.append(scheduler_map[key][1])
+    y100.append(scheduler_map[key][0])
 
 colors = ['lightskyblue', 'brown', 'aqua', 'plum']
-ax.bar(range(len(y100)), y100, label='Sub-model with $r_i$ = 1', tick_label=name_list, fc=colors[0])
-ax.bar(range(len(y75)), y75, bottom=y100, label='Sub-model with $r_i$ = 0.75', tick_label=name_list, fc=colors[1])
-ax.bar(range(len(y5)), y5, bottom=y75, label='Sub-model with $r_i$ = 0.5', tick_label=name_list, fc=colors[2])
-ax.bar(range(len(y025)), y025, bottom=y5, label='Sub-model with $r_i$ = 0.25', fc=colors[3])
-
+ax.bar(x, y100, label='Sub-model with $r_i$ = 1', tick_label=name_list, fc=colors[0], width=20)
+ax.bar(x, y75, bottom=np.array(y100), label='Sub-model with $r_i$ = 0.75', tick_label=name_list, fc=colors[1], width=20)
+ax.bar(x, y5, bottom=np.array(y100)+np.array(y75), label='Sub-model with $r_i$ = 0.5', tick_label=name_list, fc=colors[2], width=20)
+ax.bar(x, y025, bottom=np.array(y100)+np.array(y75)+np.array(y5), label='Sub-model with $r_i$ = 0.25', fc=colors[3], width=20)
 
 plt.legend(fontsize=20)
 plt.xticks(fontsize=20)
 plt.yticks(fontsize=20)
 
-ax.set_xlabel('Ingesting rate(#instances/second)', fontsize=20)
+ax.set_xlabel('Ingesting rate (#instances/32)/second=#mini-batches/second', fontsize=20)
 ax.set_ylabel('# Mini-batches', fontsize=20)
 
 plt.grid(linestyle='-.')

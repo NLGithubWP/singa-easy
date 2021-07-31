@@ -53,14 +53,14 @@ for k in range(len(pots)):
 
 
 ySch = [0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7937, 0.7911534375, 0.774429546875, 0.744321275, 0.7242490937500001, 0.7099126607142857, 0.6869111562500001, 0.6869111562500001, 0.6040653068181817, 0.5537265312499999, 0.5111321826923078, 0.4746227410714286, 0.44298122500000003, 0.4152948984375, 0.33223591874999997]
-ax.plot(x, ySch, "--", marker='*', ms=12, label="Combination of sub-models", linewidth=2)
+ax.plot(x, ySch, "--", marker='*', ms=12, label="Combination of sub-models", linewidth=4)
 
 
 plt.legend(fontsize=15)
 plt.xticks(fontsize=20)
 plt.yticks(fontsize=20)
 ax.set_xlabel('$W_{exp}=N/D$ (# instances / deadline constraint)', fontsize=20)
-ax.set_ylabel('Effective accuracy %', fontsize=20)
+ax.set_ylabel('Effective accuracy', fontsize=20)
 plt.grid(linestyle='-.')
 plt.savefig('./pdfs/scheduling Result.pdf', bbox_inches='tight', dpi=fig.dpi, pad_inches=0.1)
 

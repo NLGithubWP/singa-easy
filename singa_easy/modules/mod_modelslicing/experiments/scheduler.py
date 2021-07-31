@@ -161,8 +161,8 @@ if __name__ == '__main__':
     # test3()
     # testAny([0.95, 0.8, 0.75], [4, 2, 1])
     # 30 items
-    N_list = [1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 100, 120, 140, 150, 160, 170, 180, 200, 250, 300, 350, 400, 450, 550, 600, 650, 700, 750, 800, 1000]
-    # N_list = [200, 250, 300, 350, 400, 450,]
+    # N_list = [1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 100, 120, 140, 150, 160, 170, 180, 200, 250, 300, 350, 400, 450, 550, 600, 650, 700, 750, 800, 1000]
+    N_list = [900]
 
     effective_speed_list = []
     throughput_list = []
@@ -185,7 +185,7 @@ if __name__ == '__main__':
             res, combs = testAny(ps,
                                  times,
                                  N=N,
-                                 D=0.1)
+                                 D=8)
             effecAccuracy.append(res)
             ndict[N] = [int(ele) for ele in combs.tolist()]
             print("When N is", N, " testAny's result:", res, combs)

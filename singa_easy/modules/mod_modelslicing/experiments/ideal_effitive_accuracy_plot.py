@@ -41,7 +41,7 @@ y4 = interval01 + \
 plt.xlim((0, 1.2))
 plt.ylim((0, 1))
 plt.xlabel('$W_{exp}=N/D$ (# instances / deadline constraint)', fontsize=15)
-plt.ylabel('Effective accuracy %', fontsize=15)
+plt.ylabel('Effective accuracy', fontsize=15)
 
 
 plt.plot(x, y1, label='Sub-model with accuracy 0.95')
