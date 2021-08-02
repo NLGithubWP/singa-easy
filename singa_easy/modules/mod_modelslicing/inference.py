@@ -318,6 +318,8 @@ def main():
 
     test_scheduler_batch_examples(starter, ender, model)
 
+    test_1_batch_examples(starter, ender, model, args.predict_batch_nums)
+
 
 def test_scheduler_batch_examples(starter, ender, model):
     scheduler_map = \
