@@ -316,9 +316,9 @@ def main():
 
     print("GPU-WARM-UP done")
 
-    test_scheduler_batch_examples(starter, ender, model)
+    # test_scheduler_batch_examples(starter, ender, model)
 
-    test_1_batch_examples(starter, ender, model, args.predict_batch_nums)
+    log_test_1_batch_examples(starter, ender, model)
 
 
 def test_scheduler_batch_examples(starter, ender, model):
@@ -423,7 +423,7 @@ def test_scheduler_batch_examples(starter, ender, model):
     fo.close()
 
 
-def log_test_1_batch_examples(model, starter, ender):
+def log_test_1_batch_examples(starter, ender, model):
     result = []
     fo = open(args.predicted_save_file + ".txt", "a+")
 
@@ -434,7 +434,7 @@ def log_test_1_batch_examples(model, starter, ender):
         print("Begin", "---" * 20)
         print("Under slice rate ", args.sr_list[sr_idx], "---" * 5)
         model.module.update_sr_idx(sr_idx)
-        correct_k, num_img, total_time, num_batch = test_1_batch_examples(starter, ender, model, args.predict_batch_nums*args.batch_size)
+        correct_k, num_img, total_time, num_batch = test_1_batch_examples(starter, ender, model, args.predict_batch_nums)
         result.append([correct_k, num_img, total_time, args.sr_list[sr_idx], num_batch])
 
     for ele in result:
