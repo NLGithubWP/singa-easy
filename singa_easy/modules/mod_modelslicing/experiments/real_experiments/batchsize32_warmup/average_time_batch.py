@@ -83,6 +83,7 @@ plt.yticks(fontsize=20)
 ax.set_xlabel('Ingesting rate(#instances/second)', fontsize=20)
 ax.set_ylabel('Inference time per mini-batch(millisecond)', fontsize=20)
 plt.grid(linestyle='-.')
+plt.rcParams['pdf.fonttype'] = 42
 plt.savefig('./pdfs/average_time_batch.pdf', bbox_inches='tight', dpi=fig.dpi, pad_inches=0.1)
 plt.show()
 

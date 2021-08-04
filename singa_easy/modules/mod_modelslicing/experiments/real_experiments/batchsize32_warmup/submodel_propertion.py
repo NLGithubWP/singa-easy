@@ -76,5 +76,6 @@ ax.set_ylabel('# Mini-batches', fontsize=20)
 
 plt.text(800, 550, 'deadline constraint D=8s', fontsize=24)
 plt.grid(linestyle='-.')
+plt.rcParams['pdf.fonttype'] = 42
 plt.savefig('./pdfs/sub_model_rate.pdf', bbox_inches='tight', dpi=fig.dpi, pad_inches=0.1)
 plt.show()
