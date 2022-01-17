@@ -1,7 +1,0 @@
-python examples/models/image_classification/PyPandaVgg.py --train_path=examples/data/cifar10_train.zip --val_path=examples/data/cifar10_test.zip --test_path=examples/data/cifar10_test.zip --query_path=examples/data/panda_vgg/IM-0127-0001.jpeg
-
-//home/xingnaili/miniconda3/envs/singa_easy_env/lib/python3.6/site-packages/singa_auto
-
-export WORKDIR_PATH=$PWD
-export PARAMS_DIR_PATH=examples/data/
-export PYTHONPATH=$PWD
